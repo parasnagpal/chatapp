@@ -1,0 +1,86 @@
+ 
+
+
+#head{
+    text-align: center;
+    font-size: 2em;
+    animation: bounceInUp 2s;
+
+}
+#head:hover{
+    animation:tada 3s; 
+}
+html{
+    height: 100%;
+}
+body{
+    height:100%;
+}
+form{
+    margin-top:10%;
+    
+}
+.container{
+    height:100%;
+  background-color: rgb(236, 117, 117);
+}
+div{
+    justify-content: center;
+}
+#sign{
+    margin-left: 28%;
+}
+#footer{
+   position: relative;
+   display:flex;
+   justify-content: flex-end;
+   bottom:-16%;
+   color:white;
+   font-size: 1em;
+   width: 100%;
+}
+
+span{
+    display: inline-block;
+}
+#_1{
+    align-self: flex-start;
+}
+#about{
+    display: block;
+    background-color: rgb(240, 239, 239);
+    width:50%;
+    animation: flash 5s ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+#mess{
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    text-align: center;
+}
+.why{
+    background-color: rgb(212, 66, 66);
+    font-size: 1em;
+    justify-content: right; 
+    color: rgb(236, 236, 236);
+}
+.what{
+    cursor: pointer;
+}
+td{
+    opacity: 0.5;
+    
+}
+#log{
+    background-color: rgb(253, 189, 189);
+    display: flex;
+    justify-content: right;
+}
+span:hover{
+    cursor: pointer;
+}
+#f1{
+    margin-top: 0%;
+}

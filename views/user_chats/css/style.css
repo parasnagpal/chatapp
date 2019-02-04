@@ -1,0 +1,56 @@
+@media (min-width:768px){
+    #message{
+        width:720px;
+    }
+  }
+  @media (min-width:576px){
+      #message{
+          width:540px;
+      }
+    }
+
+html,body,.container{
+    height:100%;
+}
+.container{
+    background-color: rgb(238, 153, 153);
+}
+
+#footer{
+    position: fixed;
+    bottom: 5%;
+}
+#message:focus{
+    outline: none !important;
+    border: rgb(0, 0, 0) 1px;
+    box-shadow: 0 0 1px;
+}
+#snackbar {
+
+    max-width: 250px; /* Set a default minimum width */
+    background-color: white; /* Black background color */
+    color: black; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: relative; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    box-shadow: 5px;
+  }
+  .snack-head{
+      background-color: lightgray;
+      text-align:left;
+      opacity: 0.5;
+  }
+  img{
+      max-width: 1em;
+      max-height: 1em;
+  }
+  .row{
+      display: block;
+  }
+  #header{
+      background-color: rgb(255, 112, 112);
+  }
+  
+ 
