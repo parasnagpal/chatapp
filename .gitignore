@@ -1,4 +1,5 @@
 node_modules/
 unnecessary.txt
-sql_db.js
-
+db/sql_db.js
+db/node_modules/
+db/data/
