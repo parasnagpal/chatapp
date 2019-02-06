@@ -12,7 +12,7 @@
     }
   }
 #header{
-    background-color: rgb(212, 66, 66);;
+    background-color: rgb(175, 175, 175);
     font-size: 1em;
     
 }
@@ -22,10 +22,13 @@ html{
 }
 body{
     height:100%;
+    background-image: url('background.jpg');
+    background-repeat: repeat;
+    background-size: cover;
 }  
 .container{
-    height:100%;
-    background-color: rgb(236, 117, 117);
+    height:95%;
+    background-color: rgb(211, 211, 211,0.8);
 }
 #head{
     text-align: center;
@@ -54,7 +57,7 @@ body{
 .alert{
     cursor: pointer;
     box-shadow: 8px black;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 #log{
     background-color: rgb(231, 231, 231); 
@@ -66,9 +69,7 @@ img{
     max-width: 1em;
     max-height: 1em;
 }
-input{
-    opacity:0.5;
-}
+
 #arrow{
     width:5%;
     position:fixed;
