@@ -12,13 +12,14 @@
     <script src="/home/script.js"></script>
 </head>
 <body>
-    <div class="container">
+    <div class="box my-1 rounded"></div>
+    <div class="container my-1 rounded">
     <h1 class="badge badge-dark m-1" id='head'>WhatsChat</h1>
     <div class="row m-2 rounded why">
         <div class='col-4 what'>Why WhatsChat?</div>
     </div>
-    <div id='log' class='rounded'>
-        <table style="font-size: 0.9em; " class='my-1 second'><tr class='my-1'><td>Already have an account?</td></tr></table>
+    <div id='log' class='rounded mx-3'>
+        <table style="font-size: 0.9em; " class='my-1 second mt-3'><tr class='my-1'><td>Already have an account?</td></tr></table>
         <form method="POST" action="http://localhost:4000/login" id='f1'>
         <table cellpadding="4">
             <tr class='my-1'>
@@ -39,7 +40,7 @@
     <form method="POST" action="http://localhost:4000/signup">
         <div id='error'>Required fields can not be left blank</div>
         <div id='error2'>Passwords do not match</div>
-        <table>
+        <table cellspacing="2" cellpadding="4">
             <tr class='my-1'>
                     <th>First Name*</th>
                     <th>Last Name</th>
@@ -71,7 +72,7 @@
                 </td>
             </tr>
         <tr>
-            <td colspan="2" ><button class='btn btn-light my-2' id='signup' >SignUp</button></td>
+            <th colspan="2" ><button class='btn btn-light my-2' id='signup' >SignUp</button></th>
             
         </tr>
         </table>
@@ -81,12 +82,13 @@
     <div id='mess'>
       <div id="about" class="alert alert-light">
            Connect to Friends Hassle Free
-      </div>
     </div>
-        <div id='footer'>
-         <span id='_1'>WhatsChat Inc.</span>
+    </div>
+        <div id='footer'><b>
+         <span id='_1' style="position:fixed; left:10%;">WhatsChat Inc.</span>
          <span id='_2' class="mx-2 mr-1">Contact Us</span>
          <span id='_3' class="mx-2 mr-1">Disclamer</span>
+         </b>
     </div>
       
     </div>
