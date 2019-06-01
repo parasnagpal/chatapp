@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://fastcdn.org/Animate.css/3.4.0/animate.css">
+    <link rel="stylesheet" href="/home/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>   
+    <script src="/home/script.js"></script>
+</head>
+<body>
+    <div class="box my-1 rounded"></div>
+    <div class="container my-1 rounded">
+    <h1 class="badge badge-dark m-1" id='head'>WhatsChat</h1>
+    <div class="row m-2 rounded why">
+        <div class='col-4 what'>Why WhatsChat?</div>
+    </div>
+    <div id='log' class='rounded mx-3'>
+        <table style="font-size: 0.9em; " class='my-1 second mt-3'><tr class='my-1'><td>Already have an account?</td></tr></table>
+        <form method="POST" action="http://localhost:4000/login" id='f1'>
+        <table cellpadding="4">
+            <tr class='my-1'>
+                <th>Username</th>
+                <td>
+                    <input type='text' name='username' id='userverify'>
+                </td>
+                <th>Password</th>
+                <td>
+                    <input type='password' name='password' id='password'>
+                </td>
+                <th><button class='btn btn-light my-2' id='login'>Login</button></th>
+            </tr>
+        </table>
+        </form>
+    </div>
+    <div style="display:flex" id='second'>
+    <form method="POST" action="http://localhost:4000/signup">
+        <div id='error'>Required fields can not be left blank</div>
+        <div id='error2'>Passwords do not match</div>
+        <table cellspacing="2" cellpadding="4">
+            <tr class='my-1'>
+                    <th>First Name*</th>
+                    <th>Last Name</th>
+            </tr>
+            
+            <tr class='my-1'>
+                  <td>               
+                   <input type='text' name="name" id='fname' required>
+                  </td>
+                  <td>               
+                        <input type='text' name="name"  id='lname' value=''>
+                  </td>                
+            </tr>
+            <tr class='my-1'>
+                    <th>Username*</th>
+                    <td><input type='text' name='username' id='username'></td>
+             </tr>
+            <tr class='my-1'>
+                    <th>Password</th>
+                    <th>Retype Password</th>
+
+            </tr>
+            <tr class='my-1'>
+                <td>
+                    <input type='password' name='password' required id='pass1'>
+                </td>
+                <td>
+                     <input type='password' required id='pass2'>
+                </td>
+            </tr>
+        <tr>
+            <th colspan="2" ><button class='btn btn-light my-2' id='signup' >SignUp</button></th>
+            
+        </tr>
+        </table>
+    </form>
+    
+    </div>
+    <div id='mess'>
+      <div id="about" class="alert alert-light">
+           Connect to Friends Hassle Free
+    </div>
+    </div>
+        <div id='footer'><b>
+         <span id='_1' style="position:fixed; left:10%;">WhatsChat Inc.</span>
+         <span id='_2' class="mx-2 mr-1">Contact Us</span>
+         <span id='_3' class="mx-2 mr-1">Disclamer</span>
+         </b>
+    </div>
+      
+    </div>
+</body>
+</html>

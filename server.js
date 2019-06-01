@@ -203,6 +203,7 @@ let user_name
 }
 
 app.use('/',express.static(__dirname+'/views'))
+app.use('/',require('./views/routes/route'))
 
 
 server.listen(4000,()=>{
