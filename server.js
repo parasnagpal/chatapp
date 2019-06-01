@@ -206,6 +206,6 @@ app.use('/',express.static(__dirname+'/views'))
 app.use('/',require('./views/routes/route'))
 
 
-server.listen(4000,()=>{
+server.listen(process.env.PORT||4000,()=>{
     console.log('Server started at http://localhost:4000')
 })
