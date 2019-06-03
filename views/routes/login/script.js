@@ -1,5 +1,15 @@
+function setCookie(cname,cvalue)
+{
+  console.log("setting cookie")
+  let date=new Date();
+  date.setTime(date.getTime()+(24*60*60*1000))
+  let expires="expires"+date.toUTCString();
+  document.cookie=cname+"="+cvalue+";"+expires+";path=/";
+}
 
 $('document').ready(()=>{
+  setCookie('Name','Paras')
+
     $('#error').hide()
     $('#error2').hide()     
     $('#signup').click(()=>{
@@ -11,7 +21,8 @@ $('document').ready(()=>{
            {
             $.post('/signup',{
                 username:$('#username').val(),
-                name:$('#fname').val()+$('#lname').val()  ,
+                fname:$('#fname').val(),
+                lname:$('#lname').val()  ,
                 password:$('#pass1').val()
              })
            }   
@@ -20,10 +31,11 @@ $('document').ready(()=>{
          if($('#userverify').val()==''||$('#password').val()=='')
            $('#err').show()
          else{
-             $.post('/login',{
+            $.post('/login',{
                  username:$('#userverify').val(),
                  password:$('#password').val()
              })
+             
          }  
      })
 })

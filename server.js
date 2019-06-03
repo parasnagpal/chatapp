@@ -2,11 +2,17 @@
 //Requirements
 //express
 const express=require('express')
+const session=require('express-session')
 
-/*
-const add=require('./db/sql_db').add
-const {find}=require('./db/sql_db')
-*/
+//passport js
+let passport= require('passport')
+let LocalStrategy=require('passport-local').Strategy
+
+
+//database
+const database =require('./views/database/sqlite_handle')
+
+
 //Socket files
 const socketio=require('socket.io')
 const http=require('http')
@@ -32,15 +38,17 @@ let map={}
 let revmap={}
 
 
+
+
 //file 
 {
 fs.readFile(map_path,(err,data)=>{
-    if(err) console.log('ABS')
+    if(err) console.log('Error in reading map file')
     else users=JSON.parse(data)
 })
 
 fs.readFile(count_path,(err,data)=>{
-    if(err) console.log('ABS')
+    if(err) console.log('Error in reading count file')
     else peoplecount=JSON.parse(data)
 })
 
@@ -58,7 +66,7 @@ fs.readFile(connection,(err,data)=>{
 fs.readFile(rev_con,(err,data)=>{
     if(err) console.log('mapping error')
     else revmap=JSON.parse(data)
-    console.log(revmap)
+    
 })
 }
 
@@ -102,7 +110,7 @@ function readfile(name){
    })
 }
 
-app.set('view engine','hbs')
+
 
 
 app.use(express.json())
@@ -112,49 +120,52 @@ app.use(express.urlencoded({
 
 
 
-
-//get requests
-{ 
-    //home
-   app.get('/home',(req,res)=>{
-    res.status(200).sendFile(__dirname+'/views/home/public.html')
-   })
-
-  //chats
-  app.get('/chats',(req,res)=>{
-    res.render(__dirname+'/views/chat/index.hbs')
-  })
-
-  //body
-  app.get('/body',(req,res)=>{
-     res.status(200).sendFile(__dirname+'/views/main/index.html')
-   })
-
-}   
-
 let user_name
 //post requests
 {
    app.post('/signup',(req,res)=>{
     a={
         username:req.body.username,
-        name:req.body.name,
+        fname:req.body.fname,
+        lname:req.body.lname,
         password:req.body.password
     };
     people.push(a);
+    //database insert query
+    database.run(`insert into USERS(fname,lname,USERNAME,PASSWORD) VALUES ('${a.fname}','${a.lname}','${a.username}','${a.password}');`,(err)=>{
+       if(err) console.log('Database Error:'+err)
+    });
     users[a.username]=++peoplecount;
-    console.log(people)
     appendFile()   
-    res.redirect('/home')
+    res.redirect('/login')
    })
 
    app.post('/login',(req,res)=>{
-       console.log(req.body)
+       //database search query
+       database.each(`SELECT * from USERS WHERE username='${req.body.username}'`,(err,data)=>{
+           if(err) console.log("Database Error:"+err)
+           if(data.password===req.body.password) 
+           {
+            if(req.session)
+              req.session.log=true;
+            
+            console.log(req.session)  
+            console.log("Logged in")
+            //attachSocket(revmap[req.body.username])
+            res.redirect('/user')
+           }
+           else
+            { 
+              console.log("Invalid password")
+              res.redirect('/login')  
+            }
+
+       })
     user_name=req.body.username
-    if(users[req.body.username])
+    /*if(users[req.body.username])
       res.redirect('/body')
     else
-      res.redirect('/home')
+      res.redirect('/home')*/
    })
     
 
@@ -167,32 +178,43 @@ let user_name
       let t=false
       map[socket.id]=user_name
       revmap[user_name]=socket.id
+
+      
+      //attachSocket(socket)
+
       updatefile()
 
       socket.on('msgfor',(data)=>{
-        console.log(data)     
-        console.log(revmap[data.name])
-        console.log(map[socket.id])
-        socket.to(revmap[data.name]).emit('incoming',{
+          let to
+          database.each(`SELECT username FROM users where SocketID='${data.name}'`,(err,data)=>{
+              if(err) console.log(err)
+              else to=data
+          })
+        socket.to(to).emit('incoming',{
             from:map[socket.id],
             message:data.message
         })
-     })
-     socket.on('find',(data)=>{
-         for(let p of people)
+      })
+
+     
+      socket.on('find',(data)=>{
+         /*for(let p of people)
            if(p.username==data.name)
            {
               t=true
               break
-           }   
+           }   */
+           database.each(`SELECT * FROM users where username='${data.name}'`,(err,data)=>{
+               if(err) console.log(err)
+               else t=true
+           })
             socket.emit('reply',{
                 success:t
             })    
             t=false  
-     })
+       })
      
      socket.on('fetch',(data)=>{
-         //console.log(data)
          let dat=readfile(data.name)
          socket.emit(dat)
      })
@@ -202,10 +224,40 @@ let user_name
    })
 }
 
+function attachSocket(socketID){
+    //Update Socket ID in database
+    database.each(`INSERT INTO users(SocketID) VALUES ('${socketID}') WHERE username='${user_name}'`,err=>{
+        if(err) console.log("error attaching socket id to User:"+err)
+    })
+}
+
+//Configuration
+{
+app.set('view engine','hbs')
+
+app.use(session({
+    secret:'this is MY secret!!!!',
+    resave:true,
+    saveUninitialized:false,
+    cookie:{
+      maxAge:24*60*60*1000
+    }
+}))
+
+app.use((req,res,next)=>{
+    if(!req.session.user)
+    {
+        req.session.user=true;
+        res.redirect('/login')
+    }  
+    next()
+})
+
 app.use('/',express.static(__dirname+'/views'))
 app.use('/',require('./views/routes/route'))
-
+}
 
 server.listen(process.env.PORT||4000,()=>{
     console.log('Server started at http://localhost:4000')
 })
+

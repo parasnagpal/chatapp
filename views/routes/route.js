@@ -6,10 +6,14 @@ router.get('/login',(req,res)=>{
 })
 
 router.get('/user',(req,res)=>{
+    if(!req.session.log)
+      res.redirect('/login')
     res.sendFile(__dirname+'/user/index.html')
 })
 
 router.get('/chat',(req,res)=>{
+    if(!req.session.log)
+      res.redirect('/login')
     res.sendFile(__dirname+'/chats/index.html')
 })
 
