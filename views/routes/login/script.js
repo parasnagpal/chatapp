@@ -1,14 +1,5 @@
-function setCookie(cname,cvalue)
-{
-  console.log("setting cookie")
-  let date=new Date();
-  date.setTime(date.getTime()+(24*60*60*1000))
-  let expires="expires"+date.toUTCString();
-  document.cookie=cname+"="+cvalue+";"+expires+";path=/";
-}
-
 $('document').ready(()=>{
-  setCookie('Name','Paras')
+  
 
     $('#error').hide()
     $('#error2').hide()     
@@ -31,6 +22,7 @@ $('document').ready(()=>{
          if($('#userverify').val()==''||$('#password').val()=='')
            $('#err').show()
          else{
+           console.log($('#userverify').val()+$('#password').val())
             $.post('/login',{
                  username:$('#userverify').val(),
                  password:$('#password').val()

@@ -2,12 +2,6 @@ $(document).ready(()=>{
 
     let socket=io()
 
-    $('head').append(
-        $('<link>').attr('rel','stylesheet')
-                   .attr('href','/user_chats/css/style.css')
-    )
-
-
     $('#sendmsg').click(()=>{
         sendmsg()
     })
@@ -18,14 +12,6 @@ $(document).ready(()=>{
           sendmsg()
     })
 
-    $('body').keydown((e)=>{
-        if(e.keyCode==100)
-        {
-           console.log('back')
-           $.get('http://localhost:4000/body')
-        }
-    })
-
 
     //Socket ons
     {
@@ -33,6 +19,7 @@ $(document).ready(()=>{
          chatrefresh(data.message,false,data.from)
        })
     }
+
     //Deliver Msg
     function sendmsg(){
         chatrefresh($('#message').val(),true)
@@ -41,12 +28,14 @@ $(document).ready(()=>{
             message:$('#message').val()
         })
     }
+
+
     function chatrefresh(msg,bool,from){
-        let img_path='./me.jpg'
+        let img_path='../routes/chat/css/me.jpg'
         if(bool) 
         {
              from='me'
-             img_path='./default.jpg'
+             img_path='../routes/chat/css/default.jpg'
         }
         if(bool)
         $('#chat')

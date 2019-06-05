@@ -6,27 +6,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
-    <link rel="stylesheet" href="/main/css/style.css">
-    <link rel="stylesheet" href="https://fastcdn.org/Animate.css/3.4.0/animate.css">
+    <link rel="stylesheet" href="/animate/animate.css">
+    <link rel="stylesheet" href="/routes/user/css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>   
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/main/script.js"></script>
+    <script src="/routes/user/script.js"></script>
 </head>
-<body id='body'>
+<body>
     <div class='box'></div>
     <div class="container my-3 rounded">
-    <h1 class='badge badge-dark mt-2' id='head'>WhatsChat</h1>
-    <div class='row mx-2 rounded' id='header'><div class='mx-3'>Chats</div></div>
-    <div id='chats' class="mx-5 my-2 p-3">
+       <h1 class='badge badge-dark mt-2' id='head'>WhatsChat</h1>
+       <div class="row m-2 rounded why">
+           <div class='col-4 what'>Why WhatsChat?</div>
+       </div>
+       <div class='row mx-2 rounded' id='header'><div class='mx-3'>Chats</div></div>
+     <form method="POST" action="http://localhost:4000/chats" id='form'> 
+        <input id='send' name='chatWith'> 
+       <div id='chats' class="mx-5 my-2 p-3"></div>
+    </form>
     </div>
-    </div>
-    <div id='chatline' >
-        
-             
-             <div class='container'><input type='text' id='friend' placeholder="Type in your friends name" class='form-control '></div>
-             
+
+    <div id='chatline'>         
+             <input type='text' id='friend' placeholder="Type in your friends name" class='form-control '>
+             <button class="btn btn-outline-dark">Search</button>
     </div>
     <div id='error'><div class='container'>User not found</div></div>
-    
 </body>
 </html>

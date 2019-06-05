@@ -1,6 +1,8 @@
+
 $(document).ready(()=>{
    
-    let socket=io()
+   let globalState
+   // let socket=io()
    
     let listcount=0
     let chats=[]
@@ -22,52 +24,14 @@ $(document).ready(()=>{
         
     })
 
-    
-    //Socket ons 
-    {
-      socket.on('reply',(data)=>{
-        //Friend Found
-        if(data.success)
-        {
-          check(friend)
-           $('#error').hide()
-        }
-        else
-        $('#error').show()
-        $('#friend').text('')
-      })
-      socket.on('data',(data)=>{
-          console.log(data.arr)
-      })
-    }
-
-    function domchange(e)
-    {
-        $('#body').html(`
-          <div class='container'>
-          
-          <h1 class="badge badge-dark m-1" id='head'>WhatsChat</h1>
-          <div class='row mx-2' id='header'><div class='mx-3'>${$(e.target).text()}</div></div>
-          <div id='chat' class='row'></div>
-          <div id='footer'>
-            <input type='text' id='message' class='form-control col'>
-            
-          </div>
-
-          <script src='/user_chats/script.js'></script>
-          </div>
-        `)
-        socket.emit('fetch',{
-            name:$(e.target).text()
-        })
-    }
-
     function findfriend(){
 
         friend=$('#friend').val()
-            socket.emit('find',{
-              name:$('#friend').val()
-          })
+        $.post('search',{
+          friend
+        },(data)=>{
+          console.log(data)
+        })
     }
 
 
@@ -77,8 +41,8 @@ $(document).ready(()=>{
 
     
     function updatelist(arr){
-       for(let a of arr)
-        
+       
+      for(let a of arr) 
         $('#chats')
            .append(
             $('<div>')
@@ -86,12 +50,20 @@ $(document).ready(()=>{
             .attr('id',`_${listcount++}`)
             .attr('class','alert alert-light mx-3')
             .attr('role','alert')
-            .text(a)
-            .click((e)=>{
-                console.log($(e.target).text())
-                domchange(e)
-            })
-               
+            .append(
+              $('<input disabled>')
+               .attr('value',a)
+               .attr('type','text')
+               .attr('class','friends')
+            )
+            .append(
+              $('<input type="submit">')
+              .val('Chat')
+              .attr('class','chat-btns btn btn-outline-dark')
+              .click(()=>{
+                globalState=a;
+              })
+            )
          )
     }
 
@@ -113,4 +85,16 @@ $(document).ready(()=>{
            }  
         if(b) refreshlist(friend)   
     }
+
+    $('#form').on('submit',(e)=>{
+       e.preventDefault()
+       //set value of hide box
+       $('#send').val(globalState);
+       $('#form')[0].submit()
+    })
+    
+    //Hide send box
+     $("#send").hide()
+    
 })
+

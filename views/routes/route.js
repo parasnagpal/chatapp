@@ -1,20 +1,39 @@
 const express =require('express')
 const router=express.Router();
+const session=require('express-session')
+const app=express()
+
+app.use(session({
+  secret:'this is MY secret!!!!',
+  resave:true,
+  saveUninitialized:false,
+  cookie:{
+    maxAge:24*60*60*1000
+  }
+}))
+
+
 
 router.get('/login',(req,res)=>{
+    
     res.sendFile(__dirname+'/login/public.html')
 })
 
 router.get('/user',(req,res)=>{
-    if(!req.session.log)
+    if(!req.session.logged)
       res.redirect('/login')
     res.sendFile(__dirname+'/user/index.html')
 })
 
-router.get('/chat',(req,res)=>{
-    if(!req.session.log)
+router.get('/chat/:with',(req,res)=>{
+    if(!req.session.logged)
       res.redirect('/login')
-    res.sendFile(__dirname+'/chats/index.html')
+    //console.log(req.params.with)  
+    res.sendFile(__dirname+'/chat/index.html')
+})
+
+router.get('/chats',(req,res)=>{
+  res.sendFile(__dirname+'/chat/index.html')
 })
 
 module.exports=router

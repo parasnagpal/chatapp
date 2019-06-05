@@ -30,7 +30,7 @@ const chat_path='./views/chat/chats'
 const count_path='./db/count.json'
 const map_path='./db/mapit.json'
 
-//People
+//Peoples
 let people=[]
 let peoplecount=0
 let users={}
@@ -38,6 +38,20 @@ let map={}
 let revmap={}
 
 
+
+
+app.use(express.json())
+app.use(express.urlencoded({
+    extended:true
+}))
+app.use(session({
+    secret:'this is MY secret!!!!',
+    resave:true,
+    saveUninitialized:false,
+    cookie:{
+      maxAge:24*60*60*1000
+    }
+}))
 
 
 //file 
@@ -113,16 +127,15 @@ function readfile(name){
 
 
 
-app.use(express.json())
-app.use(express.urlencoded({
-    extended:true
-}))
+
 
 
 
 let user_name
 //post requests
 {
+   
+
    app.post('/signup',(req,res)=>{
     a={
         username:req.body.username,
@@ -146,12 +159,7 @@ let user_name
            if(err) console.log("Database Error:"+err)
            if(data.password===req.body.password) 
            {
-            if(req.session)
-              req.session.log=true;
-            
-            console.log(req.session)  
-            console.log("Logged in")
-            //attachSocket(revmap[req.body.username])
+            req.session.logged=true;
             res.redirect('/user')
            }
            else
@@ -170,7 +178,25 @@ let user_name
     
 
 }  
+app.post('/chats',(req,res)=>{
+    console.log(req.body.chatWith)
+    res.redirect('/chat/'+req.body.chatWith)
+})
+ 
 
+ app.post('/search',(req,res)=>{
+     console.log(req.body.friend)
+     let D
+    database.each(`SELECT * from USERS WHERE username='${req.body.friend}'`,(err,data)=>{
+        if(err) {
+            console.log("Database Error:"+err)
+            D=err
+        }
+        else D=data
+    })
+    console.log(D)
+    res.send(D)
+ })
 
 //Socket Connections
 {
@@ -235,25 +261,24 @@ function attachSocket(socketID){
 {
 app.set('view engine','hbs')
 
-app.use(session({
-    secret:'this is MY secret!!!!',
-    resave:true,
-    saveUninitialized:false,
-    cookie:{
-      maxAge:24*60*60*1000
-    }
-}))
 
 app.use((req,res,next)=>{
+    
     if(!req.session.user)
     {
+        console.log("New user")
         req.session.user=true;
-        res.redirect('/login')
+        req.session.logged=false;
+        return res.redirect('/login')
     }  
-    next()
+    else{ 
+        //console.log("User Exists"+req.session)
+        next()
+    }
 })
 
-app.use('/',express.static(__dirname+'/views'))
+app.use(express.static(__dirname+'/views'))
+app.use(express.static(__dirname+'/chat'))
 app.use('/',require('./views/routes/route'))
 }
 

@@ -22,26 +22,37 @@ html{
 }
 body{
     height:100%;
-    background-image: url('background.jpg');
+    background-image: url('backgroung.jpg');
     background-repeat: repeat;
     background-size: cover;
 }  
 .container{
     height:95%;
-    background-color: rgb(211, 211, 211,0.8);
 }
 #head{
     text-align: center;
     font-size: 2em;
 }
+.why{
+    background-color: rgb(175, 175, 175);
+    font-size: 1em;
+    justify-content: right; 
+    color: rgb(236, 236, 236);
+}
+.what{
+    cursor: pointer;
+}
 #chatline,#error{
-    width: 100%;
+    width: 70%;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: 15%;
     display:flex;
-    justify-content: space-between;
+    flex-direction:row;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 20px;
     position: fixed;
     bottom: 7%;    
 }
@@ -49,6 +60,26 @@ body{
    bottom:2%;
 }
 
+input.friends{
+    width:80%;
+    margin-left:5%;
+    background-color: white;
+    border:none;
+    font-weight: bold;
+}
+
+
+#chatline input{
+    flex-grow: 2;
+    border: none;
+}
+#chatline input:focus{
+    outline:none;
+}
+#chatline button {
+    flex-grow: 1;
+    margin:0.5%;
+}
 #friend:focus{
     outline: none !important;
     border: rgb(0, 0, 0) 1px;
@@ -59,9 +90,7 @@ body{
     box-shadow: 8px black;
     opacity: 0.6;
 }
-#log{
-    background-color: rgb(231, 231, 231); 
-}
+
 div{
     box-shadow: 20px black;
 }
