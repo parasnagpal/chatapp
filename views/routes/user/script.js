@@ -1,5 +1,8 @@
 
 $(document).ready(()=>{
+
+  PORT=process.env.PORT||4000;
+  $('#form').attr('action',`http://localhost:${PORT}/chats`)
    
    let globalState
    // let socket=io()

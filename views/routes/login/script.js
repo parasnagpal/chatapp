@@ -1,5 +1,9 @@
 $('document').ready(()=>{
-  
+   
+  //Process.env.port
+  PORT=process.env.PORT||4000;
+  $('#f1').attr('action',`http://localhost:${PORT}/login`)
+  $('#f2').attr('action',`http://localhost:${PORT}/signup`)
 
     $('#error').hide()
     $('#error2').hide()     
