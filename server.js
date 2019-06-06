@@ -186,16 +186,15 @@ app.post('/chats',(req,res)=>{
 
  app.post('/search',(req,res)=>{
      console.log(req.body.friend)
-     let D
+     
     database.each(`SELECT * from USERS WHERE username='${req.body.friend}'`,(err,data)=>{
-        if(err) {
-            console.log("Database Error:"+err)
-            D=err
-        }
-        else D=data
-    })
-    console.log(D)
-    res.send(D)
+        if(err) console.log(err)
+        if(data)
+          res.send(data.username)  
+       })
+      
+     
+    
  })
 
 //Socket Connections
@@ -204,32 +203,29 @@ app.post('/chats',(req,res)=>{
       let t=false
       map[socket.id]=user_name
       revmap[user_name]=socket.id
-
       
       //attachSocket(socket)
 
       updatefile()
 
       socket.on('msgfor',(data)=>{
-          let to
-          database.each(`SELECT username FROM users where SocketID='${data.name}'`,(err,data)=>{
-              if(err) console.log(err)
-              else to=data
-          })
-        socket.to(to).emit('incoming',{
-            from:map[socket.id],
-            message:data.message
-        })
+          
+            console.log("Sending message to"+data.name+":"+data.message)
+           socket.to(revmap[data.name]).emit('incoming',{
+             from:map[socket.id],
+             message:data.message
+            })
+
       })
 
-     
+     /*
       socket.on('find',(data)=>{
          /*for(let p of people)
            if(p.username==data.name)
            {
               t=true
               break
-           }   */
+           }   
            database.each(`SELECT * FROM users where username='${data.name}'`,(err,data)=>{
                if(err) console.log(err)
                else t=true
@@ -244,7 +240,7 @@ app.post('/chats',(req,res)=>{
          let dat=readfile(data.name)
          socket.emit(dat)
      })
-
+*/
      
 
    })

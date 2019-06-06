@@ -19,9 +19,14 @@ $(document).ready(()=>{
 
     //Friend Search
     $('#friend').keyup((e)=>{
+      $('#error').hide()
         if(e.keyCode==13)
           findfriend()
         
+    })
+    $('#chatline button').click(()=>{
+      $('#error').hide()       
+      findfriend()
     })
 
     function findfriend(){
@@ -30,7 +35,8 @@ $(document).ready(()=>{
         $.post('search',{
           friend
         },(data)=>{
-          console.log(data)
+          if(data)
+           refreshlist(friend)
         })
     }
 
@@ -68,22 +74,20 @@ $(document).ready(()=>{
     }
 
     function refreshlist(friend){
+      let isNew=true
+      //check if the friend exists in list
+      for(let people of chats)
+       if(people==friend)
+        isNew=false;
+      if(isNew)
+      {  
         chats.push(friend)
         updatechats()
         let fr=[]
         fr.push(friend) 
         updatelist(fr)
-    }
-
-    function check(friend){
-        let b=true
-        for(let f of chats)
-          if(friend==f)
-           {
-               b=false
-               break;
-           }  
-        if(b) refreshlist(friend)   
+      }
+      else $('#error').html('Friend is already in your list!!').show()
     }
 
     $('#form').on('submit',(e)=>{

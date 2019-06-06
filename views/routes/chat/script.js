@@ -1,7 +1,11 @@
 $(document).ready(()=>{
 
     let socket=io()
+    let str=window.location.pathname
+    const chatWith=str.slice(str.lastIndexOf('/')+1,-1)+str.charAt(str.length-1)
 
+    $('#header').text(chatWith)
+  
     $('#sendmsg').click(()=>{
         sendmsg()
     })
@@ -18,6 +22,8 @@ $(document).ready(()=>{
        socket.on('incoming',(data)=>{
          chatrefresh(data.message,false,data.from)
        })
+
+       
     }
 
     //Deliver Msg
