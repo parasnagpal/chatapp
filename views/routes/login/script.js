@@ -1,9 +1,5 @@
 $('document').ready(()=>{
-   
-  //Process.env.port
-  PORT=process.env.PORT||4000;
-  $('#f1').attr('action',`https://whats-chat.herokuapp.com/login`)
-  $('#f2').attr('action',`https://whats-chat.herokuapp.com/signup`)
+  
 
     $('#error').hide()
     $('#error2').hide()    

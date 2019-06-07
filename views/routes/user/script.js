@@ -1,8 +1,7 @@
 
 $(document).ready(()=>{
 
-  PORT=process.env.PORT||4000;
-  $('#form').attr('action',`https://whats-chat.herokuapp.com/chats`)
+
    
    let globalState
    // let socket=io()
