@@ -42,6 +42,15 @@ body{
 .what{
     cursor: pointer;
 }
+
+.alert-success .friends{
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+
+
 #chatline,#error{
     width: 70%;
     padding-right: 15px;

@@ -4,10 +4,11 @@ $(document).ready(()=>{
 
    
    let globalState
-   // let socket=io()
+   let socket=io()
    
     let listcount=0
     let chats=[]
+    let friendsOnline={}
     let friend;
     if(localStorage.arr)
         chats=JSON.parse(localStorage.arr) 
@@ -51,11 +52,13 @@ $(document).ready(()=>{
     function updatelist(arr){
        
       for(let a of arr) 
+      {
+       
         $('#chats')
            .append(
             $('<div>')
             //.val(`<img src='./default.jpg' class='rounded-circle'>`)
-            .attr('id',`_${listcount++}`)
+            .attr('id',a)
             .attr('class','alert alert-light mx-3')
             .attr('role','alert')
             .append(
@@ -67,12 +70,21 @@ $(document).ready(()=>{
             .append(
               $('<input type="submit">')
               .val('Chat')
+              .attr('id','btn-'+a)
               .attr('class','chat-btns btn btn-outline-dark')
               .click(()=>{
                 globalState=a;
               })
             )
          )
+       
+
+         if(friendsOnline[a])
+         {
+          $('#'+a).attr('class','alert alert-success mx-1')
+          $(`#btn-`+a).attr('class','chat-btns btn btn-outline-success')
+         }
+      }
     }
 
     function refreshlist(friend){
@@ -101,6 +113,29 @@ $(document).ready(()=>{
     
     //Hide send box
      $("#send").hide()
+
+     //Check if online
+     function isOnline()
+     {
+       for(let people of chats)
+        socket.emit('isOnline',{name:people})
+     }
+
+    socket.on('online',(data)=>{
+       if(data.answer===true)
+        friendsOnline[data.name]=true
+       else friendsOnline[data.name]=false 
+       $('#chats').html('')
+       updatelist(chats)
+    })
+
+    //Pinging Server that I am online
+     setInterval(()=>{
+       socket.emit('isAlive') 
+    },1000)
+    //Check if friends are online
+     setInterval(()=>isOnline()
+     ,3000)
     
 })
 

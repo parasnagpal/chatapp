@@ -35,6 +35,7 @@ let people=[]
 let peoplecount=0
 let users={}
 let map={}
+let mapAlive={}
 let revmap={}
 
 
@@ -200,57 +201,42 @@ app.post('/chats',(req,res)=>{
 //Socket Connections
 {
    io.on('connection',(socket)=>{
-      let t=false
+
       map[socket.id]=user_name
+      mapAlive[user_name]=false
       revmap[user_name]=socket.id
       
-      //attachSocket(socket)
 
       updatefile()
 
       socket.on('msgfor',(data)=>{
-          
-            console.log("Sending message to"+data.name+":"+data.message)
            socket.to(revmap[data.name]).emit('incoming',{
              from:map[socket.id],
              message:data.message
             })
 
       })
-
-     /*
-      socket.on('find',(data)=>{
-         /*for(let p of people)
-           if(p.username==data.name)
-           {
-              t=true
-              break
-           }   
-           database.each(`SELECT * FROM users where username='${data.name}'`,(err,data)=>{
-               if(err) console.log(err)
-               else t=true
-           })
-            socket.emit('reply',{
-                success:t
-            })    
-            t=false  
-       })
-     
-     socket.on('fetch',(data)=>{
-         let dat=readfile(data.name)
-         socket.emit(dat)
-     })
-*/
+      socket.on('isOnline',(data)=>{
+            socket.emit('online',{
+                name:data.name,
+                answer:mapAlive[data.name]
+            })
+            
+      })
+      socket.on('isAlive',()=>{
+        console.log(map[socket.id]+' User online')
+        mapAlive[map[socket.id]]=true
+      })
      
 
    })
-}
 
-function attachSocket(socketID){
-    //Update Socket ID in database
-    database.each(`INSERT INTO users(SocketID) VALUES ('${socketID}') WHERE username='${user_name}'`,err=>{
-        if(err) console.log("error attaching socket id to User:"+err)
-    })
+   setInterval(deactivate,10000)
+
+   function deactivate(){
+     for(let obj in revmap)
+       mapAlive[obj]=false
+     }
 }
 
 //Configuration
@@ -267,10 +253,7 @@ app.use((req,res,next)=>{
         req.session.logged=false;
         return res.redirect('/login')
     }  
-    else{ 
-        //console.log("User Exists"+req.session)
-        next()
-    }
+    else  next()
 })
 
 app.use(express.static(__dirname+'/views'))
