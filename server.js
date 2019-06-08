@@ -37,6 +37,7 @@ let users={}
 let map={}
 let mapAlive={}
 let revmap={}
+let session_username_map={}
 
 
 
@@ -161,6 +162,7 @@ let user_name
            if(data.password===req.body.password) 
            {
             req.session.logged=true;
+            session_username_map[req.session.id]=req.body.username
             res.redirect('/user')
            }
            else
@@ -171,51 +173,52 @@ let user_name
 
        })
     user_name=req.body.username
-    /*if(users[req.body.username])
-      res.redirect('/body')
-    else
-      res.redirect('/home')*/
    })
     
 
-}  
-app.post('/chats',(req,res)=>{
-    console.log(req.body.chatWith)
-    res.redirect('/chat/'+req.body.chatWith)
-})
+  }  
+   app.post('/chats',(req,res)=>{
+       console.log(req.body.chatWith)
+       res.redirect('/chat/'+req.body.chatWith)
+   })
  
 
- app.post('/search',(req,res)=>{
-     console.log(req.body.friend)
+   app.post('/search',(req,res)=>{
+       console.log(req.body.friend)
      
     database.each(`SELECT * from USERS WHERE username='${req.body.friend}'`,(err,data)=>{
         if(err) console.log(err)
         if(data)
           res.send(data.username)  
        })
-      
-     
     
  })
+
+ app.post('/identity',(req,res)=>{
+    res.send(req.session.id)
+})
+
+app.post('/myName',(req,res)=>{
+    res.send(session_username_map[req.body.session])
+})
 
 //Socket Connections
 {
    io.on('connection',(socket)=>{
-
       map[socket.id]=user_name
       mapAlive[user_name]=false
       revmap[user_name]=socket.id
-      
 
       updatefile()
 
       socket.on('msgfor',(data)=>{
-           socket.to(revmap[data.name]).emit('incoming',{
+           io.to(revmap[data.name]).emit('incoming',{
              from:map[socket.id],
              message:data.message
             })
 
       })
+
       socket.on('isOnline',(data)=>{
             socket.emit('online',{
                 name:data.name,
@@ -223,11 +226,18 @@ app.post('/chats',(req,res)=>{
             })
             
       })
-      socket.on('isAlive',()=>{
-        console.log(map[socket.id]+' User online')
-        mapAlive[map[socket.id]]=true
+
+      socket.on('isAlive',(data)=>{
+        console.log(session_username_map[data.session]+' User online')
+        mapAlive[session_username_map[data.session]]=true
+        revmap[session_username_map[data.session]]=socket.id
+        map[socket.id]=session_username_map[data.session]
       })
-     
+      
+      io.to(socket.id).emit('identity',{
+          id:socket.id,
+          name:user_name
+      })
 
    })
 

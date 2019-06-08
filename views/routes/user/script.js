@@ -5,13 +5,34 @@ $(document).ready(()=>{
    
    let globalState
    let socket=io()
+   let myName
+   let sessionID
    
+   //Get Identity from server
+   $.post('identity',{},(data)=>{
+
+     sessionID=data
+     console.log(sessionID)
+     setCookie('session',data,1);
+   })
+   $.post('myName',
+        {session:sessionID},
+        (data)=>{
+          myName=data
+          console.log(myName)
+   })
+
+
     let listcount=0
+    let newMessageCount={}
     let chats=[]
     let friendsOnline={}
     let friend;
     if(localStorage.arr)
         chats=JSON.parse(localStorage.arr) 
+
+    for(let people of chats)
+      newMessageCount[people]=0;    
     
     $('#error').hide()
     //Insert friends
@@ -84,6 +105,10 @@ $(document).ready(()=>{
           $('#'+a).attr('class','alert alert-success mx-1')
           $(`#btn-`+a).attr('class','chat-btns btn btn-outline-success')
          }
+         if(newMessageCount[a])
+          {
+            $(`#${a} .friends`).attr('value',a+'    ----'+newMessageCount[a]+'New Messages')
+          }
       }
     }
 
@@ -93,7 +118,7 @@ $(document).ready(()=>{
       for(let people of chats)
        if(people==friend)
         isNew=false;
-      if(isNew)
+      if(isNew && friend!=myName)
       {  
         chats.push(friend)
         updatechats()
@@ -114,6 +139,11 @@ $(document).ready(()=>{
     //Hide send box
      $("#send").hide()
 
+    //Listening to messages
+    socket.on('incoming',(data)=>{
+      newMessageCount[data.from]++;
+    }) 
+
      //Check if online
      function isOnline()
      {
@@ -131,11 +161,20 @@ $(document).ready(()=>{
 
     //Pinging Server that I am online
      setInterval(()=>{
-       socket.emit('isAlive') 
+       socket.emit('isAlive',{
+         session:sessionID
+       }) 
     },1000)
     //Check if friends are online
      setInterval(()=>isOnline()
      ,3000)
+
+    function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
     
 })
 

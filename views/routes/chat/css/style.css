@@ -42,6 +42,10 @@ body{
 .what{
     cursor: pointer;
 }
+div#chat{
+    max-height: 70%;
+    overflow: overlay;
+}
 
 #message:focus{
     outline: none !important;
@@ -58,6 +62,10 @@ body{
     position: relative; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
     box-shadow: 5px;
+  }
+  .me{
+    background-color: #d4edda !important;  
+    margin-left: 60% !important;
   }
   .snack-head{
       background-color: lightgray;
