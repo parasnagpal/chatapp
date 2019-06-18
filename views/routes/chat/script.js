@@ -57,7 +57,7 @@ $(document).ready(()=>{
         }
         if(bool)
         $('#chat')
-        .append(` <div id='snackbar' class='m-3 me'>
+        .append(` <div id='snackbar' class='m-3'>
                      <div class='snack-head mx-2'>
                           <img src="${img_path}" class="rounded mr-2 m-2">
                           <b>${from}</b>

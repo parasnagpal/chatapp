@@ -1,3 +1,10 @@
+@media (max-width: 768px) { 
+    form{
+        padding:0.5em !important;
+    }
+ }
+ 
+ 
  #head{
     text-align: center;
     font-size: 2em;
@@ -12,20 +19,28 @@ html{
 }
 body{
     height:95%;
-    background-image: url('./backgroung.jpg');
+    /*background-image: url('./backgroung.jpg');*/
+    
     background-repeat: no-repeat;
     background-size: cover;
 }
 form{
-    margin-top:10%;
+    margin-top:5%;
+    color:rgb(255, 101, 101);
+    border: black 1px solid;
+    border-radius: 20px;
+    padding:1em;
 }
 .container{
     
     top:5%;
     height:95%;
 }
+.container.height{
+    height:unset;
+}
 .box{
-    background-color: rgb(214, 214, 214);
+    background-color: rgb(212, 50, 83);
    
     position: relative;
     opacity: 0.5;
@@ -41,7 +56,7 @@ div{
    display:flex;
    justify-content: flex-end;
    bottom:3%;
-   color:white;
+   color:black;
    right:10%;
    font-size: 1em;
    width: 100%;
@@ -68,10 +83,10 @@ span{
     text-align: center;
 }
 .why{
-    background-color: rgb(175, 175, 175);
+    background-color: rgb(255, 101, 101);
     font-size: 1em;
     justify-content: right; 
-    color: rgb(236, 236, 236);
+    color: rgb(255, 255, 255);
 }
 .what{
     cursor: pointer;
@@ -83,9 +98,15 @@ th{
    text-align: center; 
 }
 #log{
-    background-color: rgb(228, 228, 228);
-    display: flex;
-    
+    background-color: rgba(255, 255, 255, 0.61);
+    font-weight: bold;
+}
+#log .second{
+    font-size: 0.9em;
+}
+
+#log .row span{
+    text-align: right;
 }
 span:hover{
     cursor: pointer;
@@ -93,3 +114,58 @@ span:hover{
 #f1{
     margin-top: 0%;
 }
+input:focus{
+    outline-color: rgb(255, 101, 101) !important;
+    box-shadow: rgb(255, 101, 101);
+}
+.form-control:focus {
+    border-color: white !important;
+    box-shadow: 0 0 5px rgb(255, 101, 101) !important;
+  }
+
+.btn.btn-outline-dark.form-control.col-2{
+      max-width: unset !important;
+ }
+
+.btn{
+    color:rgb(255, 101, 101) !important;
+} 
+.btn:hover{
+    color:white !important;
+}
+
+/*  Anime JS Styling    */
+.ml11 {
+    font-weight: 900;
+    font-size: 3.5em;
+  }
+  
+  .ml11 .text-wrapper {
+    font-size: 0.5em;
+    color:rgb(255, 101, 101);
+    position: relative;
+    display: inline-block;
+    padding-top: 0.1em;
+    padding-right: 0.05em;
+    padding-bottom: 0.15em;
+  }
+  
+  .ml11 .line {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: black;
+    transform-origin: 0 50%;
+  }
+  
+  .ml11 .line1 { 
+    top: 0; 
+    left: 0;
+  }
+  
+  .ml11 .letter {
+    display: inline-block;
+    line-height: 1em;
+  }

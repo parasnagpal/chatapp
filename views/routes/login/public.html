@@ -9,87 +9,130 @@
     <link rel="stylesheet" href="/animate/animate.css">
     <link rel="stylesheet" href="/routes/login/css/style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
     <script src="/routes/login/script.js"></script>
+    
 </head>
 <body>
-    <div class="box my-1 rounded"></div>
-    <div class="container my-1 rounded">
-    <h1 class="badge badge-dark m-1" id='head'>WhatsChat</h1>
-    <div class="row m-2 rounded why">
-        <div class='col-4 what'>Why WhatsChat?</div>
-    </div>
-    <div id='log' class='rounded mx-3'>
-        <table style="font-size: 0.9em; " class='my-1 second mt-3'><tr class='my-1'><td>Already have an account?</td></tr></table>
-        <form method="POST" action="http://localhost:4000/login" id='f1'>
-        <table cellpadding="4">
-            <tr class='my-1'>
-                <th>Username</th>
-                <td>
-                    <input type='text' name='username' id='userverify'>
-                </td>
-                <th>Password</th>
-                <td>
-                    <input type='password' name='password' id='password'>
-                </td>
-                <th><button class='btn btn-light my-2' id='login'>Login</button></th>
-            </tr>
-        </table>
-        </form>
-    </div>
-    <div style="display:flex" id='second'>
-    <form method="POST" action="http://localhost:4000/signup" id='f2'>
-        <div id='error'>Required fields can not be left blank</div>
-        <div id='error2'>Passwords do not match</div>
-        <table cellspacing="2" cellpadding="4">
-            <tr class='my-1'>
-                    <th>First Name*</th>
-                    <th>Last Name</th>
-            </tr>
-            
-            <tr class='my-1'>
-                  <td>               
-                   <input type='text' name="fname" id='fname' required>
-                  </td>
-                  <td>               
-                        <input type='text' name="lname"  id='lname' value=''>
-                  </td>                
-            </tr>
-            <tr class='my-1'>
-                    <th>Username*</th>
-                    <td><input type='text' name='username' id='username'></td>
-             </tr>
-            <tr class='my-1'>
-                    <th>Password</th>
-                    <th>Retype Password</th>
-
-            </tr>
-            <tr class='my-1'>
-                <td>
-                    <input type='password' name='password' required id='pass1'>
-                </td>
-                <td>
-                     <input type='password' required id='pass2'>
-                </td>
-            </tr>
-        <tr>
-            <th colspan="2" ><button class='btn btn-light my-2' id='signup' >SignUp</button></th>
-            
-        </tr>
-        </table>
-    </form>
     
-    </div>
-    <div id='mess'>
-      <div id="about" class="alert alert-light">
-           Connect to Friends Hassle Free
-    </div>
-    </div>
+    <div class="container my-1 rounded">
+    
+    <!-- Head -->
+        <h1 class="badge badge-dark m-1" id='head'>MyChat</h1>
+    <!-- Head -->
+
+    <!--why whatschat-->
+        <div class="row m-2 rounded why">
+            <div class='col-4 what'>Why WhatsChat?</div>
+        </div>
+    <!--why whatschat-->
+    
+    <!--Login Form-->
+       <form method="POST" action="http://localhost:4000/login" id='f1'>
+
+        <div id='log' class='rounded container-fluid'>
+            
+            <div class='my-1 second mt-3' >Existing User?</div>
+            
+
+            <div class='row'>   
+              <span class='col-3 col-md-2 m-1 mr-1 pt-1 mt-2'>Username</span>
+              <input class='col-7  col-md m-1 form-control mt-2'  type='text' name='username' id='userverify'>
+               
+              <span class='col-3  col-md-2 m-1 pt-1 mt-2'>Password</span>
+              <input class='col-7  col-md m-1 form-control mt-2' type='password' name='password' id='password'>
+
+              <button class=' col-2 col-md-1 m-2 btn btn-outline-dark my-2 form-control' id='login'>Login</button>
+
+            </div>
+            
+              
+            
+             <!--        
+
+            <table >
+                <tr class='my-1'>
+                    <th>Username</th>
+                    <td>
+                        <input type='text' name='username' id='userverify'>
+                    </td>
+                    <th>Password</th>
+                    <td>
+                        <input type='password' name='password' id='password'>
+                    </td>
+                    <th><button class='btn btn-light my-2' id='login'>Login</button></th>
+                </tr>
+            </table>
+        -->
+        </div>
+
+       </form>   
+    <!--Login Form-->
+    
+    <!--Signup Form-->
+        <div style="display:flex" id='second'>
+        <form method="POST" action="http://localhost:4000/signup" id='f2'>
+            <div id='error'>Required fields can not be left blank</div>
+            <div id='error2'>Passwords do not match</div>
+            <table cellspacing="2" cellpadding="4">
+                <tr class='my-1'>
+                        <th>First Name*</th>
+                        <th>Last Name</th>
+                </tr>
+                
+                <tr class='my-1'>
+                      <td>               
+                       <input type='text' name="fname" id='fname' required>
+                      </td>
+                      <td>               
+                            <input type='text' name="lname"  id='lname' value=''>
+                      </td>                
+                </tr>
+                <tr class='my-1'>
+                        <th>Username*</th>
+                        <td><input type='text' name='username' id='username'></td>
+                 </tr>
+                <tr class='my-1'>
+                        <th>Password</th>
+                        <th>Retype Password</th>
+    
+                </tr>
+                <tr class='my-1'>
+                    <td>
+                        <input type='password' name='password' required id='pass1'>
+                    </td>
+                    <td>
+                         <input type='password' required id='pass2'>
+                    </td>
+                </tr>
+            <tr>
+                <th colspan="2" ><button class='btn btn-outline-dark my-2' id='signup' >SignUp</button></th>
+                
+            </tr>
+            </table>
+        </form>
+        </div>
+    <!--Signup Form-->
+
+    <!-- Anime JS Text Animation -->
+        <div class="container height">
+            <div class="row">
+             <h1 class="ml11 ">
+               <span class="col text-wrapper align-self-center p-0">
+                  <span class="line line1"></span>
+                  <span class="letters">Connect hassle free</span>
+               </span>
+             </h1>
+            </div>
+        </div>
+    <!-- Anime JS Text Animation -->
+
         <div id='footer'><b>
          <span id='_1' style="position:fixed; left:10%;">WhatsChat Inc.</span>
          <span id='_2' class="mx-2 mr-1">Contact Us</span>
          <span id='_3' class="mx-2 mr-1">Disclamer</span>
          </b>
-    </div>
+         </div>
       
     </div>
 </body>
