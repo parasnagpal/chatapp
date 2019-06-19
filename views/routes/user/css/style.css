@@ -12,11 +12,11 @@
     }
   }
 #header{
-    background-color: rgb(175, 175, 175);
+    background-color: rgb(255, 101, 101);
     font-size: 1em;
     
 }
-
+/*
 html{
     height: 100%;
 }
@@ -28,13 +28,13 @@ body{
 }  
 .container{
     height:95%;
-}
+}*/
 #head{
     text-align: center;
     font-size: 2em;
 }
 .why{
-    background-color: rgb(175, 175, 175);
+    background-color: rgb(255, 101, 101);
     font-size: 1em;
     justify-content: right; 
     color: rgb(236, 236, 236);
@@ -47,6 +47,7 @@ body{
     color: #155724;
     background-color: #d4edda;
     border-color: #c3e6cb;
+    text-transform: capitalize;
 }
 
 
@@ -81,9 +82,10 @@ input.friends{
 #chatline input{
     flex-grow: 2;
     border: none;
+    margin-top: 0.1%;
 }
 #chatline input:focus{
-    outline:none;
+    box-shadow: none ;
 }
 #chatline button {
     flex-grow: 1;
@@ -96,8 +98,9 @@ input.friends{
 }
 .alert{
     cursor: pointer;
-    box-shadow: 8px black;
     opacity: 0.6;
+    border: 1px black solid;
+    text-transform: capitalize;
 }
 
 div{

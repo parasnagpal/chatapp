@@ -15,13 +15,15 @@
 <body>
     <div class='box'></div>
     <div class="container my-3 rounded">
-       <h1 class='badge badge-dark mt-2' id='head'>WhatsChat</h1>
+       <h1 class='badge badge-dark mt-2' id='head'>MyChat</h1>
        <div class="row m-2 rounded why">
-           <div class='col-4 what'>Why WhatsChat?</div>
+           <div class='col-4 what'>Why MyChat?</div>
        </div>
        <div class='row mx-2 rounded' id='header'><div class='mx-3'>Chats</div></div>
      <form method="POST" action="http://localhost:4000/chats" id='form'> 
-        <input id='send' name='chatWith'> 
+        <!--Hidden Element-->
+         <input id='send' name='chatWith'>
+        <!--Hidden Element-->
        <div id='chats' class="mx-5 my-2 p-3"></div>
     </form>
     </div>

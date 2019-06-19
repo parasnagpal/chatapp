@@ -18,11 +18,11 @@ html{
     height: 100%;
 }
 body{
-    height:95%;
-    /*background-image: url('./backgroung.jpg');*/
+    
+    /*background-image: url('./backgroung.jpg');
     
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover;*/
 }
 form{
     margin-top:5%;
@@ -32,16 +32,15 @@ form{
     padding:1em;
 }
 .container{
-    
+    /*
     top:5%;
-    height:95%;
+    height:95%;*/
 }
 .container.height{
     height:unset;
 }
 .box{
     background-color: rgb(212, 50, 83);
-   
     position: relative;
     opacity: 0.5;
 }

@@ -1,0 +1,24 @@
+
+  /*Anime Js*/
+  .ml15 {
+    font-weight: bold;
+    font-size: 2em;
+    color:rgb(255, 101, 101);
+    text-transform: uppercase;
+  }
+  
+  .ml15 .word {
+    display: inline-block;
+    line-height: 1em;
+  }
+
+  /**/
+  #head{
+    text-align: center;
+    font-size: 2em;
+    animation: bounceInUp 2s;
+
+}
+.row{
+    margin-left: 0%;
+}
