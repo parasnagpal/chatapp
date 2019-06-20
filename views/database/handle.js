@@ -32,7 +32,7 @@ sequelize
           type:Sequelize.STRING,
           allowNull:false
       },
-      SocketID:{
+      photo:{
          type:Sequelize.STRING
       }
   })

@@ -8,12 +8,8 @@
  #head{
     text-align: center;
     font-size: 2em;
-    animation: bounceInUp 2s;
+}
 
-}
-#head:hover{
-    animation:tada 3s; 
-}
 html{
     height: 100%;
 }

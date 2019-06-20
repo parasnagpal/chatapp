@@ -39,6 +39,9 @@ router.get('/chats',(req,res)=>{
 router.get('/',(req,res)=>{
    res.redirect('/login')
 })
+router.get('/profile',(req,res)=>{
+   res.sendFile(__dirname+'/profile/index.html')
+})
 
 router.use((req,res)=>{
   res.sendFile(__dirname+'/404/index.html')

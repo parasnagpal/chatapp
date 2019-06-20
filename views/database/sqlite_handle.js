@@ -13,10 +13,14 @@ db.serialize(()=>{
                               lname VARCHAR(255),
                               username VARCHAR(255) NOT NULL,
                               password VARCHAR(50) NOT NULL,
-                              socketID VARCHAR(100),
+                              photo VARCHAR(100),
                               PRIMARY KEY (username));`,(err)=>{
                                 if(err) console.log(err)
 })
-})*/
 
+ db.run('SELECT * from users',(err,data)=>{
+   console.log(data+err)
+ })
+})
+*/
 module.exports=db

@@ -1,0 +1,16 @@
+#head{
+    text-align: center;
+    font-size: 2em;
+}
+.why{
+    background-color: rgb(255, 101, 101);
+    font-size: 1em;
+    justify-content: right; 
+    color: rgb(255, 255, 255);
+}
+.what{
+    cursor: pointer;
+}
+img{
+    border-radius: 50%;
+}

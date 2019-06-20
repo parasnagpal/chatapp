@@ -10,11 +10,11 @@ $(document).ready(()=>{
    
    //Get Identity from server
    $.post('identity',{},(data)=>{
-
      sessionID=data
      console.log(sessionID)
      setCookie('session',data,1);
    })
+
    $.post('myName',
         {session:sessionID},
         (data)=>{
