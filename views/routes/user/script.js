@@ -82,6 +82,7 @@ $(document).ready(()=>{
             .attr('id',a)
             .attr('class','alert alert-light mx-3')
             .attr('role','alert')
+            .append('<img src="https://image.flaticon.com/icons/png/512/37/37943.png" class="rounded-circle" >')
             .append(
               $('<input disabled>')
                .attr('value',a)
@@ -92,7 +93,7 @@ $(document).ready(()=>{
               $('<input type="submit">')
               .val('Chat')
               .attr('id','btn-'+a)
-              .attr('class','chat-btns btn btn-outline-dark')
+              .attr('class','chat-btns btn btn-outline-dark ')
               .click(()=>{
                 globalState=a;
               })
@@ -102,8 +103,8 @@ $(document).ready(()=>{
 
          if(friendsOnline[a])
          {
-          $('#'+a).attr('class','alert alert-success mx-1')
-          $(`#btn-`+a).attr('class','chat-btns btn btn-outline-success')
+          $('#'+a).attr('class','alert alert-danger mx-1')
+          $(`#btn-`+a).attr('class','chat-btns btn btn-outline-danger')
          }
          if(newMessageCount[a])
           {

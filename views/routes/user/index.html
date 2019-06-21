@@ -18,7 +18,8 @@
        <div class="row m-2 rounded why">
            <div class='col-4 what'>Why MyChat?</div>
        </div>
-       <div class='row mx-2 rounded' id='header'><div class='mx-3'>Friends</div></div>
+    
+      <!-- <div class='row mx-2 rounded' id='header'><div class='mx-3'>Friends</div></div>  -->
      <form method="POST" action="http://localhost:4000/chats" id='form'> 
         <!--Hidden Element-->
          <input id='send' name='chatWith'>
@@ -26,11 +27,19 @@
        <div id='chats' class="mx-5 my-2 p-3"></div>
     </form>
     </div>
-
     <div id='chatline'>         
              <input type='text' id='friend' placeholder="Type in your friends name" class='form-control '>
              <button class="btn btn-outline-dark">Search</button>
     </div>
     <div id='error'><div class='container'>User not found</div></div>
+    <div class='container my-1'>
+            <div id='footer'>
+                    <b>
+                    <span id='_1' style="position:fixed; left:10%;">WhatsChat Inc.</span>
+                    <span id='_2' class="mx-2 mr-1">Contact Us</span>
+                    <span id='_3' class="mx-2 mr-1">Disclamer</span>
+                    </b>
+            </div>
+    </div>   
 </body>
 </html>

@@ -11,6 +11,23 @@
         width:540px;
     }
   }
+
+@media (min-width:466px){
+    input.friends{
+        width:65% !important;
+    }
+}
+@media (min-width:768px){
+    input.friends{
+        width:72% !important;
+    }
+}
+@media (min-width:992px)
+{
+    input.friends{
+        width:80% !important;
+    }
+} 
 #header{
     background-color: rgb(255, 101, 101);
     font-size: 1em;
@@ -37,16 +54,16 @@ body{
     background-color: rgb(255, 101, 101);
     font-size: 1em;
     justify-content: right; 
-    color: rgb(236, 236, 236);
+    color: rgb(255, 255, 255);
 }
 .what{
     cursor: pointer;
 }
 
-.alert-success .friends{
-    color: #155724;
-    background-color: #d4edda;
-    border-color: #c3e6cb;
+.alert-danger .friends{
+    color: rgb(255, 101, 101);
+    background-color: #f8d7da;
+    border-color: black;
     text-transform: capitalize;
 }
 
@@ -71,7 +88,7 @@ body{
 }
 
 input.friends{
-    width:80%;
+    width:60%;
     margin-left:5%;
     background-color: white;
     border:none;
@@ -119,3 +136,20 @@ img{
     animation: shake 2s;
     animation-iteration-count: infinite;
 }
+#footer{
+    position: fixed;
+    display:flex;
+    justify-content: flex-end;
+    bottom:3%;
+    color:black;
+    right:10%;
+    font-size: 1em;
+    width: 100%;
+ }
+
+ #chats img{
+     border-radius: 50%;
+     width:5%;
+     max-width: unset;
+     max-height: unset;
+ }
