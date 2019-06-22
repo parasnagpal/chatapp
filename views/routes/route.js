@@ -15,7 +15,6 @@ app.use(session({
 
 
 router.get('/login',(req,res)=>{
-    
     res.sendFile(__dirname+'/login/public.html')
 })
 

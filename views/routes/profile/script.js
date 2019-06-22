@@ -9,14 +9,15 @@ $(document).ready(()=>{
          {session:sessionID},
          (data)=>{
            myName=data
-           console.log(myName)
            $.post('user',
                {name:myName},
                (data)=>{
                  console.log(data)
-                 myName=data.fname
                  $('.name').text(data.fname+" "+data.lname)
-              })   
+                 $('.username').text(data.username)
+                 $('.email').text(data.email)
+                 $('.mobile').text(data.mobile)
+            })   
     })
 
    

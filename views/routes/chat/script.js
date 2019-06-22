@@ -42,7 +42,7 @@ $(document).ready(()=>{
     function sendmsg(){
         chatrefresh($('#message').val(),true)
         socket.emit('msgfor',{
-            name:$('#header').text(),
+            name:chatWith,
             message:$('#message').val()
         })
     }

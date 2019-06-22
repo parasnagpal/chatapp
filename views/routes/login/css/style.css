@@ -2,6 +2,9 @@
     form{
         padding:0.5em !important;
     }
+    div.container.height{
+        display: none;
+    }
  }
  
  

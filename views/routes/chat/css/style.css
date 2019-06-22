@@ -10,12 +10,7 @@
       }
     }*/
 
-    #header{
-        background-color: rgb(175, 175, 175);
-        font-size: 1em;
-        
-    }
-    
+  /*  
 html{
         height: 100%;
     }
@@ -27,17 +22,17 @@ body{
     }  
 .container{
         height:95%;
-    }
+    }*/
 #head{
         text-align: center;
         font-size: 2em;
     }
 
 .why{
-    background-color: rgb(175, 175, 175);
+    background-color: rgb(255, 101, 101);
     font-size: 1em;
     justify-content: right; 
-    color: rgb(236, 236, 236);
+    color: rgb(255, 255, 255);
 }
 .what{
     cursor: pointer;
@@ -100,9 +95,10 @@ img{
 #footer input{
     flex-grow: 2;
     border: none;
+    margin-top: 0.1%;
 }
 #footer input:focus{
-    outline:none;
+    box-shadow: none ;
 }
 #footer button {
     margin:0.5%;
