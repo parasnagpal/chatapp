@@ -1,9 +1,9 @@
 $('document').ready(()=>{
-  
-  
 
     $('#error').hide()
-    $('#error2').hide()    
+    $('#error2').hide()  
+    $('#f1').attr('action','/login')  
+    $('#f2').attr('action','/signup')  
 
     $('#signup').click((e)=>{
          e.preventDefault();

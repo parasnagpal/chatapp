@@ -1,6 +1,7 @@
 
 $(document).ready(()=>{
 
+   $('#form').attr('action','/chats')
 
    
    let globalState
