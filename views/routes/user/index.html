@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
-    <link rel="stylesheet" href="/routes/user/css/style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>   
+    <script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/routes/user/script.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
+    <link rel="stylesheet" href="/routes/user/css/style.css">  
 </head>
 <body>
     <div class='box'></div>
@@ -18,7 +20,26 @@
        <div class="row m-2 rounded why">
            <div class='col-4 what'>Why MyChat?</div>
        </div>
-    
+
+
+       <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark p-4">
+            <h5 class="text-white h4">Settings</h5>
+            <ul class="text-muted"class='list-group'>
+               <a><li >Privacy Settings</li></a>
+               <a href="/profile"><li >Profile</li></a>
+            </ul>
+          </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </nav>
+      </div>
+
+
       <!-- <div class='row mx-2 rounded' id='header'><div class='mx-3'>Friends</div></div>  -->
      <form method="POST" action="http://localhost:4000/chats" id='form'> 
         <!--Hidden Element-->

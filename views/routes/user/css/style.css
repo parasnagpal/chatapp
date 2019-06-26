@@ -153,3 +153,10 @@ img{
      max-width: unset;
      max-height: unset;
  }
+ li{
+     list-style-type: mongolian;
+ }
+ a{
+     color: unset !important;
+     text-decoration: none !important;
+ }
