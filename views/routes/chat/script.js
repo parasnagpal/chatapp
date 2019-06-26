@@ -57,24 +57,39 @@ $(document).ready(()=>{
         }
         if(bool)
         $('#chat')
-        .append(` <div id='snackbar' class='m-3'>
-                     <div class='snack-head mx-2'>
-                          <img src="${img_path}" class="rounded mr-2 m-2">
-                          <b>${from}</b>
+        .append(`<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                    <div class="toast-header">
+                      <img src="${img_path}" class="rounded mr-2">
+                      <strong class="mr-auto">${from}</strong>
+                      <small>Just Now</small>
+                      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                     </div>
-                     <div class='snack-body'>${msg}</div>
+                    <div class="toast-body">
+                      ${msg}
+                    </div>
                   </div>`)
         else
         $('#chat')
-        .append(` <div id='snackbar' class='m-3'>
-                     <div class='row'>
-                       <div class='snack-head mx-2'>
-                          <img src="${img_path}" class="rounded mr-2 m-2">
-                          <b>${from}</b>
-                       </div>
-                       <div class='snack-body'>${msg}</div>
-                     </div>
+        .append(`<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+                 <div style="position: absolute; top: 0; right: 0;"> 
+                 <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                    <div class="toast-header">
+                      <img src="${img_path}" class="rounded mr-2">
+                      <strong class="mr-auto">${from}</strong>
+                      <small>Just Now</small>
+                      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="toast-body">
+                      ${msg}
+                    </div>
+                  </div>
+                  </div>
                   </div>`)
+          $('.toast').toast('show')        
 
     }
 

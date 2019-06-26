@@ -10,19 +10,16 @@
       }
     }*/
 
-  /*  
+   
 html{
         height: 100%;
     }
 body{
-        height:100%;
-        background-image: url('backgroung.jpg');
-        background-repeat: repeat;
-        background-size: cover;
+        height:98%;
     }  
 .container{
-        height:95%;
-    }*/
+        height:100%;
+    }
 #head{
         text-align: center;
         font-size: 2em;
@@ -102,4 +99,7 @@ img{
 }
 #footer button {
     margin:0.5%;
+}
+.toast{
+    width: 25em;
 }
