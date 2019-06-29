@@ -34,18 +34,20 @@
 
         <div id='log' class='rounded container-fluid'>
             
-            <div class='my-1 second mt-3' >Existing User?</div>
-            
 
             <div class='row'>   
-              <span class='col-3 col-md-2 m-1 mr-1 pt-1 mt-2'>Username</span>
-              <input class='col-7  col-md m-1 form-control mt-2'  type='text' name='username' id='userverify'>
-               
-              <span class='col-3  col-md-2 m-1 pt-1 mt-2'>Password</span>
-              <input class='col-7  col-md m-1 form-control mt-2' type='password' name='password' id='password'>
-
-              <button class=' col-2 col-md-1 m-2 btn btn-outline-dark my-2 form-control' id='login'>Login</button>
-
+              <div class="form-group col-10 col-md-4">  
+                <label  for="userverify">Username</label>
+                <input class='form-control'  type='text' name='username' id='userverify'>
+              </div> 
+              <div class="form-group col-10 col-md-4">
+                <label >Password</label>
+                <input class='form-control' type='password' name='password' id='password'>
+              </div>
+              <div class='form-group'>
+                <label></label>
+                <button class=' col-2 col-md-1 m-2 btn btn-outline-dark my-2 form-control' id='login'>Login</button>
+              </div>
             </div>
             
               
@@ -76,6 +78,7 @@
         <form method="POST" action="http://localhost:4000/signup" id='f2'>
             <div id='error'>Required fields can not be left blank</div>
             <div id='error2'>Passwords do not match</div>
+            <div class="table-responsive">
             <table cellspacing="2" cellpadding="4">
                 <tr class='my-1'>
                         <th>First Name*</th>
@@ -120,9 +123,11 @@
                 
             </tr>
             </table>
+          </div>
         </form>
         </div>
     <!--Signup Form-->
+   
 
     <!-- Anime JS Text Animation -->
         <div class="container height">
@@ -137,13 +142,17 @@
         </div>
     <!-- Anime JS Text Animation -->
 
-        <div id='footer'><b>
-         <span id='_1' style="position:fixed; left:10%;">WhatsChat Inc.</span>
-         <span id='_2' class="mx-2 mr-1">Contact Us</span>
-         <span id='_3' class="mx-2 mr-1">Disclamer</span>
-         </b>
-         </div>
+        
       
     </div>
+
+    <div class="container c2">
+       <div id='footer' class="row">
+            <span id='_1' class="col">WhatsChat Inc.</span>
+            <span id='_2' class="mx-2 mr-1 col-3 col-md-2">Contact Us</span>
+            <a href="/disclaimer"><span id='_3' class="mx-2 mr-1 col-2">Disclamer</span></a>
+       </div>
+    </div>
+
 </body>
 </html>

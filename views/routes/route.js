@@ -15,7 +15,10 @@ app.use(session({
 
 
 router.get('/login',(req,res)=>{
-    res.sendFile(__dirname+'/login/public.html')
+  res.sendFile(__dirname+'/login/public.html')
+})
+router.get('/disclaimer',(req,res)=>{
+  res.sendFile(__dirname+'/disclaimer/index.html')
 })
 
 router.get('/user',(req,res)=>{

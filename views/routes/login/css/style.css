@@ -2,11 +2,22 @@
     form{
         padding:0.5em !important;
     }
-    div.container.height{
-        display: none;
-    }
+   
  }
- 
+
+
+
+ @media (max-width:680px){
+     #_1{
+         margin-left: 2% !important;
+     }
+ }
+
+ @media (max-width:600px){
+    #_1{
+        margin-left: 1% !important;
+    }
+}
  
  #head{
     text-align: center;
@@ -25,9 +36,9 @@ body{
 }
 form{
     margin-top:5%;
-    color:rgb(255, 101, 101);
-    border: black 1px solid;
-    border-radius: 20px;
+    color: #00000073;
+    border: rgba(0, 0, 0, 0.473) 1px solid;
+    border-radius: 5px;
     padding:1em;
 }
 .container{
@@ -50,12 +61,14 @@ div{
     margin-left: 28%;
 }
 #footer{
-   position: fixed;
+   position: absolute;
    display:flex;
-   justify-content: flex-end;
+   font-weight: bold;
+   justify-content: center;
    bottom:3%;
-   color:black;
-   right:10%;
+   color:white;
+   background-color: black;
+   
    font-size: 1em;
    width: 100%;
 }
@@ -64,7 +77,13 @@ span{
     display: inline-block;
 }
 #_1{
-    align-self: flex-start;
+    margin-left: 3%;
+    max-width: unset !important;
+}
+#_2 ,#_3{
+     text-align: center;
+    max-width: unset !important;
+
 }
 #about{
     display: block;
@@ -132,6 +151,17 @@ input:focus{
     color:white !important;
 }
 
+label,.form-group{
+    margin-bottom:0; 
+}
+
+#login{
+    margin: 0 !important;
+}
+.c2{
+    max-width: unset !important;
+}
+
 /*  Anime JS Styling    */
 .ml11 {
     font-weight: 900;
@@ -167,3 +197,4 @@ input:focus{
     display: inline-block;
     line-height: 1em;
   }
+
