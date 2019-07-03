@@ -4,6 +4,15 @@ $('document').ready(()=>{
     $('#error2').hide()  
     $('#f1').attr('action','/login')  
     $('#f2').attr('action','/signup')  
+   
+    let check =document.getElementById('ischecked')
+    let button =document.getElementById('signup')
+  
+    button.disabled=true;
+    check.onchange=()=>{
+      button.disabled=!check.checked
+    }
+
 
     $('#signup').click((e)=>{
          e.preventDefault();

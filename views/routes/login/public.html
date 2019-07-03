@@ -33,8 +33,6 @@
        <form method="POST" action="http://localhost:4000/login" id='f1'>
 
         <div id='log' class='rounded container-fluid'>
-            
-
             <div class='row'>   
               <div class="form-group col-10 col-md-4">  
                 <label  for="userverify">Username</label>
@@ -49,100 +47,79 @@
                 <button class=' col-2 col-md-1 m-2 btn btn-outline-dark my-2 form-control' id='login'>Login</button>
               </div>
             </div>
-            
-              
-            
-             <!--        
-
-            <table >
-                <tr class='my-1'>
-                    <th>Username</th>
-                    <td>
-                        <input type='text' name='username' id='userverify'>
-                    </td>
-                    <th>Password</th>
-                    <td>
-                        <input type='password' name='password' id='password'>
-                    </td>
-                    <th><button class='btn btn-light my-2' id='login'>Login</button></th>
-                </tr>
-            </table>
-        -->
         </div>
 
        </form>   
-    <!--Login Form-->
-    
-    <!--Signup Form-->
-        <div style="display:flex" id='second'>
-        <form method="POST" action="http://localhost:4000/signup" id='f2'>
-            <div id='error'>Required fields can not be left blank</div>
-            <div id='error2'>Passwords do not match</div>
-            <div class="table-responsive">
-            <table cellspacing="2" cellpadding="4">
-                <tr class='my-1'>
-                        <th>First Name*</th>
-                        <th>Last Name</th>
-                </tr>
-                
-                <tr class='my-1'>
-                      <td>               
-                       <input type='text' name="fname" id='fname' required>
-                      </td>
-                      <td>               
-                            <input type='text' name="lname"  id='lname' value=''>
-                      </td>                
-                </tr>
-                <tr class='my-1'>
-                        <th>Username*</th>
-                        <td><input type='text' name='username' id='username'></td>
-                </tr>
-                <tr>
-                        <th>Email</th>
-                        <td><input type="email" name='mail'></td>
-                </tr>
-                <tr>
-                    <th>Phone No.</th>
-                    <td><input type="tel" name='mobile'></td>
-                </tr>
-                <tr class='my-1'>
-                        <th>Password</th>
-                        <th>Retype Password</th>
-    
-                </tr>
-                <tr class='my-1'>
-                    <td>
-                        <input type='password' name='password' required id='pass1'>
-                    </td>
-                    <td>
-                         <input type='password' required id='pass2'>
-                    </td>
-                </tr>
-            <tr>
-                <th colspan="2" ><button class='btn btn-outline-dark my-2' id='signup' >SignUp</button></th>
-                
-            </tr>
-            </table>
-          </div>
-        </form>
-        </div>
-    <!--Signup Form-->
    
+    <div class='row justify-content-center'>
 
-    <!-- Anime JS Text Animation -->
-        <div class="container height">
-            <div class="row">
-             <h1 class="ml11 ">
-               <span class="col text-wrapper align-self-center p-0">
-                  <span class="line line1"></span>
-                  <span class="letters">Connect hassle free</span>
-               </span>
-             </h1>
-            </div>
-        </div>
-    <!-- Anime JS Text Animation -->
+       <div class="col-10 col-md-5 d-flex flex-column justify-content-center">
+         <img src="/routes/login/css/43145.svg" id='svg'>
+             <!-- Anime JS Text Animation -->
+              <div class="container height">
+                  <div class="row">
+                   <h1 class="ml11 ">
+                     <span class="col text-wrapper align-self-center p-0">
+                        <span class="line line1"></span>
+                        <span class="letters">Connect hassle free</span>
+                     </span>
+                   </h1>
+                  </div>
+              </div>
+           <!-- Anime JS Text Animation -->
+       </div>  
 
-        
+       <div class="col-10 col-md-5">
+           <form method="POST" action="http://localhost:4000/signup" id='f2'>
+             <div class='form-group form-check-label' id='error'>
+                Required fields cannot be left blank
+             </div>
+             <div class='form-group form-check-label' id='error2'>
+                Passwords do not match
+             </div>
+             <div class="form-row">
+               <div class="form-group col-md-6">
+                 <label for="fname">First Name</label>
+                 <input type="text" class="form-control" id="fname" name="lname" required>
+               </div>
+               <div class="form-group col-md-6">
+                 <label for="lname">Last Name</label>
+                 <input type="text" class="form-control" id="lname" name='fname'>
+               </div>
+             </div>
+             <div class="form-group">
+               <label for="username">Username</label>
+               <input type="text" class="form-control" id="username" name="username" required>
+             </div>
+             <div class="form-group">
+               <label for="email">Email Address</label>
+               <input type="email" class="form-control" id="email" placeholder="abc@xyz" name='mail'>
+             </div>
+             <div class="form-group">
+               <label for="mobile">Mobile No.</label>
+               <input type="tel" class="form-control" id="mobile" name="mobile">
+             </div>
+             <div class="form-group">
+               <label for="pass1">Password</label>
+               <input type="text" class="form-control" id="pass1" name="password" required>
+             </div>
+             <div class="form-group">
+               <label for="pass2">Confirm Password</label>
+               <input type="text" class="form-control" id="pass2" required>
+             </div>
+             <div class="form-group">
+               <div class="form-check">
+                 <input class="form-check-input" id='ischecked' type="checkbox" id="gridCheck">
+                 <label class="form-check-label" for="gridCheck">
+                   I confirm that the above mentioned information is true to the best of my knowledge.
+                 </label>
+               </div>
+             </div>
+             <button type="submit" class="btn btn-outline-dark" id="signup">Sign Up</button>
+           </form>
+       </div>
+
+    </div> 
       
     </div>
 

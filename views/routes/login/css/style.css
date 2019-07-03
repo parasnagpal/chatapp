@@ -28,11 +28,8 @@ html{
     height: 100%;
 }
 body{
-    
-    /*background-image: url('./backgroung.jpg');
-    
-    background-repeat: no-repeat;
-    background-size: cover;*/
+    min-height: 99%;
+    background-color: #f2f2f2;
 }
 form{
     margin-top:5%;
@@ -40,6 +37,7 @@ form{
     border: rgba(0, 0, 0, 0.473) 1px solid;
     border-radius: 5px;
     padding:1em;
+    box-shadow: 3px 3px 5px lightgrey
 }
 .container{
     /*
@@ -61,16 +59,14 @@ div{
     margin-left: 28%;
 }
 #footer{
-   position: absolute;
+   
    display:flex;
    font-weight: bold;
    justify-content: center;
    bottom:3%;
    color:white;
    background-color: black;
-   
    font-size: 1em;
-   width: 100%;
 }
 
 span{
@@ -159,7 +155,9 @@ label,.form-group{
     margin: 0 !important;
 }
 .c2{
-    max-width: unset !important;
+    padding: 0;
+    position: relative;
+    bottom: -30px;
 }
 
 /*  Anime JS Styling    */
@@ -198,3 +196,14 @@ label,.form-group{
     line-height: 1em;
   }
 
+
+  #svg{
+    width: inherit; 
+  }  
+
+  .form-check-label{
+      font-size: 0.8em;
+  }
+  #signup{
+      width:100%;
+  }
