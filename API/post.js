@@ -80,6 +80,12 @@ let session_username_map={}
     app.post('/myName',(req,res)=>{
         res.send(session_username_map[req.body.session])
     })
+
+    app.post('/profile_image',(req,res)=>{
+       console.log('image received')
+       database.each(`Update USERS SET photo='${req.body.image}' WHERE username='${req.body.name}'`)
+       res.send('hello')
+    })
  
 } 
 

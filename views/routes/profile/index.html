@@ -22,20 +22,22 @@
         </div>
 
         <div class="row image">
-            <img src='https://image.flaticon.com/icons/png/512/37/37943.png'> 
-            <input type="file" name='profile' accept="image/*"class='btn btn-outline-dark'>
+            <img src='https://image.flaticon.com/icons/png/512/37/37943.png' id='image'> 
         </div>
-
-        <div class='row'>
+        <div class="row justify-content-center">
+                <input type="file" name='profile' accept="image/*" onchange="previewfile()">
+                <button id='submit'>Submit</button>
+        </div>    
+        <div class='row justify-content-center'>
             <div class='col-4'>Name</div> <div class='col name'></div>
         </div>
-        <div class='row'>    
+        <div class='row justify-content-center'>    
             <div class='col-4'>Username</div> <div class='col username disabled' aria-disabled="true"></div>
         </div>
-        <div class='row'>    
+        <div class='row justify-content-center'>    
             <div class='col-4'>Email Address</div> <div class='col email'></div>
         </div>
-        <div class='row'>              
+        <div class='row justify-content-center'>              
             <div class='col-4'>Mobile No.</div> <div class='col mobile'></div>            
         </div>
     </div>
