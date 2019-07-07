@@ -17,12 +17,50 @@ $(document).ready(()=>{
   $.post('../myName',{session:sessionID},(data)=>{
     myName=data
     console.log(myName)
+  }).then(()=>{
+    console.log(chatWith)
+    if(getCookie('chatdata'))
+    {
+      chatdata=JSON.parse(getCookie('chatdata'))
+      console.log(chatdata)
+      let conversation
+      if(chatdata[myName])
+       {
+           if(chatdata[myName][chatWith] && chatdata[myName])
+           {
+           conversation=chatdata[myName][chatWith]
+           for(let time in conversation)
+             {
+               console.log(conversation[time]['n'])
+               if(conversation[time]['n'])
+                chatrefresh(conversation[time]['n'],false,chatWith)
+               if(conversation[time]['m']) 
+                chatrefresh(conversation[time]['m'],true) 
+             }
+           }
+           else{
+             chatdata[myName][chatWith]={}
+          }
+       }
+      else{
+        chatdata[myName]={}
+        chatdata[myName][chatWith]={}
+      }
+    }
+   else{
+     chatdata[myName]={}
+     chatdata[myName][chatWith]={}
+   } 
   })
 
-  if(getCookie('chatdata'))
+ /* if(getCookie('chatdata'))
    {
      chatdata=JSON.parse(getCookie('chatdata'))
-     let conversation=chatdata.myName.chatWith
+     console.log(chatdata)
+     let conversation
+     if(chatdata[myName])
+     {
+     conversation=chatdata[myName][chatWith]
      for(let time in conversation)
        {
          console.log(conversation[time]['n'])
@@ -31,13 +69,19 @@ $(document).ready(()=>{
          if(conversation[time]['m']) 
           chatrefresh(conversation[time]['m'],false,chatWith) 
        }
+     }
+     else{
+       console.log(myName)
+       chatdata[myName]={}
+       chatdata[myName][chatWith]={}
+     }
    }
   else{
     chatdata[myName]={}
     chatdata[myName][chatWith]={}
   } 
 
-
+*/
 
 
   $('#header').text(chatWith)
@@ -58,7 +102,7 @@ $(document).ready(()=>{
      socket.on('incoming',(data)=>{
        
        chatrefresh(data.message,false,data.from)
-       chatdata.myName.chatWith[Date.now()]={n:data.message,m:false}
+       chatdata[myName][chatWith][Date.now()]={n:data.message,m:false}
        //Update cookie
        expire=new Date()
        expire.setTime(Date.now()+(9*365*24*60*60*1000))
@@ -76,7 +120,7 @@ $(document).ready(()=>{
           name:chatWith,
           message:$('#message').val()
       })
-      chatdata.myName.chatWith[Date.now()]={m:$('#message').val(),n:false}
+      chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false}
       //update cookie
       expire=new Date()
       expire.setTime(Date.now()+(9*365*24*60*60*1000))

@@ -40,9 +40,10 @@ app.use(express.urlencoded({
 }))
 app.use(session({
     secret:'this is MY secret!!!!',
-    resave:true,
+    resave:false,
     saveUninitialized:false,
     cookie:{
+      secure:true,
       maxAge:24*60*60*1000
     }
 }))
@@ -97,7 +98,7 @@ app.use(session({
 
 //Configuration
 {
-app.set('view engine','hbs')
+
 
 
 app.use((req,res,next)=>{

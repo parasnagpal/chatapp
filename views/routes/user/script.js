@@ -24,7 +24,7 @@ $(document).ready(()=>{
    })
 
 
-    let listcount=0
+    
     let newMessageCount={}
     let chats=[]
     let friendsOnline={}
@@ -79,10 +79,13 @@ $(document).ready(()=>{
         $('#chats')
            .append(
             $('<div>')
-            //.val(`<img src='./default.jpg' class='rounded-circle'>`)
             .attr('id',a)
             .attr('class','alert alert-light mx-3')
             .attr('role','alert')
+            .click(()=>{
+              globalState=a;
+              $('#form').submit()
+            })
             .append('<img src="https://image.flaticon.com/icons/png/512/37/37943.png" class="rounded-circle" >')
             .append(
               $('<input disabled>')
