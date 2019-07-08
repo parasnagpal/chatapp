@@ -121,3 +121,7 @@ img{
     background-color: black;
     font-size: 1em;
  }
+
+ .d-flex div{
+   background-color: rgb(169, 255, 195);
+ } 
