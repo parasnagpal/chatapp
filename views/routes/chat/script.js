@@ -5,7 +5,7 @@ $(document).ready(()=>{
   let socket=io()
   let str=window.location.pathname
   const chatWith=str.slice(str.lastIndexOf('/')+1,-1)+str.charAt(str.length-1)
-  let chatdata
+  let chatdata={}
   let expire
 
   let myName
@@ -16,9 +16,7 @@ $(document).ready(()=>{
   //Session ID from Cookie
   $.post('../myName',{session:sessionID},(data)=>{
     myName=data
-    console.log(myName)
   }).then(()=>{
-    console.log(chatWith)
     if(getCookie('chatdata'))
     {
       chatdata=JSON.parse(getCookie('chatdata'))
@@ -51,37 +49,8 @@ $(document).ready(()=>{
      chatdata[myName]={}
      chatdata[myName][chatWith]={}
    } 
+
   })
-
- /* if(getCookie('chatdata'))
-   {
-     chatdata=JSON.parse(getCookie('chatdata'))
-     console.log(chatdata)
-     let conversation
-     if(chatdata[myName])
-     {
-     conversation=chatdata[myName][chatWith]
-     for(let time in conversation)
-       {
-         console.log(conversation[time]['n'])
-         if(conversation[time]['n'])
-          chatrefresh(conversation[time]['n'],true)
-         if(conversation[time]['m']) 
-          chatrefresh(conversation[time]['m'],false,chatWith) 
-       }
-     }
-     else{
-       console.log(myName)
-       chatdata[myName]={}
-       chatdata[myName][chatWith]={}
-     }
-   }
-  else{
-    chatdata[myName]={}
-    chatdata[myName][chatWith]={}
-  } 
-
-*/
 
 
   $('#header').text(chatWith)
@@ -102,6 +71,7 @@ $(document).ready(()=>{
      socket.on('incoming',(data)=>{
        
        chatrefresh(data.message,false,data.from)
+       if(getCookie('chatdata'))
        chatdata[myName][chatWith][Date.now()]={n:data.message,m:false}
        //Update cookie
        expire=new Date()
@@ -120,7 +90,8 @@ $(document).ready(()=>{
           name:chatWith,
           message:$('#message').val()
       })
-      chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false}
+      if(getCookie('chatdata'))
+       chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false}
       //update cookie
       expire=new Date()
       expire.setTime(Date.now()+(9*365*24*60*60*1000))
