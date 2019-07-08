@@ -11,8 +11,7 @@ const App=require('./API/post')
 let passport= require('passport')
 let LocalStrategy=require('passport-local').Strategy
 
-
-
+let tempChatData={}
 
 
 //Socket files
@@ -56,14 +55,32 @@ app.use(session({
       mapAlive[user_name]=false
       revmap[user_name]=socket.id
 
-      //updatefile()
+      console.log(tempChatData)
+      
 
       socket.on('msgfor',(data)=>{
            io.to(revmap[data.name]).emit('incoming',{
              from:map[socket.id],
              message:data.message
             })
+           //save chat to server
+           if(!tempChatData[data.name])
+            tempChatData[data.name]={}
+           
+           if(!tempChatData[data.name][map[socket.id]])
+             tempChatData[data.name][map[socket.id]]={}
+           
+           tempChatData[data.name][map[socket.id]][Date.now()]=data.message
+           
+           socket.emit('unread',tempChatData)
+      })
+      
 
+        socket.emit('unread',tempChatData)
+      
+      socket.on('received',(data)=>{
+        //clear chat stored on server
+        tempChatData[data.name][data.from]={}
       })
 
       socket.on('isOnline',(data)=>{
@@ -75,7 +92,6 @@ app.use(session({
       })
 
       socket.on('isAlive',(data)=>{
-        console.log(session_username_map[data.session]+' User online')
         mapAlive[session_username_map[data.session]]=true
         revmap[session_username_map[data.session]]=socket.id
         map[socket.id]=session_username_map[data.session]
@@ -105,7 +121,7 @@ app.use((req,res,next)=>{
     
     if(!req.session.user)
       {
-        console.log("New user")
+        //console.log("New user")
         req.session.user=true;
         req.session.logged=false;
         return res.redirect('/login')

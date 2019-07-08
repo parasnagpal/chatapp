@@ -1,12 +1,13 @@
-
+let socket
+let expire
 
 $(document).ready(()=>{
 
-  let socket=io()
+  socket=io()
   let str=window.location.pathname
   const chatWith=str.slice(str.lastIndexOf('/')+1,-1)+str.charAt(str.length-1)
   let chatdata={}
-  let expire
+  
 
   let myName
   let sessionID=getCookie('session')
@@ -69,16 +70,43 @@ $(document).ready(()=>{
   //Socket ons
   {
      socket.on('incoming',(data)=>{
-       
-       chatrefresh(data.message,false,data.from)
+       if(data.from==chatWith)
+        chatrefresh(data.message,false,data.from)
+
        if(getCookie('chatdata'))
        chatdata[myName][chatWith][Date.now()]={n:data.message,m:false}
-       //Update cookie
-       expire=new Date()
-       expire.setTime(Date.now()+(9*365*24*60*60*1000))
-       document.cookie=`chatdata=${JSON.stringify(chatdata)};expires=${expire.toUTCString()}`
-     })
+       
 
+       //update cookie
+       updateCookie(chatdata)
+
+       //received conversation
+       received(myName,chatWith) 
+      })
+      
+      socket.on('unread',(data)=>{
+         console.log(data)
+         if(data)
+         if(data[myName])
+         {
+          console.log(data[myName])
+
+           for(let time in data[myName][chatWith])
+           {
+             console.log('entered')
+            chatrefresh(data[myName][chatWith][time],false,chatWith)
+           if(!chatdata[myName])
+            chatdata[myName]={}
+           if(!chatdata[myName][chatWith])
+            chatdata[myName][chatWith]={}  
+
+           chatdata[myName][chatWith][time]={n:data[myName][chatWith][time],m:false}
+           updateCookie(chatdata)
+           }
+           //received conversation
+           received(myName,chatWith)  
+         }
+      })
      
   }
 
@@ -92,10 +120,9 @@ $(document).ready(()=>{
       })
       if(getCookie('chatdata'))
        chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false}
+
       //update cookie
-      expire=new Date()
-      expire.setTime(Date.now()+(9*365*24*60*60*1000))
-      document.cookie=`chatdata=${JSON.stringify(chatdata)};expires=${expire.toUTCString()}`;
+      updateCookie(chatdata)
   }
 
 
@@ -168,3 +195,18 @@ $(document).ready(()=>{
 }
   
 })
+
+function received(name,from)
+{
+  socket.emit('received',{
+    name,
+    from
+  }) 
+}
+
+function updateCookie(chatdata){
+   //update cookie
+   expire=new Date()
+   expire.setTime(Date.now()+(9*365*24*60*60*1000))
+   document.cookie=`chatdata=${JSON.stringify(chatdata)};expires=${expire.toUTCString()}`;
+}

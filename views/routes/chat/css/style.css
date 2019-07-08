@@ -35,8 +35,8 @@ body{
     cursor: pointer;
 }
 div#chat{
-    max-height: 70%;
-    overflow: overlay;
+    max-height: 95%;
+    overflow: scroll;
 }
 
 #message:focus{
@@ -75,7 +75,7 @@ img{
 .row{
     display: block;
 }
-#footer{
+#chatbox{
     width: 70%;
     padding-right: 15px;
     padding-left: 15px;
@@ -86,18 +86,18 @@ img{
     background-color: white;
     border: 1px solid gray;
     border-radius: 20px;
-    position: fixed;
-    bottom: 7%; 
+    position: relative;
+     
 }
-#footer input{
+#chatbox input{
     flex-grow: 2;
     border: none;
     margin-top: 0.1%;
 }
-#footer input:focus{
+#chatbox input:focus{
     box-shadow: none ;
 }
-#footer button {
+#chatbox button {
     margin:0.5%;
 }
 .toast{
@@ -106,3 +106,18 @@ img{
 .d-flex{
     margin-bottom: 0.75rem;
 }
+.c2{
+    padding: 0;
+    position: relative;
+    bottom: -3%;
+}
+#footer{
+   
+    display:flex;
+    font-weight: bold;
+    justify-content: center;
+    bottom:3%;
+    color:white;
+    background-color: black;
+    font-size: 1em;
+ }
