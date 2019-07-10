@@ -39,6 +39,8 @@ router.get('/chats',(req,res)=>{
 })
 
 router.get('/',(req,res)=>{
+  if(req.session.logged)
+   res.redirect('/user')
    res.redirect('/login')
 })
 router.get('/profile',(req,res)=>{

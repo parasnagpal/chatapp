@@ -4,6 +4,11 @@
 const express=require('express')
 const session=require('express-session')
 
+//Body Parser to set linit to req size
+const bodyparser=require('body-parser')
+//formidable
+
+
 //import from API folder
 const App=require('./API/post')
 
@@ -33,10 +38,13 @@ let user_name
 
 
 
-app.use(express.json())
-app.use(express.urlencoded({
-    extended:true
+app.use(bodyparser.json({limit:'2MB'}))
+app.use(bodyparser.urlencoded({
+    extended:true,
+    limit:'2MB'
 }))
+
+
 app.use(session({
     secret:'this is MY secret!!!!',
     resave:true,
@@ -46,6 +54,7 @@ app.use(session({
       maxAge:24*60*60*1000
     }
 }))
+
 
 
 //Socket Connections

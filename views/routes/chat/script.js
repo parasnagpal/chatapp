@@ -32,9 +32,9 @@ $(document).ready(()=>{
              {
                console.log(conversation[time]['n'])
                if(conversation[time]['n'])
-                chatrefresh(conversation[time]['n'],false,chatWith)
+                chatrefresh(conversation[time]['n'],false,chatWith,time)
                if(conversation[time]['m']) 
-                chatrefresh(conversation[time]['m'],true) 
+                chatrefresh(conversation[time]['m'],true,null,time) 
              }
            }
            else{
@@ -71,7 +71,7 @@ $(document).ready(()=>{
   {
      socket.on('incoming',(data)=>{
        if(data.from==chatWith)
-        chatrefresh(data.message,false,data.from)
+        chatrefresh(data.message,false,data.from,Date.now())
 
        if(getCookie('chatdata'))
        chatdata[myName][chatWith][Date.now()]={n:data.message,m:false}
@@ -94,7 +94,7 @@ $(document).ready(()=>{
            for(let time in data[myName][chatWith])
            {
              console.log('entered')
-            chatrefresh(data[myName][chatWith][time],false,chatWith)
+            chatrefresh(data[myName][chatWith][time],false,chatWith,time)
            if(!chatdata[myName])
             chatdata[myName]={}
            if(!chatdata[myName][chatWith])
@@ -126,37 +126,31 @@ $(document).ready(()=>{
   }
 
 
-  function chatrefresh(msg,bool,from){
-      let img_path='../routes/chat/css/me.jpg'
-      if(bool) 
-      {
-           from='me'
-           img_path='../routes/chat/css/default.jpg'
-      }
+  function chatrefresh(msg,bool,from,time){
+      //date  
+      let date=new Date(Date.now())
+      if(time)
+      date=new Date(parseInt(time))
+      
+      img_path='../routes/chat/css/default.jpg'
+      
       if(bool)
       $('#chat')
-      .append(`<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
-                  <div class="toast-header">
-                    <img src="${img_path}" class="rounded mr-2">
-                    <strong class="mr-auto">${from}</strong>
-                    <small>Just Now</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="toast-body">
-                    ${msg}
+      .append(`<div role="alert" aria-live="assertive" aria-atomic="true" class="toast mytoast" data-autohide="false">
+                  <div class="toast-body d-flex flex-column">
+                    <div class="align-self-start">${msg}</div>
+                    <div class="align-self-end">${date.toLocaleString()}</div>  
                   </div>
                 </div>`)
       else
       $('#chat')
-      .append(`<div class='d-flex justify-content-end'><div aria-live="polite" aria-atomic="true" style="position: relative;">
+      .append(`<div class='d-flex justify-content-end notme'><div aria-live="polite" aria-atomic="true" style="position: relative;">
                <div> 
                <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                   <div class="toast-header">
                     <img src="${img_path}" class="rounded mr-2">
                     <strong class="mr-auto">${from}</strong>
-                    <small>Just Now</small>
+                    <small>${date.toLocaleString()}</small>
                     <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>

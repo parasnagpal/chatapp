@@ -16,6 +16,7 @@ html{
     }
 body{
         height:98%;
+        background-color: #f2f2f2;
     }  
 .container{
         height:100%;
@@ -36,6 +37,8 @@ body{
 }
 div#chat{
     max-height: 95%;
+}
+div#chat-container{
     overflow: scroll;
 }
 
@@ -103,9 +106,7 @@ img{
 .toast{
     width: 25em;
 }
-.d-flex{
-    margin-bottom: 0.75rem;
-}
+
 .c2{
     padding: 0;
     position: relative;
@@ -122,6 +123,15 @@ img{
     font-size: 1em;
  }
 
- .d-flex div{
-   background-color: rgb(169, 255, 195);
- } 
+.mytoast{
+    
+} 
+
+.align-self-end{
+    font-size: 0.8em;
+    color:rgb(163, 163, 163);
+}
+
+.notme{
+    margin-bottom: 0.75rem;
+}

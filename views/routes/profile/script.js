@@ -40,7 +40,7 @@ $(document).ready(()=>{
       }
       //reading file if attached
       if(data){
-         reader.readAsText(data)
+         reader.readAsBinaryString(data)
       }
     })
    

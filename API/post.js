@@ -1,6 +1,7 @@
 const express=require('express')
 const app=express()
 
+
 //database
 const database =require('../views/database/sqlite_handle')
 
@@ -83,7 +84,11 @@ let session_username_map={}
 
     app.post('/profile_image',(req,res)=>{
        console.log('image received')
-       database.each(`Update USERS SET photo='${req.body.image}' WHERE username='${req.body.name}'`)
+       //console.log(req.body.image)
+       /*fs.writeFile('./views/images/'+req.body.name+'.jpg',req.body.image,(err)=>{
+         console.error(err)
+       })*/
+       //database.each(`Update USERS SET photo='${req.body.image}' WHERE username='${req.body.name}'`)
        res.send('hello')
     })
  
