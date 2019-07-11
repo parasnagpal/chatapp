@@ -44,7 +44,9 @@ router.get('/',(req,res)=>{
    res.redirect('/login')
 })
 router.get('/profile',(req,res)=>{
-   res.sendFile(__dirname+'/profile/index.html')
+  if(!req.session.logged)
+   res.redirect('/login')
+  res.sendFile(__dirname+'/profile/index.html')
 })
 
 router.use((req,res)=>{

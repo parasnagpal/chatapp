@@ -1,6 +1,11 @@
 const express=require('express')
 const app=express()
 
+//formidable
+const formidable=require('formidable')
+const fs=require('fs')
+
+const path=require('path')
 
 //database
 const database =require('../views/database/sqlite_handle')
@@ -81,15 +86,39 @@ let session_username_map={}
     app.post('/myName',(req,res)=>{
         res.send(session_username_map[req.body.session])
     })
+    app.post('/photo',(req,res)=>{
+        //database.each(`SELECT photo from users WHERE username='paras'`,(err,data)=>{
+          /*  console.log(data)
+            res.sendFile('./views/images/'+req.body.name+'.jpg')
+        })*/
+        let file=path.join(__dirname,`/../views/images/`+req.body.name+`.jpg`)
+        fs.readFile(file,(err,data)=>{
+            if(err)
+             res.send(false)
+            else res.sendFile(file) 
+        })
+        res.sendFile(file)
+    })
 
+    //set profile Image
     app.post('/profile_image',(req,res)=>{
-       console.log('image received')
-       //console.log(req.body.image)
-       /*fs.writeFile('./views/images/'+req.body.name+'.jpg',req.body.image,(err)=>{
-         console.error(err)
-       })*/
-       //database.each(`Update USERS SET photo='${req.body.image}' WHERE username='${req.body.name}'`)
-       res.send('hello')
+
+       let form = new formidable.IncomingForm();
+       form.parse(req)
+       let image_name
+       form.uploadDir='./views/images'
+       form.keepExtensions=true
+       form.maxFieldsSize = 2 * 1024 * 1024
+       form.on('field',(name,value)=>{
+           image_name=value
+       })
+       form.on('file',(name,file)=>{
+         fs.rename(file.path,'./views/images/'+image_name+'.jpg',(err)=>{
+               console.error(err)
+          })
+          database.each(`update users SET photo='./views/images/${image_name}.jpg'`)
+       })
+       res.redirect('/profile')
     })
  
 } 

@@ -11,7 +11,8 @@ $(document).ready(()=>{
 
   let myName
   let sessionID=getCookie('session')
-
+ 
+  popover()
 
   //Getting myName
   //Session ID from Cookie
@@ -187,6 +188,9 @@ $(document).ready(()=>{
   }
   return false;
 }
+$('span').click((e)=>{
+  console.log(e.text())
+})
   
 })
 
@@ -203,4 +207,26 @@ function updateCookie(chatdata){
    expire=new Date()
    expire.setTime(Date.now()+(9*365*24*60*60*1000))
    document.cookie=`chatdata=${JSON.stringify(chatdata)};expires=${expire.toUTCString()}`;
+}
+
+function popover(){
+  $('button[data-toggle="popover"]').popover({
+    html:true,
+    content:`<div id='emoji'>
+               <span>🙂</span>
+               <span>😎</span>
+               <span>😶</span>
+               <span>😛</span>
+               <span>😂</span>
+               <span>😍</span>
+             </div>`,
+    placement:'top'
+  })
+}
+function append(str)
+{
+  console.log(str)
+  console.log('str')
+
+  $('input').append(str)
 }

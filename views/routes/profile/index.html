@@ -24,7 +24,8 @@
         <div class="row image">
             <img src='https://image.flaticon.com/icons/png/512/37/37943.png' id='image'> 
         </div>
-        <div class="row justify-content-center">
+        <form id='form' action="/profile_image" enctype="multipart/form-data" class="row justify-content-center" method="POST">
+                <input id='name' name='name' type="text">
                 <input type="file" name='profile' accept="image/*" onchange="previewfile()">
                 <button id='submit'>Submit</button>
         </div>    

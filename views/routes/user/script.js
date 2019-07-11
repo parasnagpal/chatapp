@@ -74,8 +74,18 @@ $(document).ready(()=>{
     function updatelist(arr){
        
       for(let a of arr) 
-      {
-       
+      { 
+        let image='https://image.flaticon.com/icons/png/512/37/37943.png'
+        $.post('photo',{name:a},(data)=>{
+          if(data)
+          {
+           let reader=new FileReader()
+           reader.readAsDataURL(data)
+           reader.onloadend=()=>{
+             image=reader.result
+           }
+          } 
+        })
         $('#chats')
            .append(
             $('<div>')
@@ -86,7 +96,7 @@ $(document).ready(()=>{
               globalState=a;
               $('#form').submit()
             })
-            .append('<img src="https://image.flaticon.com/icons/png/512/37/37943.png" class="rounded-circle" >')
+            .append(`<img src='${image}' class="rounded-circle" >`)
             .append(
               $('<input disabled>')
                .attr('value',a)
