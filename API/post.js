@@ -87,17 +87,23 @@ let session_username_map={}
         res.send(session_username_map[req.body.session])
     })
     app.post('/photo',(req,res)=>{
-        //database.each(`SELECT photo from users WHERE username='paras'`,(err,data)=>{
-          /*  console.log(data)
-            res.sendFile('./views/images/'+req.body.name+'.jpg')
-        })*/
-        let file=path.join(__dirname,`/../views/images/`+req.body.name+`.jpg`)
-        fs.readFile(file,(err,data)=>{
-            if(err)
-             res.send(false)
-            else res.sendFile(file) 
-        })
+       let promise=new Promise((resolve,reject)=>{
+        database.each(`SELECT photo from users WHERE username='${req.body.name}'`,(err,data)=>{
+          if(err)
+           reject('err')
+          if(data.photo)
+           resolve(data.photo)
+          else reject('photo not uploaded')  
+        }) 
+      })
+      promise.then(()=>{
+        let file=path.join(__dirname,`/../views/images/`+'paras'+`.jpg`)
         res.sendFile(file)
+      }).catch(()=>{
+        res.send('NOT Found')
+      })
+        
+        
     })
 
     //set profile Image
@@ -116,7 +122,7 @@ let session_username_map={}
          fs.rename(file.path,'./views/images/'+image_name+'.jpg',(err)=>{
                console.error(err)
           })
-          database.each(`update users SET photo='./views/images/${image_name}.jpg'`)
+          database.each(`update users SET photo='./views/images/${image_name}.jpg' where username='${image_name}'`)
        })
        res.redirect('/profile')
     })

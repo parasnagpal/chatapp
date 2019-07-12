@@ -1,4 +1,5 @@
 
+
 $(document).ready(()=>{
 
    $('#form').attr('action','/chats')
@@ -8,6 +9,7 @@ $(document).ready(()=>{
    let socket=io()
    let myName
    let sessionID
+   let checkphoto={}
    
    //Get Identity from server
    $.post('identity',{},(data)=>{
@@ -76,16 +78,7 @@ $(document).ready(()=>{
       for(let a of arr) 
       { 
         let image='https://image.flaticon.com/icons/png/512/37/37943.png'
-        $.post('photo',{name:a},(data)=>{
-          if(data)
-          {
-           let reader=new FileReader()
-           reader.readAsDataURL(data)
-           reader.onloadend=()=>{
-             image=reader.result
-           }
-          } 
-        })
+        let reader
         $('#chats')
            .append(
             $('<div>')
@@ -113,7 +106,55 @@ $(document).ready(()=>{
               })
             )
          )
-       
+        if(!checkphoto[a])
+         {
+           checkphoto[a]='nul'
+           //$.post('photo',{name:a},(data)=>{
+             /*if(data)
+               {
+                 reader=new FileReader()
+                 reader.readAsDataURL(data)
+                 reader.onloadend=()=>{
+                   $(`#${a} img`).src=reader.result
+                 }
+               }
+              if(data){ 
+                checkphoto[a]=data
+                $(`#${a} img`).src=data
+              }
+           }) */
+/*
+           async function photo(){
+            let blob=fetch('/photo').then(r=>r.blob())
+            let dataUrl = await new Promise(resolve => {
+              let reader = new FileReader();
+              reader.onload = () => resolve(reader.result);
+              reader.readAsDataURL(blob);
+            });
+            $(`#${a} img`).src=dataUrl
+            checkphoto[a]=dataUrl
+           }
+           photo()*/
+
+           fetch('/photo').then(function(response) {
+            if(response.ok) {
+              return response.blob();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function(myBlob) { 
+            var objectURL = URL.createObjectURL(myBlob); 
+            checkphoto[a] = objectURL; 
+          }).catch(function(error) {
+            console.log('There has been a problem with your fetch operation: ', error.message);
+          });
+         }
+         
+         if(checkphoto[a])
+         {
+           if(checkphoto[a]!='nul')
+            $(`#${a} img`).attr('src',checkphoto[a])
+           console.log(checkphoto) 
+         }
 
          if(friendsOnline[a])
          {
