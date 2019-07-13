@@ -54,6 +54,11 @@ $(document).ready(()=>{
 
   })
 
+    //emoji insert
+    $('.emojis').click((e)=>{
+      console.log('emoji')
+      console.log(this)
+    })
 
   $('#header').text(chatWith)
 
@@ -213,15 +218,20 @@ function popover(){
   $('button[data-toggle="popover"]').popover({
     html:true,
     content:`<div id='emoji'>
-               <span>🙂</span>
+               <a onclick="insert(🙂)" class='emojis'>🙂</a>
                <span>😎</span>
                <span>😶</span>
                <span>😛</span>
                <span>😂</span>
-               <span>😍</span>
+               <span>😝</span>
              </div>`,
     placement:'top'
   })
+    //emoji insert
+    $('#emoji span').click((e)=>{
+      console.log('emoji')
+      console.log(this)
+    })
 }
 function append(str)
 {
@@ -229,4 +239,7 @@ function append(str)
   console.log('str')
 
   $('input').append(str)
+}
+function insert(x){
+  console.log(x)
 }
