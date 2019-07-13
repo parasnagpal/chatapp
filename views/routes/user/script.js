@@ -10,6 +10,7 @@ $(document).ready(()=>{
    let myName
    let sessionID
    let checkphoto={}
+   let unreaddata
    
    //Get Identity from server
    $.post('identity',{},(data)=>{
@@ -97,7 +98,7 @@ $(document).ready(()=>{
                .attr('type','text')
                .attr('class','friends')
             )
-            .append('<span>')
+            
             .append(
               $('<input type="submit">')
               .val('Chat')
@@ -107,18 +108,17 @@ $(document).ready(()=>{
                 globalState=a;
               })
             )
+            .append('<span>')
          )
-        socket.emit('unread') 
-        socket.on('unread',(data)=>{
-          if(data)
-           if(data[myName])
-            if(data[myName][a])
-             {
-               $('#'+a+" span").html(`
-                               <span class="badge badge-pill badge-danger">New Message</span>
-                               `)
-             }
-        })
+         //check unread
+         if(unreaddata)
+         if(unreaddata[myName])
+          if(unreaddata[myName][a])
+           {
+             $('#'+a+" span").html(`
+                             <span class="badge badge-pill badge-danger">New Message</span>
+                             `)
+           }
         //Check if photo request has been made earlier
         if(!checkphoto[a])
          {
@@ -222,6 +222,39 @@ $(document).ready(()=>{
     //Check if friends are online
      setInterval(()=>isOnline()
      ,3000)
+
+
+    //get unread data
+    socket.emit('unread') 
+    socket.on('unread',(data)=>{
+          unreaddata=data
+          
+          if(data)
+           if(data[myName])
+           {
+            for(let x in data[myName])
+            {
+             
+             if(!chats.find((name)=>{ return name==x}))
+             {
+              console.log(x)
+              chats.push(x)
+              updatechats()
+              let fr=[]
+              fr.push(x) 
+              updatelist(fr)
+             }
+            }
+           } 
+           /*if(!chats.find(people))
+             {
+              chats.push(people)
+              updatechats()
+              let fr=[]
+              fr.push(people) 
+              updatelist(fr)
+             }*/
+        })
 
     function setCookie(cname, cvalue, exdays) {
       var d = new Date();
