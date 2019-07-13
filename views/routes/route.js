@@ -17,6 +17,11 @@ app.use(session({
 router.get('/login',(req,res)=>{
   res.sendFile(__dirname+'/login/public.html')
 })
+
+router.get('/login/error',(req,res)=>{
+  res.sendFile(__dirname+'/login/loginerr.html')
+})
+
 router.get('/disclaimer',(req,res)=>{
   res.sendFile(__dirname+'/disclaimer/index.html')
 })

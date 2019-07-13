@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MyChat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
+    <link rel="stylesheet" href="/animate/animate.css">
+    <link rel="stylesheet" href="/routes/login/css/style.css">
+    <link rel='icon' href="/icon/MyChat.png">
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="/routes/login/script.js"></script>
+    <script src="/routes/common_script.js"></script>
+    
+</head>
+<body>
+    
+    <div class="container my-1 rounded">
+    
+    <!-- Head -->
+        <h1 class="badge badge-dark m-1" id='head'>MyChat</h1>
+    <!-- Head -->
+
+    <!--why whatschat-->
+        <div class="row m-2 rounded why">
+            <div class='col-4 what'>Why MyChat?</div>
+        </div>
+    <!--why whatschat-->
+    
+    <!--Login Form-->
+       <form method="POST" action="http://localhost:4000/login" id='f1'>
+
+        <div id='log' class='rounded container-fluid'>
+            <div class="row"><div style="font-size: 0.8em;">Username/Password Incorrect</div></div>
+            <div class='row'>   
+              <div class="form-group col-10 col-md-4">  
+                <label  for="userverify">Username</label>
+                <input class='form-control'  type='text' name='username' id='userverify'>
+              </div> 
+              <div class="form-group col-10 col-md-4">
+                <label >Password</label>
+                <input class='form-control' type='password' name='password' id='password'>
+              </div>
+              <div class='form-group col-3 col-md-2' style="max-width: unset;">
+                <label></label>
+                <button class=' btn btn-outline-dark my-2 form-control' id='login'>Login</button>
+              </div>
+            </div>
+        </div>
+
+       </form>   
+   
+    <div class='row justify-content-center'>
+
+       <div class="col-10 col-md-5 d-flex flex-column justify-content-center">
+         <img src="/routes/login/css/43145.svg" id='svg'>
+             <!-- Anime JS Text Animation -->
+              <div class="container height">
+                  <div class="row">
+                   <h1 class="ml11 ">
+                     <span class="col text-wrapper align-self-center p-0">
+                        <span class="line line1"></span>
+                        <span class="letters">Connect hassle free</span>
+                     </span>
+                   </h1>
+                  </div>
+              </div>
+           <!-- Anime JS Text Animation -->
+       </div>  
+
+      
+
+    </div> 
+      
+    </div>
+
+    <div class="container c2">
+       <div id='footer' class="row">
+            <span id='_1' class="col">WhatsChat Inc.</span>
+            <span id='_2' class="mx-2 mr-1 col-3 col-md-2">Contact Us</span>
+            <a href="/disclaimer"><span id='_3' class="mx-2 mr-1 col-2">Disclamer</span></a>
+       </div>
+    </div>
+
+</body>
+</html>

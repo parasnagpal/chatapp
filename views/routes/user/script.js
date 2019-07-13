@@ -23,6 +23,8 @@ $(document).ready(()=>{
         (data)=>{
           myName=data
           console.log(myName)
+   }).then(()=>{
+    socket.emit('unread')
    })
 
 
@@ -78,7 +80,6 @@ $(document).ready(()=>{
       for(let a of arr) 
       { 
         let image='https://image.flaticon.com/icons/png/512/37/37943.png'
-        let reader
         $('#chats')
            .append(
             $('<div>')
@@ -96,6 +97,7 @@ $(document).ready(()=>{
                .attr('type','text')
                .attr('class','friends')
             )
+            .append('<span>')
             .append(
               $('<input type="submit">')
               .val('Chat')
@@ -106,54 +108,47 @@ $(document).ready(()=>{
               })
             )
          )
+        socket.emit('unread') 
+        socket.on('unread',(data)=>{
+          if(data)
+           if(data[myName])
+            if(data[myName][a])
+             {
+               $('#'+a+" span").html(`
+                               <span class="badge badge-pill badge-danger">New Message</span>
+                               `)
+             }
+        })
+        //Check if photo request has been made earlier
         if(!checkphoto[a])
          {
-           checkphoto[a]='nul'
-           //$.post('photo',{name:a},(data)=>{
-             /*if(data)
-               {
-                 reader=new FileReader()
-                 reader.readAsDataURL(data)
-                 reader.onloadend=()=>{
-                   $(`#${a} img`).src=reader.result
-                 }
-               }
-              if(data){ 
-                checkphoto[a]=data
-                $(`#${a} img`).src=data
+           //Fetch photo
+           fetch('/photo',{
+                            method:'POST'
+                           ,body:JSON.stringify({'name':a}),
+                           headers: {"Content-Type": "application/json"}
+                          })
+            .then(function(response) {
+                if(response.ok) {
+                  return response.blob();    //convert response to blob - blob constructor
+                }
+             throw new Error('Network response was not ok.');
+             })
+             .then(function(myBlob) { 
+                    let reader=new FileReader()
+                    reader.readAsDataURL(myBlob)
+                    reader.onloadend=()=>{
+                    checkphoto[a]=reader.result
               }
-           }) */
-/*
-           async function photo(){
-            let blob=fetch('/photo').then(r=>r.blob())
-            let dataUrl = await new Promise(resolve => {
-              let reader = new FileReader();
-              reader.onload = () => resolve(reader.result);
-              reader.readAsDataURL(blob);
+             }).catch(function(error) {
+               console.log('There has been a problem with your fetch operation: ', error.message);
             });
-            $(`#${a} img`).src=dataUrl
-            checkphoto[a]=dataUrl
-           }
-           photo()*/
-
-           fetch('/photo').then(function(response) {
-            if(response.ok) {
-              return response.blob();
-            }
-            throw new Error('Network response was not ok.');
-          }).then(function(myBlob) { 
-            var objectURL = URL.createObjectURL(myBlob); 
-            checkphoto[a] = objectURL; 
-          }).catch(function(error) {
-            console.log('There has been a problem with your fetch operation: ', error.message);
-          });
          }
          
          if(checkphoto[a])
          {
-           if(checkphoto[a]!='nul')
+           if(checkphoto[a].slice(5,9)!='text')
             $(`#${a} img`).attr('src',checkphoto[a])
-           console.log(checkphoto) 
          }
 
          if(friendsOnline[a])
@@ -214,6 +209,9 @@ $(document).ready(()=>{
        $('#chats').html('')
        updatelist(chats)
     })
+    
+    
+
 
     //Pinging Server that I am online
      setInterval(()=>{

@@ -13,7 +13,10 @@ const database =require('../views/database/sqlite_handle')
 let session_username_map={}
 
 
-
+app.use(express.json())
+app.use(express.urlencoded({
+  extended:true
+}))
 //post requests
 {
     app.post('/signup',(req,res)=>{
@@ -33,21 +36,24 @@ let session_username_map={}
     })
  
     app.post('/login',(req,res)=>{
-        //database search query
-        database.each(`SELECT * from USERS WHERE username='${req.body.username}'`,(err,data)=>{
-            if(err) console.log("Database Error:"+err)
-            if(data.password===req.body.password) 
-            {
-             req.session.logged=true;
-             session_username_map[req.session.id]=req.body.username
-             res.redirect('/user')
-            }
-            else
-             { 
-               res.redirect('/login')  
-             }
- 
+        
+       let loginPromise=new Promise((resolve,reject)=>{
+           database.each(`SELECT * from USERS WHERE username='${req.body.username}'`,(err,data)=>{
+             if(err) reject(err)
+             if(data.password===req.body.password)
+              resolve()
+             else reject('Username/Password Incorrect')    
+           })
         })
+
+        loginPromise.then(()=>{
+          req.session.logged=true;
+          session_username_map[req.session.id]=req.body.username
+          res.redirect('/user')
+          }).catch((message)=>{
+           console.log(message)
+           res.redirect('/login/error')
+         })
         user_name=req.body.username
     })
  
@@ -84,7 +90,7 @@ let session_username_map={}
     })
  
     app.post('/myName',(req,res)=>{
-        res.send(session_username_map[req.body.session])
+        res.send(session_username_map[req.sessionID])
     })
     app.post('/photo',(req,res)=>{
        let promise=new Promise((resolve,reject)=>{
@@ -97,7 +103,7 @@ let session_username_map={}
         }) 
       })
       promise.then(()=>{
-        let file=path.join(__dirname,`/../views/images/`+'paras'+`.jpg`)
+        let file=path.join(__dirname,`/../views/images/`+req.body.name+`.jpg`)
         res.sendFile(file)
       }).catch(()=>{
         res.send('NOT Found')

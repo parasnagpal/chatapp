@@ -63,8 +63,6 @@ app.use(session({
       map[socket.id]=user_name
       mapAlive[user_name]=false
       revmap[user_name]=socket.id
-
-      console.log(tempChatData)
       
 
       socket.on('msgfor',(data)=>{
@@ -85,7 +83,10 @@ app.use(session({
       })
       
 
-        socket.emit('unread',tempChatData)
+      socket.emit('unread',tempChatData)
+      socket.on('unread',()=>{
+          socket.emit('unread',tempChatData)
+      })
       
       socket.on('received',(data)=>{
         //clear chat stored on server
