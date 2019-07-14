@@ -14,18 +14,18 @@
 
 @media (min-width:466px){
     input.friends{
-        width:65% !important;
+        width:60% !important;
     }
 }
 @media (min-width:768px){
     input.friends{
-        width:72% !important;
+        width:68% !important;
     }
 }
 @media (min-width:992px)
 {
     input.friends{
-        width:80% !important;
+        width:75% !important;
     }
 } 
 @media(max-width:768px){
@@ -162,4 +162,8 @@ img{
     padding: 0;
     position: relative;
     bottom: -3%;
+}
+label{
+    margin: 0 !important;
+    font-size: 0.8em;
 }

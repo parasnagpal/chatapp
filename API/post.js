@@ -76,13 +76,13 @@ app.use(express.urlencoded({
  
     //send user data
     app.post('/user',(req,res)=>{
-       database.each(`SELECT * from USERS WHERE username='${req.body.name}'`,(err,data)=>{
+       database.each(`SELECT username,fname,lname,email,mobile from USERS WHERE username='${req.body.name}'`,(err,data)=>{
          if(err) console.log(err)
          if(data)
             res.send(data)    
       }) 
     })
- 
+    
  
      //Tells the identity to the user
     app.post('/identity',(req,res)=>{

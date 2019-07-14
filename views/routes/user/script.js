@@ -1,16 +1,17 @@
-
+let globalState
 
 $(document).ready(()=>{
 
    $('#form').attr('action','/chats')
 
    
-   let globalState
+  
    let socket=io()
    let myName
    let sessionID
    let checkphoto={}
    let unreaddata
+   let userdata={}
    
    //Get Identity from server
    $.post('identity',{},(data)=>{
@@ -38,8 +39,12 @@ $(document).ready(()=>{
         chats=JSON.parse(localStorage.arr) 
 
     for(let people of chats)
-      newMessageCount[people]=0;    
-    
+     {
+      newMessageCount[people]=0;
+      $.post('/user',{name:people},(data)=>{
+        userdata[people]=data
+      })    
+     }
     $('#error').hide()
     //Insert friends
         
@@ -82,34 +87,8 @@ $(document).ready(()=>{
       { 
         let image='https://image.flaticon.com/icons/png/512/37/37943.png'
         $('#chats')
-           .append(
-            $('<div>')
-            .attr('id',a)
-            .attr('class','alert alert-light mx-3')
-            .attr('role','alert')
-            .click(()=>{
-              globalState=a;
-              $('#form').submit()
-            })
-            .append(`<img src='${image}' class="rounded-circle" >`)
-            .append(
-              $('<input disabled>')
-               .attr('value',a)
-               .attr('type','text')
-               .attr('class','friends')
-            )
-            
-            .append(
-              $('<input type="submit">')
-              .val('Chat')
-              .attr('id','btn-'+a)
-              .attr('class','chat-btns btn btn-outline-dark ')
-              .click(()=>{
-                globalState=a;
-              })
-            )
-            .append('<span>')
-         )
+           .append(card(a,image,userdata[a]))
+           
          //check unread
          if(unreaddata)
          if(unreaddata[myName])
@@ -265,3 +244,55 @@ $(document).ready(()=>{
     
 })
 
+//layout
+function card(username,img_src,info){
+  
+      if(info)
+      return(`
+      <div id='${username}' class='alert alert-light mx-3 d-flex' role='alert' onclick="stateChange('${username}')">
+        <img src='${img_src}'>
+        <div class='flex-grow-1 mx-2'>${info.fname+" "+info.lname}</div>
+        <div class='flex-grow-1 mx-2'>
+           <label class='align-self-start'>Username</label>
+          <div >${info.username}</div>
+        </div>
+        <span></span>
+        <div>
+         <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+           <i class='far fa-comment-alt'></i>
+         </button>
+         <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+           <i class='fas fa-video'></i>
+         </button>
+        </div>
+      </div>
+  `)
+  else
+  return(`
+  <div id='${username}' class='alert alert-light mx-3 d-flex' role='alert' onclick="stateChange('${username}')">
+    <img src='${img_src}'>
+    
+    <div class='flex-grow-1 mx-2'>${username}</div>
+    <span></span>
+    <div>
+     <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+       <i class='far fa-comment-alt'></i>
+     </button>
+     <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+       <i class='fas fa-video'></i>
+     </button>
+    </div>
+  </div>
+`)
+  
+  
+  
+
+  
+}
+
+function stateChange(name){
+  console.log(name)
+  globalState=name
+  $("#form")[0].submit()
+}

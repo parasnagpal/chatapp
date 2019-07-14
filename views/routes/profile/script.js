@@ -21,6 +21,8 @@ $(document).ready(()=>{
                  $('.email').text(data.email)
                  $('.mobile').text(data.mobile)
             })   
+    }).then(()=>{
+      fetch()
     })
    
   
@@ -42,6 +44,31 @@ $(document).ready(()=>{
           }
         }
         return "";
+      }
+
+    function fetch(){
+      //Fetch photo
+      fetch('/photo',{
+        method:'POST'
+       ,body:JSON.stringify({'name':myName}),
+       headers: {"Content-Type": "application/json"}
+      })
+       .then(function(response) {
+       if(response.ok) {
+        return response.blob();    //convert response to blob - blob constructor
+       }
+         throw new Error('Network response was not ok.');
+       })
+       .then(function(myBlob) { 
+          let reader=new FileReader()
+          reader.readAsDataURL(myBlob)
+          reader.onloadend=()=>{
+            if(reader.result.slice(5,9)!='text')  
+             document.querySelector('image').src=reader.result
+       }
+       }).catch(function(error) {
+       console.log('There has been a problem with your fetch operation: ', error.message);
+       });
       }
 })
 
