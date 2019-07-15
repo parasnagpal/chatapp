@@ -4,11 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>   
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' >
     <link rel='stylesheet' href='/routes/profile/css/style.css'>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ></script> 
     <script src='/routes/profile/script.js'></script>
-    <title>MyChat</title>
+    <title>MyChat Profile</title>
 </head>
 <body>
     <div class="container my-1">
@@ -24,23 +30,56 @@
         <div class="row image">
             <img src='https://image.flaticon.com/icons/png/512/37/37943.png' id='image'> 
         </div>
+
         <form id='form' action="/profile_image" enctype="multipart/form-data" class="row justify-content-center" method="POST">
                 <input id='name' name='name' type="text">
                 <input type="file" name='profile' accept="image/*" onchange="previewfile()">
                 <button id='submit'>Submit</button>
-        </div>    
-        <div class='row justify-content-center'>
-            <div class='col-4'>Name</div> <div class='col name'></div>
+        </form>    
+        
+        <div class="row justify-content-center">
+          <ul class="nav nav-tabs col-9 " role="tablist" id="v-pills-tab">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="pill" href="#info-table" role="tab" aria-controls="info-table">Personal Info</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="pill" href="#privacy-settings" role="tab" aria-controls="privacy-settings">Privacy Settings</a>
+            </li>
+          </ul>
         </div>
-        <div class='row justify-content-center'>    
-            <div class='col-4'>Username</div> <div class='col username disabled' aria-disabled="true"></div>
-        </div>
-        <div class='row justify-content-center'>    
-            <div class='col-4'>Email Address</div> <div class='col email'></div>
-        </div>
-        <div class='row justify-content-center'>              
-            <div class='col-4'>Mobile No.</div> <div class='col mobile'></div>            
-        </div>
+
+          <div class="tab-content row justify-content-center" id="v-pills-tabContent"> 
+              <table class="table table-borderless fade show active col-7" id='info-table' aria-selected='true' role="tabpanel" aria-labelledby="info-table-tab">
+               <tbody>
+                 <tr>
+                   <th scope="row" colspan="3">Name</th>
+                   <td class="name"></td>
+                   <td><i class="far fa-edit"></i></td>
+                 </tr>
+                 <tr>
+                   <th scope="row" colspan="3">username</th>
+                   <td class="username"></td>
+                   <td><i class="fa fa-lock"></i></td>
+                </tr>
+                 <tr>
+                   <th scope="row" colspan="3">Email Id</th>
+                   <td class="email">Not Added</td>
+                   <td><i class="far fa-edit"></i></td>
+                </tr>
+                 <tr>
+                   <th scope="row" colspan="3">Mobile</th>
+                   <td class='mobile'>Not Added</td>
+                   <td><i class="far fa-edit"></i></td>
+                </tr>
+               </tbody>
+            </table>
+
+            <div id='privacy-settings' class="fade" aria-selected='false' role="tabpanel" aria-labelledby="privacy-settings-tab">
+            </div>
+            
+          </div>
+
+        
     </div>
 </body>
 </html>

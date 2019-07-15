@@ -18,7 +18,9 @@ $(document).ready(()=>{
                  $('#name').val(myName).hide()
                  $('.name').text(data.fname+" "+data.lname)
                  $('.username').text(data.username)
-                 $('.email').text(data.email)
+                 if(data.email)
+                   $('.email').text(data.email)
+                 if(data.mobile)  
                  $('.mobile').text(data.mobile)
             })   
     }).then(()=>{
@@ -26,8 +28,19 @@ $(document).ready(()=>{
     })
    
   
-
+    //Events
+    $('.nav-link').click((e)=>{
+       $('.nav-link').attr('class','nav-link').attr('aria-selected','false')
+       $('.fade').removeClass('show active')
+       $(e.target).attr('class','nav-link active').attr('aria-selected','true')
+       $($(e.target).attr('href')).addClass('show active')
+    })
     
+    //style
+    if($('body').width()<=991)
+      $('th').width($('body').width()*0.2)
+    else 
+      $('th').width($('body').width()*0.3)
 
     function getCookie(cname) {
         var name = cname + "=";
@@ -70,6 +83,8 @@ $(document).ready(()=>{
        console.log('There has been a problem with your fetch operation: ', error.message);
        });
       }
+   
+
 })
 
 function previewfile(){

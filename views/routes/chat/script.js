@@ -54,9 +54,9 @@ $(document).ready(()=>{
 
   })
 
-    //emoji insert
+    //event
     $('.emojis').click((e)=>{
-      console.log('emoji')
+      console.log(e.target)
       console.log(this)
     })
 
@@ -217,14 +217,18 @@ function updateCookie(chatdata){
 function popover(){
   $('button[data-toggle="popover"]').popover({
     html:true,
-    content:`<div id='emoji'>
+    content:`<html>
+               <body>
+               <div id='emoji'>
                <a onclick="insert(🙂)" class='emojis'>🙂</a>
                <span>😎</span>
                <span>😶</span>
                <span>😛</span>
                <span>😂</span>
                <span>😝</span>
-             </div>`,
+             </div>
+             </body>
+             </html>`,
     placement:'top'
   })
     //emoji insert
