@@ -249,15 +249,15 @@ function card(username,img_src,info){
   
       if(info)
       return(`
-      <div id='${username}' class='alert alert-light mx-3 d-flex' role='alert' onclick="stateChange('${username}')">
-        <img src='${img_src}'>
+      <div id='${username}' class='alert alert-light mx-3 row' role='alert' onclick="stateChange('${username}')">
+        <img src='${img_src}' >
         <div class='flex-grow-1 mx-2'>${info.fname+" "+info.lname}</div>
-        <div class='flex-grow-1 mx-2'>
+        <div class='flex-grow-1 mx-2 '>
            <label class='align-self-start'>Username</label>
-          <div >${info.username}</div>
+          <div style="padding-top:0;">${info.username}</div>
         </div>
-        <span></span>
-        <div>
+        <span ></span>
+        <div >
          <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
            <i class='far fa-comment-alt'></i>
          </button>

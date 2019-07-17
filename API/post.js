@@ -93,6 +93,7 @@ app.use(express.urlencoded({
         res.send(session_username_map[req.sessionID])
     })
     app.post('/photo',(req,res)=>{
+      console.log('photo')
        let promise=new Promise((resolve,reject)=>{
         database.each(`SELECT photo from users WHERE username='${req.body.name}'`,(err,data)=>{
           if(err)

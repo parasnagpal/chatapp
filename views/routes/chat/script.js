@@ -193,9 +193,7 @@ $(document).ready(()=>{
   }
   return false;
 }
-$('span').click((e)=>{
-  console.log(e.text())
-})
+
   
 })
 
@@ -220,7 +218,7 @@ function popover(){
     content:`<html>
                <body>
                <div id='emoji'>
-               <a onclick="insert(🙂)" class='emojis'>🙂</a>
+               <a>🙂</a>
                <span>😎</span>
                <span>😶</span>
                <span>😛</span>
@@ -235,6 +233,9 @@ function popover(){
     $('#emoji span').click((e)=>{
       console.log('emoji')
       console.log(this)
+    })
+    document.querySelector('a').addEventListener('click',()=>{
+      console.log('a')
     })
 }
 function append(str)

@@ -13,20 +13,29 @@
   }
 
 @media (min-width:466px){
-    input.friends{
+  /* input.friends{
         width:60% !important;
     }
+    .alert-danger input.friends{
+        width: 65% !important;
+    }*/
 }
 @media (min-width:768px){
-    input.friends{
+  /*  input.friends{
         width:68% !important;
     }
+    .alert-danger input.friends{
+        width: 73% !important;
+    }*/
 }
 @media (min-width:992px)
 {
-    input.friends{
+  /*  input.friends{
         width:75% !important;
     }
+    .alert-danger input.friends{
+        width: 80% !important;
+    }*/
 } 
 @media(max-width:768px){
     .chat-btns{
@@ -38,8 +47,11 @@
     font-size: 1em;
     color:white;
 }
-html,body{
+html{
     height: 100%;
+}
+body{
+    height: 97%;
 }
 
 div.container.rounded{
@@ -166,4 +178,7 @@ img{
 label{
     margin: 0 !important;
     font-size: 0.8em;
+}
+.row-col{
+    max-width: unset !important;
 }

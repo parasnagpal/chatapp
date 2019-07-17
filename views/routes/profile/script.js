@@ -1,10 +1,11 @@
+
+
 $(document).ready(()=>{
 
     let myName
     let sessionID=getCookie('session')
     
     $('#submit').prop('disabled',true)
-    
     
     //get identity from server
     $.post('myName',
@@ -21,19 +22,18 @@ $(document).ready(()=>{
                  if(data.email)
                    $('.email').text(data.email)
                  if(data.mobile)  
-                 $('.mobile').text(data.mobile)
+                 $('.mobile').text(data.mobile)   
             })   
-    }).then(()=>{
-      fetch()
     })
    
   
     //Events
     $('.nav-link').click((e)=>{
        $('.nav-link').attr('class','nav-link').attr('aria-selected','false')
-       $('.fade').removeClass('show active')
+       $('.show').addClass('fade')
+       $('.fade').removeClass('show').removeClass('active')
        $(e.target).attr('class','nav-link active').attr('aria-selected','true')
-       $($(e.target).attr('href')).addClass('show active')
+       $($(e.target).attr('href')).addClass('show active').removeClass('fade')
     })
     
     //style
@@ -60,6 +60,7 @@ $(document).ready(()=>{
       }
 
     function fetch(){
+      console.log('fetch')
       //Fetch photo
       fetch('/photo',{
         method:'POST'
@@ -68,6 +69,7 @@ $(document).ready(()=>{
       })
        .then(function(response) {
        if(response.ok) {
+         console.log('response')
         return response.blob();    //convert response to blob - blob constructor
        }
          throw new Error('Network response was not ok.');
