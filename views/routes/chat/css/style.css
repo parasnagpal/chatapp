@@ -11,15 +11,13 @@
     }*/
 
    
-html{
-        height: 100%;
-    }
+
 body{
-        height:98%;
+        height:96vh;
         background-color: #f2f2f2;
     }  
 .container{
-        height:100%;
+        height:78%;
     }
 #head{
         text-align: center;
@@ -104,7 +102,7 @@ img{
     margin:0.5%;
 }
 .toast{
-    width: 25em;
+    width: 50vw;
 }
 
 .c2{
@@ -123,9 +121,7 @@ img{
     font-size: 1em;
  }
 
-.mytoast{
-    
-} 
+
 
 .align-self-end{
     font-size: 0.8em;
@@ -134,4 +130,12 @@ img{
 
 .notme{
     margin-bottom: 0.75rem;
+}
+.file-attach button{
+  cursor: pointer;
+  width: 3vw;
+  
+}
+.file-attach input{
+    display: none;
 }

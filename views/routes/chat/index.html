@@ -8,12 +8,14 @@
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/routes/chat/css/style.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
     <script src="/socket.io/socket.io.js"></script>
-    <link rel="stylesheet" href="/routes/chat/css/style.css">
     <script src="/routes/chat/script.js"></script>
+
 </head>
 <body>
     
@@ -30,19 +32,16 @@
     </div>
     <div id='chatbox'>
           <input type='text' id='message' class='form-control col'>
-          <button class="rounded"><i class="fa fa-paperclip"></i></button>
-          <button class='rounded' data-toggle="popover" data-html="true">🙂</button>
-          <div class="collapse" id='emoji'>
-            <a class=emojis>🙂</a>
-            <span class=emojis>😂</span>
-            <span>😝</span>
-            <span>😛</span>
-            <span>😶</span>
-            <span>😎</span>
+
+          <div class="file-attach d-flex justify-content-center">
+            <button class="rounded" class=""><label for='input' class="align-self-center"><i class="fa fa-paperclip align-self-center"></i></label></button>
+            <input id='input' type="file" name='profile'  class="btn btn-outline-dark rounded" > </input>            
           </div>
+
+          <button class='rounded' data-toggle="tooltip" data-html="true"><a>🙂</a></button>
           <button class='btn btn-outline-dark' id='sendmsg'>Send</button>
     </div>
-    <div class="container c2" style="height: unset;">
+    <div class="container c2 mt-3" style="height: unset;">
         <div id='footer' class="row">
              <span id='_1' class="col">WhatsChat Inc.</span>
              <span id='_2' class="mx-2 mr-1 col-3 col-md-2">Contact Us</span>

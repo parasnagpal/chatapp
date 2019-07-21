@@ -13,6 +13,7 @@ $(document).ready(()=>{
   let sessionID=getCookie('session')
  
   popover()
+  
 
   //Getting myName
   //Session ID from Cookie
@@ -157,9 +158,6 @@ $(document).ready(()=>{
                     <img src="${img_path}" class="rounded mr-2">
                     <strong class="mr-auto">${from}</strong>
                     <small>${date.toLocaleString()}</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
                   </div>
                   <div class="toast-body">
                     ${msg}
@@ -213,12 +211,13 @@ function updateCookie(chatdata){
 }
 
 function popover(){
-  $('button[data-toggle="popover"]').popover({
+  $('button[data-toggle=tooltip]').tooltip({
     html:true,
-    content:`<html>
+    trigger:'click',
+    title:`<html>
                <body>
                <div id='emoji'>
-               <a>🙂</a>
+               <a  href='#' onclick="append(🙂)">🙂</a>
                <span>😎</span>
                <span>😶</span>
                <span>😛</span>
@@ -233,9 +232,6 @@ function popover(){
     $('#emoji span').click((e)=>{
       console.log('emoji')
       console.log(this)
-    })
-    document.querySelector('a').addEventListener('click',()=>{
-      console.log('a')
     })
 }
 function append(str)
