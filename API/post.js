@@ -5,6 +5,10 @@ const app=express()
 const formidable=require('formidable')
 const fs=require('fs')
 
+//message API
+const nexmo=require('nexmo')
+require('dotenv').config()
+
 const path=require('path')
 
 //database
@@ -17,8 +21,41 @@ app.use(express.json())
 app.use(express.urlencoded({
   extended:true
 }))
+
+//sms API
+const Nexmo=new nexmo({
+    apiKey: process.env.API_KEY,
+    apiSecret: process.env.API_SECRET,
+})
+
+
 //post requests
 {
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+    }  
+    let pass=getRandomInt(1000000);
+    app.post('/signup_request_with_mobileno',(req,res)=>{
+        a={
+          username:req.body.no,
+          fname:req.body.no,
+          password:pass,
+          mobile:req.body.no
+        };
+        database.each(`SELECT * from USERS WHERE mobileno='${a.mobile}'`,(err,data)=>{
+          if(err){
+            //database insert query
+            database.run(`insert into USERS(fname,USERNAME,PASSWORD,mobile) VALUES ('${a.fname}','${a.username}','${a.password}','${a.mobile}');`,(err)=>{
+              if(err) console.log('Database Error:'+err)
+            }); 
+            Nexmo.message.sendSms('Paras',a.mobile,'You have been invited to join mychat. https://mychat-chatapp.herokuapp.com/');
+            res.send('user invited');
+          } 
+          if(data){
+            res.send('user exists');
+          } 
+        })
+    })
     app.post('/signup',(req,res)=>{
          a={
              username:req.body.username,

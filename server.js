@@ -10,6 +10,9 @@ const bodyparser=require('body-parser')
 //import from API folder
 const App=require('./API/post')
 
+//load environment variables
+require('dotenv').config()
+
 //passport js
 let passport= require('passport')
 let LocalStrategy=require('passport-local').Strategy
