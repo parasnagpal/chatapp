@@ -16,7 +16,6 @@ const database =require('../views/database/sqlite_handle')
 
 let session_username_map={}
 
-
 app.use(express.json())
 app.use(express.urlencoded({
   extended:true
@@ -48,7 +47,7 @@ const Nexmo=new nexmo({
             database.run(`insert into USERS(fname,USERNAME,PASSWORD,mobile) VALUES ('${a.fname}','${a.username}','${a.password}','${a.mobile}');`,(err)=>{
               if(err) console.log('Database Error:'+err)
             }); 
-            Nexmo.message.sendSms('Paras',a.mobile,'You have been invited to join mychat. https://mychat-chatapp.herokuapp.com/');
+            Nexmo.message.sendSms('Paras',a.mobile,`You have been invited to join mychat. https://mychat-chatapp.herokuapp.com/ Password:${pass}`);
             res.send('user invited');
           } 
           if(data){
