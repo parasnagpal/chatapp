@@ -23,7 +23,7 @@ $(document).ready(()=>{
     if(getCookie('chatdata'))
     {
       chatdata=JSON.parse(getCookie('chatdata'))
-      console.log(chatdata)
+      
       let conversation
       if(chatdata[myName])
        {

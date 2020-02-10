@@ -34,6 +34,7 @@ const Nexmo=new nexmo({
       return Math.floor(Math.random() * Math.floor(max));
     }  
     let pass=getRandomInt(1000000);
+
     app.post('/signup_request_with_mobileno',(req,res)=>{
         a={
           username:req.body.no,
@@ -48,13 +49,14 @@ const Nexmo=new nexmo({
               if(err) console.log('Database Error:'+err)
             }); 
             Nexmo.message.sendSms('Paras',a.mobile,`You have been invited to join mychat. https://mychat-chatapp.herokuapp.com/ Password:${pass}`);
-            res.send('user invited');
+            res.send(JSON.stringify('user invited'));
           } 
           if(data){
-            res.send('user exists');
+            res.send(JSON.stringify('user exists'));
           } 
         })
     })
+
     app.post('/signup',(req,res)=>{
          a={
              username:req.body.username,
@@ -93,12 +95,9 @@ const Nexmo=new nexmo({
         user_name=req.body.username
     })
  
- 
-     
     app.post('/chats',(req,res)=>{
          res.redirect('/chat/'+req.body.chatWith)
     })
- 
  
     app.post('/search',(req,res)=>{
    
@@ -119,7 +118,6 @@ const Nexmo=new nexmo({
       }) 
     })
     
- 
      //Tells the identity to the user
     app.post('/identity',(req,res)=>{
      res.send(req.session.id)
@@ -128,6 +126,7 @@ const Nexmo=new nexmo({
     app.post('/myName',(req,res)=>{
         res.send(session_username_map[req.sessionID])
     })
+
     app.post('/photo',(req,res)=>{
       console.log('photo')
        let promise=new Promise((resolve,reject)=>{
