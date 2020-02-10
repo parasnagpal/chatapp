@@ -8,13 +8,11 @@ $(document).ready(()=>{
   const chatWith=str.slice(str.lastIndexOf('/')+1,-1)+str.charAt(str.length-1)
   let chatdata={}
   
-
   let myName
   let sessionID=getCookie('session')
  
   popover()
   
-
   //Getting myName
   //Session ID from Cookie
   $.post('../myName',{session:sessionID},(data)=>{
