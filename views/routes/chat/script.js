@@ -3,72 +3,66 @@ let expire
 
 $(document).ready(()=>{
 
-  socket=io()
-  let str=window.location.pathname
-  const chatWith=str.slice(str.lastIndexOf('/')+1,-1)+str.charAt(str.length-1)
-  let chatdata={}
+  socket=io();
+  let str=window.location.pathname;
+  const chatWith=str.slice(str.lastIndexOf('/')+1,-1)+str.charAt(str.length-1);
+  let chatdata={};
   
-  let myName
-  let sessionID=getCookie('session')
+  let myName;
+  let sessionID=getCookie('session');
  
-  popover()
+  popover();
   
   //Getting myName
   //Session ID from Cookie
   $.post('../myName',{session:sessionID},(data)=>{
     myName=data
-  }).then(()=>{
+  })
+  .then(()=>{
     if(getCookie('chatdata'))
     {
-      chatdata=JSON.parse(getCookie('chatdata'))
-      
-      let conversation
-      if(chatdata[myName])
-       {
-           if(chatdata[myName][chatWith] && chatdata[myName])
-           {
-           conversation=chatdata[myName][chatWith]
-           for(let time in conversation)
-             {
-               console.log(conversation[time]['n'])
-               if(conversation[time]['n'])
-                chatrefresh(conversation[time]['n'],false,chatWith,time)
-               if(conversation[time]['m']) 
-                chatrefresh(conversation[time]['m'],true,null,time) 
+        chatdata=JSON.parse(getCookie('chatdata'));
+        let conversation;
+        if(chatdata[myName]){
+            if(chatdata[myName][chatWith] && chatdata[myName]){
+              conversation=chatdata[myName][chatWith]
+              for(let time in conversation){
+                  if(conversation[time]['n'])
+                      chatrefresh(conversation[time]['n'],false,chatWith,time);
+                  if(conversation[time]['m']) 
+                      chatrefresh(conversation[time]['m'],true,null,time); 
+                }
              }
-           }
-           else{
-             chatdata[myName][chatWith]={}
-          }
-       }
-      else{
-        chatdata[myName]={}
-        chatdata[myName][chatWith]={}
-      }
-    }
+            else
+               chatdata[myName][chatWith]={};
+        }
+        else{
+            chatdata[myName]={};
+            chatdata[myName][chatWith]={};
+        }
+    } 
    else{
-     chatdata[myName]={}
-     chatdata[myName][chatWith]={}
+        chatdata[myName]={};
+        chatdata[myName][chatWith]={};
    } 
 
   })
 
-    //event
-    $('.emojis').click((e)=>{
-      console.log(e.target)
-      console.log(this)
-    })
+    //event handlers
+  $('.emojis').click((e)=>{
+      console.log(e.target);
+      console.log(this);
+  })
 
   $('#header').text(chatWith)
 
   $('#sendmsg').click(()=>{
-      sendmsg()
+      sendmsg();
   })
-
 
   $('#message').keyup((e)=>{
       if(e.keyCode==13)
-        sendmsg()
+        sendmsg();
   })
 
 
