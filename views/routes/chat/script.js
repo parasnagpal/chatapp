@@ -232,9 +232,6 @@ function popover(){
 }
 function append(str)
 {
-  console.log(str)
-  console.log('str')
-
   $('input').append(str)
 }
 function insert(x){
