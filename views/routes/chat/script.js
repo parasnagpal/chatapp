@@ -48,10 +48,12 @@ $(document).ready(()=>{
 
   })
 
-    //event handlers
-  $('.emojis').click((e)=>{
-      console.log(e.target);
-      console.log(this);
+
+  //fired when tooltip is shown and stays active 
+  $('button[data-toggle=tooltip]').on('shown.bs.tooltip',function(){
+      $('#emoji a').click((e)=>{
+        $('#message').val(e.target.text);
+      })
   })
 
   $('#header').text(chatWith)
@@ -65,7 +67,6 @@ $(document).ready(()=>{
         sendmsg();
   })
 
-
   //Socket ons
   {
      socket.on('incoming',(data)=>{
@@ -75,7 +76,6 @@ $(document).ready(()=>{
        if(getCookie('chatdata'))
        chatdata[myName][chatWith][Date.now()]={n:data.message,m:false}
        
-
        //update cookie
        updateCookie(chatdata)
 
@@ -203,27 +203,19 @@ function popover(){
     title:` <html>
               <body>
                 <div id='emoji'>
-                  <a  href='#' onclick="append(🙂)">🙂</a>
-                  <span>😎</span>
-                  <span>😶</span>
-                  <span>😛</span>
-                  <span>😂</span>
-                  <span>😝</span>
+                  <a class='smile' href='#'>🙂</a>
+                  <a class='smile' href='#'>😎</a>
+                  <a class='smile' href='#'>😶</a>
+                  <a class='smile' href='#'>😛</a>
+                  <a class='smile' href='#'>😂</a>
                 </div>
               </body>
              </html>`,
     placement:'top'
   })
-    //emoji insert
-    $('#emoji a').click((e)=>{
-      console.log('emoji')
-      console.log(this)
-    })
 }
 function append(str)
 {
-  $('input').append(str)
-}
-function insert(x){
-  console.log(x)
+  console.log('append');
+  $('#message').val($('#message').val()+str);
 }
