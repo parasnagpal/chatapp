@@ -90,41 +90,37 @@ $(document).ready(()=>{
       })
       
       socket.on('unread',(data)=>{
-         console.log(data)
-         if(data)
-         if(data[myName])
-         {
-          console.log(data[myName])
 
-           for(let time in data[myName][chatWith])
-           {
-             console.log('entered')
-            chatrefresh(data[myName][chatWith][time],false,chatWith,time)
-           if(!chatdata[myName])
-            chatdata[myName]={}
-           if(!chatdata[myName][chatWith])
-            chatdata[myName][chatWith]={}  
-
-           chatdata[myName][chatWith][time]={n:data[myName][chatWith][time],m:false}
-           updateCookie(chatdata)
-           }
-           //received conversation
-           received(myName,chatWith)  
-         }
+        if(data)
+        if(data[myName])
+          {
+            for(let time in data[myName][chatWith])
+            {
+              chatrefresh(data[myName][chatWith][time],false,chatWith,time)
+              if(!chatdata[myName])
+                chatdata[myName]={};
+              if(!chatdata[myName][chatWith])
+                chatdata[myName][chatWith]={}; 
+              chatdata[myName][chatWith][time]={n:data[myName][chatWith][time],m:false};
+              updateCookie(chatdata);
+            }
+            //received conversation
+            received(myName,chatWith);  
+          }
       })
      
   }
 
   //Deliver Msg
   function sendmsg(){
-      chatrefresh($('#message').val(),true)
+      chatrefresh($('#message').val(),true);
 
       socket.emit('msgfor',{
           name:chatWith,
           message:$('#message').val()
       })
       if(getCookie('chatdata'))
-       chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false}
+       chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false};
 
       //update cookie
       updateCookie(chatdata)
@@ -142,30 +138,30 @@ $(document).ready(()=>{
       if(bool)
       $('#chat')
       .append(`<div role="alert" aria-live="assertive" aria-atomic="true" class="toast mytoast" data-autohide="false">
-                  <div class="toast-body d-flex flex-column">
-                    <div class="align-self-start">${msg}</div>
-                    <div class="align-self-end">${date.toLocaleString()}</div>  
-                  </div>
+                    <div class="toast-body d-flex flex-column">
+                        <div class="align-self-start">${msg}</div>
+                        <div class="align-self-end">${date.toLocaleString()}</div>  
+                    </div>
                 </div>`)
       else
       $('#chat')
-      .append(`<div class='d-flex justify-content-end notme'><div aria-live="polite" aria-atomic="true" style="position: relative;">
-               <div> 
-               <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
-                  <div class="toast-header">
-                    <img src="${img_path}" class="rounded mr-2">
-                    <strong class="mr-auto">${from}</strong>
-                    <small>${date.toLocaleString()}</small>
-                  </div>
-                  <div class="toast-body">
-                    ${msg}
-                  </div>
-                </div>
-                </div>
-                </div>
+      .append(` <div class='d-flex justify-content-end notme'>
+                    <div aria-live="polite" aria-atomic="true" style="position: relative;">
+                        <div> 
+                            <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                                <div class="toast-header">
+                                  <img src="${img_path}" class="rounded mr-2">
+                                  <strong class="mr-auto">${from}</strong>
+                                  <small>${date.toLocaleString()}</small>
+                                </div>
+                                <div class="toast-body">
+                                  ${msg}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>`)
-        $('.toast').toast('show')        
-
+        $('.toast').toast('show');        
   }
 
   setInterval(()=>{
@@ -225,7 +221,7 @@ function popover(){
     placement:'top'
   })
     //emoji insert
-    $('#emoji span').click((e)=>{
+    $('#emoji a').click((e)=>{
       console.log('emoji')
       console.log(this)
     })
