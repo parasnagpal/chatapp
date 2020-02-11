@@ -188,9 +188,7 @@ $(document).ready(()=>{
     }
   }
   return false;
-}
-
-  
+} 
 })
 
 function received(name,from)
@@ -203,8 +201,8 @@ function received(name,from)
 
 function updateCookie(chatdata){
    //update cookie
-   expire=new Date()
-   expire.setTime(Date.now()+(9*365*24*60*60*1000))
+   expire=new Date();
+   expire.setTime(Date.now()+(9*365*24*60*60*1000));
    document.cookie=`chatdata=${JSON.stringify(chatdata)};expires=${expire.toUTCString()}`;
 }
 
@@ -212,17 +210,17 @@ function popover(){
   $('button[data-toggle=tooltip]').tooltip({
     html:true,
     trigger:'click',
-    title:`<html>
-               <body>
-               <div id='emoji'>
-               <a  href='#' onclick="append(🙂)">🙂</a>
-               <span>😎</span>
-               <span>😶</span>
-               <span>😛</span>
-               <span>😂</span>
-               <span>😝</span>
-             </div>
-             </body>
+    title:` <html>
+              <body>
+                <div id='emoji'>
+                  <a  href='#' onclick="append(🙂)">🙂</a>
+                  <span>😎</span>
+                  <span>😶</span>
+                  <span>😛</span>
+                  <span>😂</span>
+                  <span>😝</span>
+                </div>
+              </body>
              </html>`,
     placement:'top'
   })
