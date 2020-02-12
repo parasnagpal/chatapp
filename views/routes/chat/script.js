@@ -11,8 +11,9 @@ $(document).ready(()=>{
   let myName;
   let sessionID=getCookie('session');
  
+  $('.what').text(chatWith);
   popover();
-  
+
   //Getting myName
   //Session ID from Cookie
   $.post('../myName',{session:sessionID},(data)=>{
