@@ -4,8 +4,6 @@ $(document).ready(()=>{
 
    $('#form').attr('action','/chats')
 
-   
-  
    let socket=io()
    let myName
    let sessionID
@@ -29,8 +27,6 @@ $(document).ready(()=>{
     socket.emit('unread')
    })
 
-
-    
     let newMessageCount={}
     let chats=[]
     let friendsOnline={}
@@ -247,47 +243,42 @@ $(document).ready(()=>{
 //layout
 function card(username,img_src,info){
   
-      if(info)
+  if(info)
       return(`
-      <div id='${username}' class='alert alert-light mx-3 row' role='alert' onclick="stateChange('${username}')">
-        <img src='${img_src}' >
-        <div class='flex-grow-1 mx-2'>${info.fname+" "+info.lname}</div>
-        <div class='flex-grow-1 mx-2 '>
-           <label class='align-self-start'>Username</label>
-          <div style="padding-top:0;">${info.username}</div>
-        </div>
-        <span ></span>
-        <div >
-         <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
-           <i class='far fa-comment-alt'></i>
-         </button>
-         <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
-           <i class='fas fa-video'></i>
-         </button>
-        </div>
-      </div>
-  `)
+              <div id='${username}' class='alert alert-light mx-3 row' role='alert' onclick="stateChange('${username}')">
+                  <img src='${img_src}' >
+                  <div class='flex-grow-1 mx-2'>${info.fname+" "+info.lname}</div>
+                  <div class='flex-grow-1 mx-2 '>
+                      <label class='align-self-start'>Username</label>
+                      <div style="padding-top:0;">${info.username}</div>
+                  </div>
+                  <span ></span>
+                  <div >
+                      <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+                          <i class='far fa-comment-alt'></i>
+                      </button>
+                      <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+                          <i class='fas fa-video'></i>
+                      </button>
+                  </div>
+              </div>
+            `)        
   else
-  return(`
-  <div id='${username}' class='alert alert-light mx-3 d-flex' role='alert' onclick="stateChange('${username}')">
-    <img src='${img_src}'>
-    
-    <div class='flex-grow-1 mx-2'>${username}</div>
-    <span></span>
-    <div>
-     <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
-       <i class='far fa-comment-alt'></i>
-     </button>
-     <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
-       <i class='fas fa-video'></i>
-     </button>
-    </div>
-  </div>
-`)
-  
-  
-  
-
+      return(`
+              <div id='${username}' class='alert alert-light mx-3 d-flex' role='alert' onclick="stateChange('${username}')">
+                  <img src='${img_src}'>
+                  <div class='flex-grow-1 mx-2'>${username}</div>
+                  <span></span>
+                  <div>
+                      <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+                          <i class='far fa-comment-alt'></i>
+                      </button>
+                      <button id='btn-${username}' class="chat-btns btn btn-outline-dark" onclick="stateChange('${username}')" >
+                          <i class='fas fa-video'></i>
+                      </button>
+                  </div>
+              </div>
+            `)
   
 }
 
