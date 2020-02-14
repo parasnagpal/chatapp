@@ -4,12 +4,12 @@ $(document).ready(()=>{
 
    $('#form').attr('action','/chats')
 
-   let socket=io()
-   let myName
-   let sessionID
-   let checkphoto={}
-   let unreaddata
-   let userdata={}
+   let socket=io();
+   let myName;
+   let sessionID;
+   let checkphoto={};
+   let unreaddata;
+   let userdata={};
    
    //Get Identity from server
    $.post('identity',{},(data)=>{
@@ -91,7 +91,7 @@ $(document).ready(()=>{
         if(!checkphoto[a])
          {
            //Fetch photo
-           fetch('/photo',{
+            fetch('/photo',{
                 method:'POST',
                 body:JSON.stringify({'name':a}),
                 headers: {"Content-Type": "application/json"}
@@ -230,7 +230,10 @@ $(document).ready(()=>{
     }
     
 })
-
+function stateChange(name){
+  globalState=name;
+  $("#form")[0].submit();
+}
 //layout
 function card(username,img_src,info){
   
@@ -273,7 +276,3 @@ function card(username,img_src,info){
   
 }
 
-function stateChange(name){
-  globalState=name;
-  $("#form")[0].submit();
-}
