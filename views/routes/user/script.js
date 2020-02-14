@@ -239,7 +239,7 @@ function card(username,img_src,info){
   
   if(info)
       return(`
-              <div id='${username}' class='alert alert-light mx-3 row' role='alert' onclick="stateChange('${username}')">
+              <div id='${username}' class='alert alert-light mx-3 row' role='alert' ">
                   <img src='${img_src}' >
                   <div class='flex-grow-1 mx-2'>${info.fname+" "+info.lname}</div>
                   <div class='flex-grow-1 mx-2 '>
@@ -259,7 +259,7 @@ function card(username,img_src,info){
             `)        
   else
       return(`
-              <div id='${username}' class='alert alert-light mx-3 d-flex' role='alert' onclick="stateChange('${username}')">
+              <div id='${username}' class='alert alert-light mx-3 d-flex' role='alert' ">
                   <img src='${img_src}'>
                   <div class='flex-grow-1 mx-2'>${username}</div>
                   <span></span>

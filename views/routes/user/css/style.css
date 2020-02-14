@@ -38,9 +38,9 @@
     }*/
 } 
 @media(max-width:768px){
-    .chat-btns{
+    /*.chat-btns{
         display: none;
-    }
+    }*/
 }
 #header{
     background-color: rgb(255, 101, 101);
