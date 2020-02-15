@@ -1,11 +1,12 @@
 
 //Requirements
 //express
-const express=require('express')
-const session=require('express-session')
+const express=require('express');
+const session=require('express-session');
+const memorystore=require('memorystore')(session);
 
 //Body Parser to set linit to req size
-const bodyparser=require('body-parser')
+const bodyparser=require('body-parser');
 
 //import from API folder
 const App=require('./API/post')
@@ -33,6 +34,13 @@ let revmap={}
 let session_username_map=App.session_username_map
 let user_name
 
+app.get('/lgn',(req,res)=>{
+    res.json({
+        a:'10',
+        b:20
+    })
+})
+
 app.use(bodyparser.json({limit:'2MB'}))
 app.use(bodyparser.urlencoded({
     extended:true,
@@ -45,7 +53,10 @@ app.use(session({
     saveUninitialized:false,
     cookie:{
         maxAge:24*60*60*1000
-    }
+    },
+    store:new memorystore({
+        checkPeriod: 86400000 // prune expired entries every 24h
+    })
 }))
 
 //Socket Connections
