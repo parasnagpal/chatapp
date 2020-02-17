@@ -2,8 +2,16 @@
 //Requirements
 //express
 const express=require('express');
+const redis=require('redis');
 const session=require('express-session');
-const memorystore=require('memorystore')(session);
+
+//redis store setup
+let RedisStore = require('connect-redis')(session)
+let redisClient = redis.createClient()
+
+redisClient.on("error",(e)=>{
+    console.log(e);
+})
 
 //Body Parser to set linit to req size
 const bodyparser=require('body-parser');
@@ -48,15 +56,14 @@ app.use(bodyparser.urlencoded({
 }))
 
 app.use(session({
+    strore:new RedisStore({client:redisClient}),
     secret:'this is MY secret!!!!',
     resave:true,
     saveUninitialized:false,
     cookie:{
         maxAge:24*60*60*1000
-    },
-    store:new memorystore({
-        checkPeriod: 86400000 // prune expired entries every 24h
-    })
+    }
+    
 }))
 
 //Socket Connections
