@@ -2,25 +2,25 @@
 //Requirements
 //express
 const express=require('express');
-const redis=require('redis');
 const session=require('express-session');
 
-//redis store setup
-let RedisStore = require('connect-redis')(session)
-let redisClient = redis.createClient()
+//load environment variables
+require('dotenv').config()
 
-redisClient.on("error",(e)=>{
-    console.log(e);
-})
+//firebase store setup
+const FirebaseStore = require('connect-session-firebase')(session);
+const firebase = require('firebase-admin');
+var serviceaccount= require("./serviceAccountCredentials.json");
+const ref = firebase.initializeApp({
+    credential: firebase.credential.cert(serviceaccount),
+    databaseURL: process.env.FIREBASE_DATABASE_URL
+});
 
 //Body Parser to set linit to req size
 const bodyparser=require('body-parser');
 
 //import from API folder
 const App=require('./API/post')
-
-//load environment variables
-require('dotenv').config()
 
 //passport js
 let passport= require('passport')
@@ -56,7 +56,9 @@ app.use(bodyparser.urlencoded({
 }))
 
 app.use(session({
-    strore:new RedisStore({client:redisClient}),
+    store: new FirebaseStore({
+        database: ref.database()
+    }),
     secret:'this is MY secret!!!!',
     resave:true,
     saveUninitialized:false,
