@@ -1,20 +1,8 @@
-
-//Requirements
-//express
 const express=require('express');
-const session=require('express-session');
+const session=require('cookie-session');
 
 //load environment variables
 require('dotenv').config()
-
-//firebase store setup
-const FirebaseStore = require('connect-session-firebase')(session);
-const firebase = require('firebase-admin');
-var serviceaccount= require("./serviceAccountCredentials.json");
-const ref = firebase.initializeApp({
-    credential: firebase.credential.cert(serviceaccount),
-    databaseURL: process.env.FIREBASE_DATABASE_URL
-});
 
 //Body Parser to set linit to req size
 const bodyparser=require('body-parser');
@@ -56,16 +44,9 @@ app.use(bodyparser.urlencoded({
 }))
 
 app.use(session({
-    store: new FirebaseStore({
-        database: ref.database()
-    }),
+    name:'session',
     secret:'this is MY secret!!!!',
-    resave:true,
-    saveUninitialized:false,
-    cookie:{
-        maxAge:24*60*60*1000
-    }
-    
+    keys:['key1','key2']
 }))
 
 //Socket Connections
