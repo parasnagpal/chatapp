@@ -10,10 +10,6 @@ const bodyparser=require('body-parser');
 //import from API folder
 const App=require('./API/post')
 
-//passport js
-let passport= require('passport')
-let LocalStrategy=require('passport-local').Strategy
-
 let tempChatData={}
 
 //Socket files
