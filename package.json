@@ -5,19 +5,15 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "build": "npm start"
+    "start": "node server.js"
   },
   "author": "Paras Nagpal",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "connect-session-firebase": "^5.13.0",
     "cookie-session": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
-    "express-session": "^1.16.1",
-    "firebase-admin": "^8.9.2",
     "formidable": "^1.2.1",
     "hbs": "^4.0.4",
     "nexmo": "^2.6.0",
