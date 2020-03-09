@@ -26,13 +26,6 @@ let revmap={}
 let session_username_map=App.session_username_map
 let user_name
 
-app.get('/lgn',(req,res)=>{
-    res.json({
-        a:'10',
-        b:20
-    })
-})
-
 app.use(bodyparser.json({limit:'2MB'}))
 app.use(bodyparser.urlencoded({
     extended:true,

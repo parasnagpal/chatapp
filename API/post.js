@@ -36,6 +36,7 @@ const Nexmo=new nexmo({
     let pass=getRandomInt(1000000);
 
     app.post('/signup_request_with_mobileno',(req,res)=>{
+        console.log(req.body)
         a={
           username:req.body.no,
           fname:req.body.no,
@@ -45,16 +46,17 @@ const Nexmo=new nexmo({
         database.each(`SELECT * from USERS WHERE mobileno='${a.mobile}'`,(err,data)=>{
           if(err){
             //database insert query
-            database.run(`insert into USERS(fname,USERNAME,PASSWORD,mobile) VALUES ('${a.fname}','${a.username}','${a.password}','${a.mobile}');`,(err)=>{
+            database.run(`insert into USERS(fname,USERNAME,PASSWORD,mobile) VALUES ('${a.fname}','${a.username}','${a.password}','+91${a.mobile}');`,(err)=>{
               if(err) console.log('Database Error:'+err)
             }); 
-            Nexmo.message.sendSms('Paras',a.mobile,`You have been invited to join mychat. https://mychat-chatapp.herokuapp.com/ Password:${pass}`);
-            res.send(JSON.stringify('user invited'));
+            Nexmo.message.sendSms('Paras',`+91${a.mobile}`,`You have been invited to join mychat. https://mychat-chatapp.herokuapp.com/ Password:${pass}`);
+            res.json('user invited');
           } 
           if(data){
-            res.send(JSON.stringify('user exists'));
+            res.json('user exists');
           } 
         })
+        //res.json({message:'hell yeah'});
     })
 
     app.post('/signup',(req,res)=>{
