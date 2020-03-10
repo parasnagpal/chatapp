@@ -20,11 +20,11 @@ const server=http.createServer(app)
 const io=socketio(server)
 
 //Peoples
-let map={}
-let mapAlive={}
-let revmap={}
-let session_username_map=App.session_username_map
-let user_name
+let map={};
+let mapAlive={};
+let revmap={};
+let session_username_map=App.session_username_map;
+let user_name;
 
 app.use(bodyparser.json({limit:'2MB'}))
 app.use(bodyparser.urlencoded({
