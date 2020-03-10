@@ -49,10 +49,11 @@ const Nexmo=new nexmo({
             database.run(`insert into USERS(fname,USERNAME,PASSWORD,mobile) VALUES ('${a.fname}','${a.username}','${a.password}','+91${a.mobile}');`,(err)=>{
               if(err) console.log('Database Error:'+err)
             }); 
-            Nexmo.message.sendSms('Paras',`+91${a.mobile}`,`You have been invited to join mychat. https://mychat-chatapp.herokuapp.com/ Password:${pass}`);
+            Nexmo.message.sendSms('Paras',`+91${a.mobile}`,req.body.message+`Join mychat: https://mychat-chatapp.herokuapp.com/. Your username:${a.mobile} Password:${pass}`);
             res.json('user invited');
           } 
           if(data){
+            Nexmo.message.sendSms('Paras',`+91${a.mobile}`,req.body.message);
             res.json('user exists');
           } 
         })
