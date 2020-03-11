@@ -1,5 +1,5 @@
 const express=require('express');
-const session=require('cookie-session');
+const session=require('express-session');
 
 //load environment variables
 require('dotenv').config()
@@ -33,9 +33,12 @@ app.use(bodyparser.urlencoded({
 }))
 
 app.use(session({
-    name:'session',
     secret:'this is MY secret!!!!',
-    keys:['key1','key2']
+    resave:false,
+    saveUninitialized:true,
+    cookie:{
+        maxAge:24*60*60*1000
+    }
 }))
 
 //Socket Connections
