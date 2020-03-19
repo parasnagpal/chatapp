@@ -121,7 +121,7 @@ $(document).ready(()=>{
 
          if(friendsOnline[a])
           {
-            $('#'+a).attr('class','alert alert-danger mx-3');
+            $('#'+a).attr('class','row alert alert-danger mx-3');
             $(`#btn-`+a).attr('class','chat-btns btn btn-outline-danger');
           }
          if(newMessageCount[a])
