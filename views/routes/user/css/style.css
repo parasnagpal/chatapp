@@ -72,10 +72,13 @@ div.container.rounded{
 }
 
 .alert-danger .friends{
-    color: rgb(255, 101, 101);
-    background-color: #f8d7da;
     border-color: black;
     text-transform: capitalize;
+}
+
+.alert-danger .online{
+    display: block !important;
+    font-size: smaller;
 }
 
 
