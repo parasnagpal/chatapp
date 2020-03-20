@@ -55,7 +55,7 @@ body{
 }
 
 div.container.rounded{
-    min-height: 86%;
+    height: 100vh;
 }
 #head{
     text-align: center;
