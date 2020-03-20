@@ -140,6 +140,8 @@ input.friends{
     opacity: 0.6;
     border: 1px black solid;
     text-transform: capitalize;
+    margin-bottom: 0em;
+    border-radius: 0;
 }
 
 div{
