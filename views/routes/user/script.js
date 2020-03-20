@@ -121,7 +121,7 @@ $(document).ready(()=>{
 
          if(friendsOnline[a])
           {
-            $("#"+a).attr("class","row alert alert-danger");
+            $("#"+a).attr("class","alert alert-danger d-flex");
             $(`#btn-`+a).attr("class","chat-btns btn btn-outline-danger");
           }
          if(newMessageCount[a])
@@ -239,13 +239,9 @@ function card(username,img_src,info){
   
   if(info)
       return(`
-              <div id="${username}" class="alert alert-light row" role="alert" ">
+              <div id="${username}" class="alert alert-light d-flex" role="alert" ">
                   <img src="${img_src}" >
                   <div class="flex-grow-1 mx-2">${info.fname+" "+info.lname}</div>
-                  <div class="flex-grow-1 mx-2 ">
-                      <label class="align-self-start">Username</label>
-                      <div style="padding-top:0;">${info.username}</div>
-                  </div>
                   <div class="online" style="display:none;">
                       Online
                   </div>
