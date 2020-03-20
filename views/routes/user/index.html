@@ -14,40 +14,36 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="/routes/user/css/style.css">  
 
 </head>
 <body>
-    <div class='box'></div>
+    <div class="box"></div>
     <div class="container my-3 rounded">
-        <h1 class='badge badge-dark mt-2' id='head'>MyChat</h1>
+        <h1 class="badge badge-dark mt-2" id="head">MyChat</h1>
         <div class="row m-2 rounded why">
-            <div class='col-4 what'>'</div>
+            <div class="col-4 what">"</div>
         </div>
 
-        <!-- <div class='row mx-2 rounded' id='header'><div class='mx-3'>Friends</div></div>  -->
-        <form method="POST" action="http://localhost:4000/chats" id='form'> 
+        <!-- <div class="row mx-2 rounded" id="header"><div class="mx-3">Friends</div></div>  -->
+        <form method="POST" action="http://localhost:4000/chats" id="form"> 
             <!--Hidden Element-->
-            <input id='send' name='chatWith'>
+            <input id="send" name="chatWith">
             <!--Hidden Element-->
-            <div id='chats' class="mx-5 my-2 p-3"></div>
+            <div id="chats" class="mx-2 my-2 "></div>
         </form>
-        <div class="d-flex flex-column align-items-center">
-            <div id='chatline'>         
-              <input type='text' id='friend' placeholder="friends username" class='form-control '>
+
+        <div class="d-flex flex-column align-items-center" id="search">
+            <div id="chatline">         
+              <input type="text" id="friend" placeholder="friends username" class="form-control ">
               <button class="btn btn-outline-dark"><i class="fa fa-search"></i></button>
             </div>
-            <div>
-              hello
-            </div>
-
         </div>
+
+        <!--hidden error-->
+        <div id="error"><div class="container">User not found</div></div>
     </div>
-
-    
-
-    <div id='error'><div class='container'>User not found</div></div>
 
 </body>
 </html>
