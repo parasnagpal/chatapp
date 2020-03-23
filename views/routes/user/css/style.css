@@ -208,3 +208,16 @@ label{
 .row-col{
     max-width: unset !important;
 }
+
+.open-chat{
+    border: 2px black solid;
+    width: -moz-available;          /* WebKit-based browsers will ignore this. */
+    width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
+    width: fill-available;
+}
+
+.flex-layout{
+    height: -webkit-fill-available;
+    height: fill-available;
+    height: -moz-available;
+}

@@ -25,20 +25,24 @@
         <div class="row m-2 rounded why">
             <div class="col-4 what">.</div>
         </div>
+    
+        <div class="d-flex flex-layout">
+            <!-- <div class="row mx-2 rounded" id="header"><div class="mx-3">Friends</div></div>  -->
+            <form method="POST" action="http://localhost:4000/chats" id="form"> 
+                <!--Hidden Element-->
+                <input id="send" name="chatWith">
+                <!--Hidden Element-->
+                <div id="chats" class="mx-2 my-2 "></div>
+                <div class="d-flex flex-column align-items-center" id="search">
+                    <div id="chatline">         
+                      <input type="text" id="friend" placeholder="friends username" class="form-control ">
+                      <button class="btn btn-outline-dark"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            <div class="open-chat">
 
-        <!-- <div class="row mx-2 rounded" id="header"><div class="mx-3">Friends</div></div>  -->
-        <form method="POST" action="http://localhost:4000/chats" id="form"> 
-            <!--Hidden Element-->
-            <input id="send" name="chatWith">
-            <!--Hidden Element-->
-            <div id="chats" class="mx-2 my-2 "></div>
-        </form>
-
-        <div class="d-flex flex-column align-items-center" id="search">
-            <div id="chatline">         
-              <input type="text" id="friend" placeholder="friends username" class="form-control ">
-              <button class="btn btn-outline-dark"><i class="fa fa-search"></i></button>
-            </div>
+            </div>    
         </div>
 
         <!--hidden error-->
