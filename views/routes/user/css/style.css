@@ -60,6 +60,7 @@ html{
 
 body{
     height: 97%;
+    background-color: #f2f2f2;
 }
 
 div.container.rounded{
@@ -98,7 +99,6 @@ div.container.rounded{
     flex-direction:row;
     background-color: white;
     border: 1px solid gray;
-    border-radius: 1em;
     position: relative;
     bottom: 0%;    
 }
@@ -215,10 +215,19 @@ label{
     width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
     width: fill-available;
     margin-bottom:2vh;
+    margin-left:1vw;
+    background-color: white;
 }
 
 .flex-layout{
     height: -webkit-fill-available;
     height: fill-available;
     height: -moz-available;
+}
+
+.friends{
+    display: flex;
+    flex-direction: column;
+    border: 1vw solid rgb(255, 101, 101);
+    margin-bottom: 2vh;
 }
