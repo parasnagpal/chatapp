@@ -1,4 +1,5 @@
-let globalState
+let socket
+let expire
 
 $(document).ready(()=>{
 
@@ -6,10 +7,12 @@ $(document).ready(()=>{
 
    let socket=io();
    let myName;
-   let sessionID;
+   let sessionID=getCookie('session');
    let checkphoto={};
    let unreaddata;
    let userdata={};
+   let chatWith;
+   let chatdata={};
    
    //Get Identity from server
    $.post("identity",{},(data)=>{
@@ -23,8 +26,34 @@ $(document).ready(()=>{
         myName=data
       })
    .then(()=>{
-    socket.emit("unread");
-   })
+      socket.emit('unread');
+      if(getCookie('chatdata'))
+      {
+          chatdata=JSON.parse(getCookie('chatdata'));
+          let conversation;
+          if(chatdata[myName]){
+              if(chatdata[myName][chatWith] && chatdata[myName]){
+                conversation=chatdata[myName][chatWith]
+                for(let time in conversation){
+                    if(conversation[time]['n'])
+                        chatrefresh(conversation[time]['n'],false,chatWith,time);
+                    if(conversation[time]['m']) 
+                        chatrefresh(conversation[time]['m'],true,null,time); 
+                  }
+               }
+              else
+                 chatdata[myName][chatWith]={};
+          }
+          else{
+              chatdata[myName]={};
+              chatdata[myName][chatWith]={};
+          }
+      } 
+      else{
+          chatdata[myName]={};
+          chatdata[myName][chatWith]={};
+      } 
+  })
 
     let newMessageCount={};
     let chats=[];
@@ -64,7 +93,7 @@ $(document).ready(()=>{
           friend
         },(data)=>{
           if(data)
-           refreshlist(friend)
+            refreshlist(friend)
         })
     }
 
@@ -182,6 +211,7 @@ $(document).ready(()=>{
     
     //Pinging Server that I am online
     setInterval(()=>{
+      console.log('pinging')
       socket.emit("isAlive",{
         session:sessionID
       }) 
@@ -228,10 +258,28 @@ $(document).ready(()=>{
       var expires = "expires="+ d.toUTCString();
       document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
+
+    function getCookie(cname) {
+      var name = cname + "=";
+      var decodedCookie = decodeURIComponent(document.cookie);
+      var ca = decodedCookie.split(';');
+      for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+        }
+      }
+      return false;
+    } 
+    
     
 })
+
 function stateChange(name){
-  globalState=name;
+  console.log(name)
   $("#form")[0].submit();
 }
 //layout
@@ -274,4 +322,3 @@ function card(username,img_src,info){
             `)
   
 }
-

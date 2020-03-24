@@ -6,16 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chats</title>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/routes/user/script.js"></script>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="/routes/user/css/style.css">  
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/routes/user/script.js"></script>
+    <script src="/routes/chat/script.js"></script>
+    
 
 </head>
 <body>
@@ -26,12 +28,12 @@
         <div class="d-flex flex-layout">
             <!-- <div class="row mx-2 rounded" id="header"><div class="mx-3">Friends</div></div>  -->
             <div class="friends">
-                <form method="POST" action="http://localhost:4000/chats" id="form"> 
+                <div id="form"> 
                     <!--Hidden Element-->
                     <input id="send" name="chatWith">
                     <!--Hidden Element-->
                     <div id="chats" class="mx-2 my-2 "></div>
-                </form>
+                </div>
                 <div class="d-flex flex-column align-items-center" id="search">
                     <div id="chatline">         
                       <input type="text" id="friend" placeholder="friends username" class="form-control ">
@@ -40,7 +42,18 @@
                 </div>
             </div>
             <div class="open-chat">
-
+                <div class="container" id='chat-container'>
+                    <div id='chat' class='row'></div>
+                </div>
+                <div id='chatbox'>
+                    <input type='text' id='message' class='form-control col'>
+                    <div class="file-attach d-flex justify-content-center">
+                        <button class="rounded" class=""><label for='input' class="align-self-center"><i class="fa fa-paperclip align-self-center"></i></label></button>
+                        <input id='input' type="file" name='profile'  class="btn btn-outline-dark rounded" > </input>            
+                    </div>
+                    <button class='rounded' data-toggle="tooltip" data-html="true"><a>😊</a></button>
+                    <button class='btn btn-outline-dark' id='sendmsg'>Send</button>
+                </div>
             </div>    
         </div>
 

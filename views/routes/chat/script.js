@@ -3,7 +3,7 @@ let expire
 
 $(document).ready(()=>{
 
-  socket=io();
+  
   let str=window.location.pathname;
   const chatWith=str.slice(str.lastIndexOf('/')+1,-1)+str.charAt(str.length-1);
   let chatdata={};
@@ -159,12 +159,6 @@ $(document).ready(()=>{
         $('.toast').toast('show');        
   }
 
-  setInterval(()=>{
-    socket.emit('isAlive',{
-      session:sessionID
-    }) 
- },1000)
-
  function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -219,4 +213,7 @@ function append(str)
 {
   console.log('append');
   $('#message').val($('#message').val()+str);
+}
+function stateChange(username){
+  console.log(username);
 }
