@@ -73,7 +73,8 @@ $(document).ready(()=>{
         
     //update List
     updatelist(chats);
-     
+    
+    // Events
     //Friend Search
     $("#friend").keyup((e)=>{
       $("#error").hide();
@@ -81,9 +82,16 @@ $(document).ready(()=>{
           findfriend();
         
     })
+
     $("#chatline button").click(()=>{
       $("#error").hide();      
       findfriend();
+    })
+    //fired when tooltip is shown and stays active 
+    ('button[data-toggle=tooltip]').on('shown.bs.tooltip',function(){
+      $('#emoji a').click((e)=>{
+        $('#message').val(e.target.text);
+      })
     })
 
     function findfriend(){
@@ -274,7 +282,6 @@ $(document).ready(()=>{
       }
       return false;
     } 
-    
     
 })
 
