@@ -236,9 +236,6 @@ label{
 div#chat{
     max-height: 95%;
 }
-div#chat-container{
-    overflow: scroll;
-}
 
 #message:focus{
     outline: none !important;
