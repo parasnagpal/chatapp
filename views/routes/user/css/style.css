@@ -282,7 +282,6 @@ img{
     flex-direction:row;
     background-color: white;
     border: 1px solid gray;
-    border-radius: 20px;
     position: relative;   
 }
 
