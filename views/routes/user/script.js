@@ -1,9 +1,8 @@
-let socket
 let expire
 
 $(document).ready(()=>{
 
-   $("#form").attr("action","/chats")
+   popover();
 
    let socket=io();
    let myName;
@@ -14,21 +13,22 @@ $(document).ready(()=>{
    let chatWith;
    let chatdata={};
    
-   //Get Identity from server
-   $.post("identity",{},(data)=>{
+    //Get Identity from server
+    $.post("identity",{},(data)=>{
       sessionID=data;
       setCookie("session",data,1);
-   })
+    })
 
-   $.post("myName",
+    $.post("myName",
       {session:sessionID},
       (data)=>{
         myName=data
       })
-   .then(()=>{
-      socket.emit('unread');
-      if(getCookie('chatdata'))
-      {
+
+     .then(()=>{
+        socket.emit('unread');
+        if(getCookie('chatdata'))
+        {
           chatdata=JSON.parse(getCookie('chatdata'));
           let conversation;
           if(chatdata[myName]){
@@ -48,12 +48,12 @@ $(document).ready(()=>{
               chatdata[myName]={};
               chatdata[myName][chatWith]={};
           }
-      } 
-      else{
+        } 
+        else{
           chatdata[myName]={};
           chatdata[myName][chatWith]={};
-      } 
-  })
+        } 
+    })
 
     let newMessageCount={};
     let chats=[];
@@ -64,10 +64,10 @@ $(document).ready(()=>{
 
     for(let people of chats)
      {
-      newMessageCount[people]=0;
-      $.post("/user",{name:people},(data)=>{
-        userdata[people]=data
-      })    
+        newMessageCount[people]=0;
+        $.post("/user",{name:people},(data)=>{
+          userdata[people]=data
+        })    
      }
     $("#error").hide();
         
@@ -80,15 +80,15 @@ $(document).ready(()=>{
       $("#error").hide();
         if(e.keyCode==13)
           findfriend();
-        
     })
 
     $("#chatline button").click(()=>{
       $("#error").hide();      
       findfriend();
     })
+
     //fired when tooltip is shown and stays active 
-    ('button[data-toggle=tooltip]').on('shown.bs.tooltip',function(){
+    $('button[data-toggle=tooltip]').on('shown.bs.tooltip',function(){
       $('#emoji a').click((e)=>{
         $('#message').val(e.target.text);
       })
@@ -219,7 +219,6 @@ $(document).ready(()=>{
     
     //Pinging Server that I am online
     setInterval(()=>{
-      console.log('pinging')
       socket.emit("isAlive",{
         session:sessionID
       }) 
@@ -285,16 +284,12 @@ $(document).ready(()=>{
     
 })
 
-function stateChange(name){
-  console.log(name)
-  $("#form")[0].submit();
-}
 //layout
 function card(username,img_src,info){
   
   if(info)
       return(`
-              <div id="${username}" class="alert alert-light d-flex" role="alert" ">
+              <div id="${username}" class="alert alert-light d-flex" role="alert" >
                   <img src="${img_src}" >
                   <div class="flex-grow-1 mx-2">${info.fname+" "+info.lname}</div>
                   <div class="online" style="display:none;">
@@ -302,7 +297,7 @@ function card(username,img_src,info){
                   </div>
                   <span ></span>
                   <div >
-                      <button id="btn-${username}" class="chat-btns btn btn-outline-dark" onclick="stateChange("${username}")" >
+                      <button id="btn-${username}" class="chat-btns btn btn-outline-dark" onClick="stateChange($(${username}).attr('id'))">
                           <i class="far fa-comment-alt"></i>
                       </button>
                       <button id="btn--${username}" class="chat-btns btn btn-outline-dark" onclick="stateChange("${username}")" >
@@ -313,12 +308,12 @@ function card(username,img_src,info){
             `)        
   else
       return(`
-              <div id="${username}" class="alert alert-light d-flex" role="alert" ">
+              <div id="${username}" class="alert alert-light d-flex" role="alert" >
                   <img src="${img_src}">
                   <div class="flex-grow-1 mx-2">${username}</div>
                   <span></span>
                   <div>
-                      <button id="btn-${username}" class="chat-btns btn btn-outline-dark" onclick="stateChange("${username}")" >
+                      <button id="btn-${username}" class="chat-btns btn btn-outline-dark"  onClick="{stateChange($(${username}).attr('id'))}">
                           <i class="far fa-comment-alt"></i>
                       </button>
                       <button id="btn--${username}" class="chat-btns btn btn-outline-dark" onclick="stateChange("${username}")" >
@@ -328,4 +323,65 @@ function card(username,img_src,info){
               </div>
             `)
   
+}
+//Add chat cards
+function chatrefresh(msg,bool,from,time){
+  //date  
+  let date=new Date(Date.now())
+  if(time)
+    date=new Date(parseInt(time))
+  
+  img_path='../routes/chat/css/default.jpg'
+  
+  if(bool)
+    $('#chat')
+      .append(` <div role="alert" aria-live="assertive" aria-atomic="true" class="toast mytoast" data-autohide="false">
+                    <div class="toast-body d-flex flex-column">
+                        <div class="align-self-start">${msg}</div>
+                        <div class="align-self-end">${date.toLocaleString()}</div>  
+                    </div>
+               </div>`)
+  else
+    $('#chat')
+      .append(` <div class='d-flex justify-content-end notme'>
+                    <div aria-live="polite" aria-atomic="true" style="position: relative;">
+                        <div> 
+                            <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                                <div class="toast-header">
+                                  <img src="${img_path}" class="rounded mr-2">
+                                  <strong class="mr-auto">${from}</strong>
+                                  <small>${date.toLocaleString()}</small>
+                               </div>
+                                <div class="toast-body">
+                                  ${msg}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`)
+
+  $('.toast').toast('show');        
+}
+
+function popover(){
+  $('button[data-toggle=tooltip]').tooltip({
+    html:true,
+    trigger:'click',
+    title:` <html>
+              <body>
+                <div id='emoji'>
+                  <a class='smile' href='#'>🙂</a>
+                  <a class='smile' href='#'>😎</a>
+                  <a class='smile' href='#'>😶</a>
+                  <a class='smile' href='#'>😛</a>
+                  <a class='smile' href='#'>😂</a>
+                </div>
+              </body>
+             </html>`,
+    placement:'top'
+  })
+}
+
+function stateChange(username){
+  console.log(username);
 }
