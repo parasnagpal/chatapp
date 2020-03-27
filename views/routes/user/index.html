@@ -37,10 +37,14 @@
                 </div>
             </div>
             <div class="open-chat d-flex flex-column">
-                <div class="container flex-grow-1" id='chat-container'>
+                <div class="show-toggle flex-grow-1">
+                    <i class="far fa-comment-dots"></i>
+                    <div>Your chats appear here</div> 
+                </div> 
+                <div class="hide-toggle container flex-grow-1" id='chat-container'>
                     <div id='chat' class='row'></div>
                 </div>
-                <div id='chatbox'>
+                <div id='chatbox' class="hide-toggle">
                     <input type='text' id='message' class='form-control col'>
                     <div class="file-attach d-flex justify-content-center">
                         <button class="rounded" class=""><label for='input' class="align-self-center"><i class="fa fa-paperclip align-self-center"></i></label></button>
