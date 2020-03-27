@@ -78,6 +78,7 @@ div.container.rounded{
     justify-content: right; 
     color: rgb(255, 255, 255);
 }
+
 .what{
     cursor: pointer;
 }
@@ -242,8 +243,8 @@ div#chat{
     border: rgb(0, 0, 0) 1px;
     box-shadow: 0 0 1px;
 }
-#snackbar {
 
+#snackbar {
     max-width: 250px; /* Set a default minimum width */
     background-color: white; /* Black background color */
     color: black; /* White text color */
@@ -252,16 +253,18 @@ div#chat{
     position: relative; /* Sit on top of the screen */
     z-index: 1; /* Add a z-index if needed */
     box-shadow: 5px;
-  }
-  .me{
+}
+
+.me{
     background-color: #d4edda !important;  
     margin-left: 60% !important;
-  }
-  .snack-head{
+}
+
+.snack-head{
       background-color: lightgray;
       text-align:center;
       opacity: 0.5;
-    }
+}
 
 img{
     max-width: 1em;
@@ -309,7 +312,6 @@ img{
     bottom: 0;
 }
 
-
 .align-self-end{
     font-size: 0.8em;
     color:rgb(163, 163, 163);
@@ -318,11 +320,21 @@ img{
 .notme{
     margin-bottom: 0.75rem;
 }
+
 .file-attach button{
   cursor: pointer;
   width: 3vw;
   
 }
+
 .file-attach input{
     display: none;
+}
+
+.hide-toggle{
+    display: none !important;
+}
+
+.show-toggle{
+    display: unset;
 }
