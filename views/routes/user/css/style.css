@@ -338,3 +338,11 @@ img{
 .show-toggle{
     display: unset;
 }
+
+.font-4em{
+    font-size: 4em;
+}
+
+.font-2em{
+    font-size: 2em;
+}
