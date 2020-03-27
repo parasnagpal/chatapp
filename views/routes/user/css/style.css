@@ -211,7 +211,7 @@ label{
 }
 
 .open-chat{
-    border: 2px black solid;
+    box-shadow: 0px 0px 10px rgb(155, 155, 155);
     width: -moz-available;          /* WebKit-based browsers will ignore this. */
     width: -webkit-fill-available;  /* Mozilla-based browsers will ignore this. */
     width: fill-available;
