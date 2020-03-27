@@ -1,17 +1,17 @@
-let expire
+let expire;
+let chatWith;
 
 $(document).ready(()=>{
 
-   popover();
+    popover();
 
-   let socket=io();
-   let myName;
-   let sessionID=getCookie('session');
-   let checkphoto={};
-   let unreaddata;
-   let userdata={};
-   let chatWith;
-   let chatdata={};
+    let socket=io();
+    let myName;
+    let sessionID=getCookie('session');
+    let checkphoto={};
+    let unreaddata;
+    let userdata={};
+    let chatdata={};
    
     //Get Identity from server
     $.post("identity",{},(data)=>{
@@ -74,7 +74,7 @@ $(document).ready(()=>{
     //update List
     updatelist(chats);
     
-    // Events
+    // Events handlers
     //Friend Search
     $("#friend").keyup((e)=>{
       $("#error").hide();
@@ -92,6 +92,15 @@ $(document).ready(()=>{
       $('#emoji a').click((e)=>{
         $('#message').val(e.target.text);
       })
+    })
+
+    $('#sendmsg').click(()=>{
+      sendmsg();
+    })
+
+    $('#message').keyup((e)=>{
+      if(e.keyCode==13)
+        sendmsg();
     })
 
     function findfriend(){
@@ -187,78 +196,20 @@ $(document).ready(()=>{
 
     }
 
-    $("#form").on("submit",(e)=>{
-       e.preventDefault();
-       //set value of hide box
-       $("#send").val(globalState);
-       $("#form")[0].submit();
-    })
+    function sendmsg(){
+      chatrefresh($('#message').val(),true);
+
+      socket.emit('msgfor',{
+        name:chatWith,
+        message:$('#message').val()
+      })
+      if(getCookie('chatdata'))
+        chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false};
+
+      //update cookie
+      updateCookie(chatdata)
+    }
     
-    //Hide send box
-     $("#send").hide();
-
-    //Listening to messages
-    socket.on("incoming",(data)=>{
-      newMessageCount[data.from]++;
-    }) 
-
-     //Check if online
-     function isOnline()
-     {
-        for(let people of chats)
-          socket.emit("isOnline",{name:people});
-     }
-
-    socket.on("online",(data)=>{
-       if(data.answer===true)
-        friendsOnline[data.name]=true
-       else friendsOnline[data.name]=false 
-       $("#chats").html("")
-       updatelist(chats)
-    })
-    
-    //Pinging Server that I am online
-    setInterval(()=>{
-      socket.emit("isAlive",{
-        session:sessionID
-      }) 
-    },1000)
-
-    //Check if friends are online
-    setInterval(()=>isOnline()
-    ,3000)
-
-
-    //get unread data
-    socket.emit("unread") 
-    socket.on("unread",(data)=>{
-          unreaddata=data;
-          
-          if(data)
-            if(data[myName])
-            { 
-              for(let x in data[myName])
-              {
-                if(!chats.find((name)=>{ return name==x}))
-                {
-                  chats.push(x);
-                  updatechats();
-                  let fr=[];
-                  fr.push(x);
-                  updatelist(fr);
-                }
-              }
-            }  
-           /* if(!chats.find(people))
-             {
-              chats.push(people)
-              updatechats()
-              let fr=[]
-              fr.push(people) 
-              updatelist(fr)
-             }*/
-        })
-
     function setCookie(cname, cvalue, exdays) {
       var d = new Date();
       d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -281,12 +232,74 @@ $(document).ready(()=>{
       }
       return false;
     } 
+
+    function isOnline()
+     {
+       for(let people of chats)
+         socket.emit("isOnline",{name:people});
+    }
+
+    //Hide send box
+     $("#send").hide();
+
+    //Listening to messages
+    socket.on("incoming",(data)=>{
+      newMessageCount[data.from]++;
+    }) 
+
+    socket.on("online",(data)=>{
+      if(data.answer===true)
+        friendsOnline[data.name]=true;
+      else 
+        friendsOnline[data.name]=false; 
+        $("#chats").html("");
+        updatelist(chats);
+    })
+
+        //get unread data
+    socket.emit("unread"); 
+    socket.on("unread",(data)=>{
+      unreaddata=data; 
+      if(data)
+        if(data[myName])
+          { 
+            for(let x in data[myName])
+              {
+                if(!chats.find((name)=>{ return name==x}))
+                {
+                  chats.push(x);
+                  updatechats();
+                  let fr=[];
+                  fr.push(x);
+                  updatelist(fr);
+                }
+              }
+            }  
+               /* if(!chats.find(people))
+                 {
+                  chats.push(people)
+                  updatechats()
+                  let fr=[]
+                  fr.push(people) 
+                  updatelist(fr)
+                 }*/
+    })
+    
+    //Pinging Server that I am online
+    setInterval(()=>{
+      socket.emit("isAlive",{
+        session:sessionID
+      }) 
+    },1000)
+
+    //Check if friends are online
+    setInterval(()=>isOnline()
+    ,3000)
     
 })
 
 //layout
 function card(username,img_src,info){
-  
   if(info)
       return(`
               <div id="${username}" class="alert alert-light d-flex" role="alert" >
@@ -324,6 +337,7 @@ function card(username,img_src,info){
             `)
   
 }
+
 //Add chat cards
 function chatrefresh(msg,bool,from,time){
   //date  
@@ -331,7 +345,7 @@ function chatrefresh(msg,bool,from,time){
   if(time)
     date=new Date(parseInt(time))
   
-  img_path='../routes/chat/css/default.jpg'
+  img_path='../routes/chat/css/default.jpg';
   
   if(bool)
     $('#chat')
@@ -383,5 +397,10 @@ function popover(){
 }
 
 function stateChange(username){
-  console.log(username);
+  if(!chatWith)
+  {
+    $('.hide-toggle').removeClass('hide-toggle')
+    $('.show-toggle').addClass('hide-toggle').removeClass('show-toggle')
+  }
+  chatWith=username;
 }
