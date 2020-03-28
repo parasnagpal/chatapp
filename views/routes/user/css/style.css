@@ -150,8 +150,7 @@ div{
 }
 
 img{
-    max-width: 1em;
-    max-height: 1em;
+    max-width: 2em;
 }
 
 #arrow{
@@ -226,9 +225,12 @@ label{
 }
 
 .flex-layout{
-    height: -webkit-fill-available;
-    height: fill-available;
-    height: -moz-available;
+    height: inherit;
+}
+
+.friends .header{
+    display: flex;
+    flex-direction: column;
 }
 
 .friends{
@@ -238,6 +240,31 @@ label{
     background-color: #fefefe;
     margin-bottom: 2vh;
     border:1px #343a40 solid;
+}
+
+.header.header2{
+    background-color: rgb(245, 245, 245);
+}
+
+.friend-search{
+    width: 80%;
+    height:90%;
+    align-self: center;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px rgb(192, 192, 192) solid;
+}
+
+.friend-search input{
+    border: none;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.friend-search input:focus{
+    outline:none;
 }
 
 /*Style for  chatbox*/
@@ -273,24 +300,17 @@ div#chat{
       opacity: 0.5;
 }
 
-img{
-    max-width: 1em;
-    max-height: 1em;
-}
-
 .row{
     display: block;
 }
 
 #chatbox{
-    width: 70%;
+    width: 100%;
     padding-right: 15px;
     padding-left: 15px;
-    margin-right: auto;
-    margin-left: 15%;
     display:flex;
     flex-direction:row;
-    background-color: white;
+    background-color: rgb(235, 235, 235);
     border: 1px solid gray;
     position: relative;   
 }
@@ -380,4 +400,9 @@ img{
 
 .chatWith{
     font-weight: bold;
+}
+
+.chatWith-image{
+    width:10%;
+    border-radius: 50%;
 }
