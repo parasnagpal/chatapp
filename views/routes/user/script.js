@@ -1,5 +1,6 @@
 let expire;
 let chatWith;
+let userdata={};
 
 $(document).ready(()=>{
 
@@ -10,7 +11,7 @@ $(document).ready(()=>{
     let sessionID=getCookie('session');
     let checkphoto={};
     let unreaddata;
-    let userdata={};
+    
     let chatdata={};
    
     //Get Identity from server
@@ -433,5 +434,8 @@ function stateChange(username){
     $('.show-toggle').addClass('hide-toggle').removeClass('show-toggle')
   }
   chatWith=username;
-  $('.chatWith').text(username);
+  if(userdata[username])
+    $('.chatWith').text(userdata[username].fname+" "+userdata[username].lname);
+  else
+    $('.chatWith').text(username);
 }
