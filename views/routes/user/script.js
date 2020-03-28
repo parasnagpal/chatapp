@@ -245,6 +245,19 @@ $(document).ready(()=>{
     //Listening to messages
     socket.on("incoming",(data)=>{
       newMessageCount[data.from]++;
+      //copied from user script--
+      if(data.from==chatWith)
+        chatrefresh(data.message,false,data.from,Date.now())
+
+       if(getCookie('chatdata'))
+       chatdata[myName][chatWith][Date.now()]={n:data.message,m:false}
+       
+       //update cookie
+       updateCookie(chatdata)
+
+       //received conversation
+       received(myName,chatWith) 
+       
     }) 
 
     socket.on("online",(data)=>{
@@ -274,7 +287,7 @@ $(document).ready(()=>{
                   updatelist(fr);
                 }
               }
-            }  
+          }  
                /* if(!chats.find(people))
                  {
                   chats.push(people)
@@ -283,6 +296,23 @@ $(document).ready(()=>{
                   fr.push(people) 
                   updatelist(fr)
                  }*/
+          //copied from chat script--
+          if(data)
+          if(data[myName])
+            {
+              for(let time in data[myName][chatWith])
+                {
+                  chatrefresh(data[myName][chatWith][time],false,chatWith,time);
+                  if(!chatdata[myName])
+                    chatdata[myName]={};
+                  if(!chatdata[myName][chatWith])
+                    chatdata[myName][chatWith]={}; 
+                  chatdata[myName][chatWith][time]={n:data[myName][chatWith][time],m:false};
+                  updateCookie(chatdata);
+                }
+              //received conversation
+              received(myName,chatWith);  
+            }       
     })
     
     //Pinging Server that I am online
@@ -403,4 +433,5 @@ function stateChange(username){
     $('.show-toggle').addClass('hide-toggle').removeClass('show-toggle')
   }
   chatWith=username;
+  $('.chatWith').text(username);
 }
