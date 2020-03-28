@@ -139,7 +139,7 @@ input.friends{
 .alert{
     cursor: pointer;
     opacity: 0.6;
-    border: 1px black solid;
+    border-bottom: 1px black solid;
     text-transform: capitalize;
     margin-bottom: 0em;
     border-radius: 0;
@@ -218,7 +218,7 @@ label{
     margin-bottom:2vh;
     margin-left:1vw;
     background-color: white;
-    border:2px #343a40 solid;
+    border:1px #343a40 solid;
 }
 
 .flex-layout{
@@ -231,9 +231,9 @@ label{
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 10px rgb(155, 155, 155);
-    background-color: rgb(255, 236, 236);
+    background-color: #fefefe;
     margin-bottom: 2vh;
-    border:2px #343a40 solid;
+    border:1px #343a40 solid;
 }
 
 /*Style for  chatbox*/
@@ -362,4 +362,11 @@ img{
 
 .uniform-grey{
     color: rgb(143, 143, 143);
+}
+
+.header{
+    height: 8%;
+    z-index: 2;
+    border-bottom: 1px rgb(214, 214, 214) solid;
+    background-color: rgb(235, 235, 235);
 }
