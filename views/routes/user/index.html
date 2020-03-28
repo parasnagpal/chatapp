@@ -26,8 +26,13 @@
         <div class="d-flex flex-layout">
             
             <div class="friends">
-                <div class="header">
-
+                <div class="header header1">
+                
+                </div>
+                <div class="header header2">
+                    <div class="friend-search rounded-pill">
+                        <input type="text">
+                    </div>
                 </div>
                 <div > 
                     <div id="chats" class="mx-2 my-2 "></div>
@@ -45,20 +50,25 @@
                     <div class="align-self-center font-2em">Your chats appear here</div> 
                 </div> 
                 <div class="hide-toggle header">
-                    <div class="chatWith pl-1">
+                    <div class="d-flex pl-2">
+                        <div class="chatWith-image">
+                            <img src="https://image.flaticon.com/icons/png/512/37/37943.png">
+                        </div>   
+                        <div class="chatWith pl-1">
+                        </div>
                     </div>
                 </div>
                 <div class="hide-toggle container flex-grow-1" id='chat-container'>
                     <div id='chat' class='row'></div>
                 </div>
                 <div id='chatbox' class="hide-toggle">
-                    <input type='text' id='message' class='form-control col'>
+                    <button class='rounded' data-toggle="tooltip" data-html="true"><a>😊</a></button>
+                    <input type='text' id='message' class='form-control col rounded-pill'>
                     <div class="file-attach d-flex justify-content-center">
                         <button class="rounded" class=""><label for='input' class="align-self-center"><i class="fa fa-paperclip align-self-center"></i></label></button>
                         <input id='input' type="file" name='profile'  class="btn btn-outline-dark rounded" >           
                     </div>
-                    <button class='rounded' data-toggle="tooltip" data-html="true"><a>😊</a></button>
-                    <button class='btn btn-outline-dark' id='sendmsg'>Send</button>
+                    <button class='btn btn-outline-dark' id='sendmsg'>></button>
                 </div>
             </div>    
         </div>
