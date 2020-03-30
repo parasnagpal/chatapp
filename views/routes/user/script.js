@@ -5,6 +5,7 @@ let userdata={};
 $(document).ready(()=>{
 
     popover();
+    popover_bottom();
 
     let socket=io();
     let myName;
@@ -102,6 +103,16 @@ $(document).ready(()=>{
     $('#message').keyup((e)=>{
       if(e.keyCode==13)
         sendmsg();
+    })
+
+    $('.friend-search input').focus(function(){
+      $('.header2').css('background-color','white');
+      $('.friend-search').css('border','white solid 1px');
+    })
+
+    $('.friend-search input').blur(function(){
+      $('.friend-search').css('border','rgb(192,192,192) solid 1px');
+      $('.header2').css('background-color','rgb(245, 245, 245)');
     })
 
     function findfriend(){
@@ -425,6 +436,22 @@ function popover(){
              </html>`,
     placement:'top'
   })
+}
+
+function popover_bottom(){
+  
+  $('i[data-toggle=popover]').popover({
+    html:true,
+    trigger:'click',
+    content:` <html>
+              <body>
+                <li>one</li>
+                <li>two</li>
+              </body>
+             </html>`,
+    placement:'bottom'
+  })
+  
 }
 
 function stateChange(username){
