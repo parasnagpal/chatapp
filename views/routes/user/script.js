@@ -2,6 +2,7 @@ let expire;
 let chatWith;
 let myName;
 let userdata={};
+let chatdata={};
 let conversation;
 
 $(document).ready(()=>{
@@ -13,8 +14,6 @@ $(document).ready(()=>{
     let sessionID=getCookie('session');
     let checkphoto={};
     let unreaddata;
-    
-    let chatdata={};
    
     //Get Identity from server
     $.post("identity",{},(data)=>{
@@ -33,27 +32,7 @@ $(document).ready(()=>{
         if(getCookie('chatdata'))
         {
           chatdata=JSON.parse(getCookie('chatdata'));
-          if(chatdata[myName]){
-              if(chatdata[myName][chatWith] && chatdata[myName]){
-                conversation=chatdata[myName][chatWith]
-                for(let time in conversation){
-                    if(conversation[time]['n'])
-                        chatrefresh(conversation[time]['n'],false,chatWith,time);
-                    if(conversation[time]['m']) 
-                        chatrefresh(conversation[time]['m'],true,null,time); 
-                  }
-               }
-              else
-                 chatdata[myName][chatWith]={};
-          }
-          else{
-              chatdata[myName]={};
-              chatdata[myName][chatWith]={};
-          }
-        } 
-        else{
-          chatdata[myName]={};
-          chatdata[myName][chatWith]={};
+          iterate_chatdata();
         } 
     })
 
@@ -460,6 +439,8 @@ function stateChange(username){
     $('.show-toggle').addClass('hide-toggle').removeClass('show-toggle')
   }
   chatWith=username;
+  iterate_chatdata();
+
   if(userdata[username])
     $('.chatWith').text(userdata[username].fname+" "+userdata[username].lname);
   else
