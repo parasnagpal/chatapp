@@ -1,6 +1,8 @@
 let expire;
 let chatWith;
+let myName;
 let userdata={};
+let conversation;
 
 $(document).ready(()=>{
 
@@ -8,7 +10,6 @@ $(document).ready(()=>{
     popover_bottom();
 
     let socket=io();
-    let myName;
     let sessionID=getCookie('session');
     let checkphoto={};
     let unreaddata;
@@ -32,7 +33,6 @@ $(document).ready(()=>{
         if(getCookie('chatdata'))
         {
           chatdata=JSON.parse(getCookie('chatdata'));
-          let conversation;
           if(chatdata[myName]){
               if(chatdata[myName][chatWith] && chatdata[myName]){
                 conversation=chatdata[myName][chatWith]
@@ -215,9 +215,9 @@ $(document).ready(()=>{
         name:chatWith,
         message:$('#message').val()
       })
-      if(getCookie('chatdata'))
-        chatdata[myName][chatWith][Date.now()]={m:$('#message').val(),n:false};
 
+      update_chatdata(chatdata,Date.now(),{m:$('#message').val(),n:false});
+      
       //update cookie
       updateCookie(chatdata)
     }
@@ -256,20 +256,19 @@ $(document).ready(()=>{
 
     //Listening to messages
     socket.on("incoming",(data)=>{
+      console.log(data);
       newMessageCount[data.from]++;
       //copied from user script--
       if(data.from==chatWith)
         chatrefresh(data.message,false,data.from,Date.now())
 
-       if(getCookie('chatdata'))
-       chatdata[myName][chatWith][Date.now()]={n:data.message,m:false}
+      update_chatdata(chatdata,Date.now(),{n:data.message,m:false});
        
-       //update cookie
-       updateCookie(chatdata)
+      //update cookie
+      updateCookie(chatdata)
 
-       //received conversation
-       received(myName,chatWith) 
-       
+      //received conversation
+      received(myName,chatWith) 
     }) 
 
     socket.on("online",(data)=>{
@@ -289,16 +288,16 @@ $(document).ready(()=>{
         if(data[myName])
           { 
             for(let x in data[myName])
+            {
+              if(!chats.find((name)=>{ return name==x}))
               {
-                if(!chats.find((name)=>{ return name==x}))
-                {
-                  chats.push(x);
-                  updatechats();
-                  let fr=[];
-                  fr.push(x);
-                  updatelist(fr);
-                }
+                chats.push(x);
+                updatechats();
+                let fr=[];
+                fr.push(x);
+                updatelist(fr);
               }
+            }
           }  
                /* if(!chats.find(people))
                  {
@@ -308,23 +307,7 @@ $(document).ready(()=>{
                   fr.push(people) 
                   updatelist(fr)
                  }*/
-          //copied from chat script--
-          if(data)
-          if(data[myName])
-            {
-              for(let time in data[myName][chatWith])
-                {
-                  chatrefresh(data[myName][chatWith][time],false,chatWith,time);
-                  if(!chatdata[myName])
-                    chatdata[myName]={};
-                  if(!chatdata[myName][chatWith])
-                    chatdata[myName][chatWith]={}; 
-                  chatdata[myName][chatWith][time]={n:data[myName][chatWith][time],m:false};
-                  updateCookie(chatdata);
-                }
-              //received conversation
-              received(myName,chatWith);  
-            }       
+          //copied from chat script--      
     })
     
     //Pinging Server that I am online
@@ -378,6 +361,22 @@ function card(username,img_src,info){
               </div>
             `)
   
+}
+
+function iterate_chatdata(){
+  if(chatdata[myName]){
+    if(chatdata[myName][chatWith] && chatdata[myName]){
+      conversation=chatdata[myName][chatWith]
+      for(let time in conversation){
+          if(conversation[time]['n'])
+              chatrefresh(conversation[time]['n'],false,chatWith,time);
+          if(conversation[time]['m']) 
+              chatrefresh(conversation[time]['m'],true,null,time); 
+        }
+    }
+    else
+      chatdata[myName][chatWith]={};
+  }
 }
 
 //Add chat cards
@@ -465,4 +464,21 @@ function stateChange(username){
     $('.chatWith').text(userdata[username].fname+" "+userdata[username].lname);
   else
     $('.chatWith').text(username);
+}
+
+function update_chatdata(variable,time,obj){
+  if(!variable)
+    variable={};
+  if(!variable[myName])
+    variable[myName]={};
+  if(!variable[myName][chatWith])
+    variable[myName][chatWith]={};
+  variable[myName][chatWith][time]=obj;      
+}
+
+function updateCookie(chatdata){
+  //update cookie
+  expire=new Date();
+  expire.setTime(Date.now()+(9*365*24*60*60*1000));
+  document.cookie=`chatdata=${JSON.stringify(chatdata)};expires=${expire.toUTCString()}`;
 }
