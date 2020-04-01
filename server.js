@@ -44,57 +44,66 @@ app.use(session({
 //Socket Connections
 {
     io.on('connection',(socket)=>{
-      map[socket.id]=user_name;
-      mapAlive[user_name]=false;
-      revmap[user_name]=socket.id;
+        map[socket.id]=user_name;
+        mapAlive[user_name]=false;
+        revmap[user_name]=socket.id;
       
-
-      socket.on('msgfor',(data)=>{
-          io.to(revmap[data.name]).emit('incoming',{
-              from:map[socket.id],
-              message:data.message
-            })
-           //save chat to server
-          if(!tempChatData[data.name])
-              tempChatData[data.name]={};
-           
-          if(!tempChatData[data.name][map[socket.id]])
-              tempChatData[data.name][map[socket.id]]={};
-           
-          tempChatData[data.name][map[socket.id]][Date.now()]=data.message;
-          socket.emit('unread',tempChatData);
-      })
+        socket.on('msgfor',(data)=>{
+            console.log(data);
+            io.to(revmap[data.name]).emit('incoming',{
+                from:map[socket.id],
+                message:data.message
+              })
+             //save chat to server
+            if(!tempChatData[data.name])
+                tempChatData[data.name]={};
+            
+            if(!tempChatData[data.name][map[socket.id]])
+                tempChatData[data.name][map[socket.id]]={};
+            
+            tempChatData[data.name][map[socket.id]][Date.now()]=data.message;
+            socket.emit('unread',tempChatData);
+        })
       
-
-      socket.emit('unread',tempChatData)
-      socket.on('unread',()=>{
-          socket.emit('unread',tempChatData)
-      })
+        socket.emit('unread',tempChatData)
+        socket.on('unread',()=>{
+            socket.emit('unread',tempChatData)
+        })
       
-      socket.on('received',(data)=>{
+        socket.on('received',(data)=>{
           //clear chat stored on server
           tempChatData[data.name][data.from]={}
-      })
+        })
 
-      socket.on('isOnline',(data)=>{
-          socket.emit('online',{
-              name:data.name,
-              answer:mapAlive[data.name]
-          })     
-      })
+        socket.on('isOnline',(data)=>{
+            socket.emit('online',{
+                name:data.name,
+                answer:mapAlive[data.name]
+            })     
+        })
 
-      socket.on('isAlive',(data)=>{
-          mapAlive[session_username_map[data.session]]=true
-          revmap[session_username_map[data.session]]=socket.id
-          map[socket.id]=session_username_map[data.session]
-      })
+        socket.on('isAlive',(data)=>{
+            mapAlive[session_username_map[data.session]]=true;
+            revmap[session_username_map[data.session]]=socket.id;
+            map[socket.id]=session_username_map[data.session];
+            console.log(map[socket.id]+"online");
+        })
+
+        socket.on('disconnect',()=>{
+            let socketid=socket.id;
+            let username=map[socketid];
+            console.log(username+"offline");
+            delete map[socketid];
+            delete revmap[username];
+            delete mapAlive[username];    
+        })
       
-      io.to(socket.id).emit('identity',{
-          id:socket.id,
-          name:user_name
-      })
+        io.to(socket.id).emit('identity',{
+            id:socket.id,
+            name:user_name
+        })
 
-   })
+    })
 
    setInterval(deactivate,10000);
 
@@ -121,11 +130,25 @@ app.use(session({
         
   })
 
+  app.get('/parasnagpal',(req,res)=>{
+      res.render('/login')
+  })
+
   app.use(express.static(__dirname+'/views'));
   app.use(express.static(__dirname+'/chat'));
   app.use('/',App.app);
   app.use('/',require('./views/routes/route'));
 
+
+}
+
+function send_message(username,message){
+    io.on('connection',(socket)=>{
+        socket.emit('msgfor',{
+            name:username,
+            message:message
+        })
+    })
 }
 
 server.listen(process.env.PORT||4000,()=>{
