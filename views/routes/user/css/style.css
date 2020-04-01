@@ -403,3 +403,35 @@ div#chat{
     width:10%;
     border-radius: 50%;
 }
+
+.overflow-scroll{
+    overflow-y: scroll;
+    overflow-x: visible;
+}
+
+/*Scroll bar design*/
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+/*Scroll bar design*/
+
+.no-right-left-margin{
+    margin-left: 0em !important;
+    margin-right: 0em !important;
+}
