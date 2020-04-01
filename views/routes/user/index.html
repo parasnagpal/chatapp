@@ -6,16 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chats</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
-    <link rel="stylesheet" href="/routes/user/css/style.css">  
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/routes/user/script.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <link rel="stylesheet" href="/routes/user/css/style.css">  
     
 </head>
 <body>
@@ -29,7 +29,7 @@
                 <div class="header header1">
                     <div class="d-flex justify-content-between pl-4 pr-4">
                         <img src="https://image.flaticon.com/icons/png/512/37/37943.png">
-                        <i class="fas fa-ellipsis-v align-self-center" data-toggle="popover" data-placement="bottom" data-content="Profile"></i>
+                        <i class="fas fa-ellipsis-v align-self-center" data-toggle="popover"></i>
                     </div>
                 </div>
                 <div class="header header2">
@@ -37,7 +37,7 @@
                         <input type="text">
                     </div>
                 </div>
-                <div > 
+                <div class="flex-grow-1 overflow-scroll"> 
                     <div id="chats" class="mx-2 my-2 "></div>
                 </div>
                 <div class="d-flex flex-column align-items-center" id="search">
@@ -61,8 +61,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="hide-toggle container flex-grow-1 p-2" id='chat-container'>
-                    <div id='chat' class='row'></div>
+                <div class="hide-toggle container flex-grow-1 p-2 overflow-scroll" id='chat-container'>
+                    <div id='chat' class='row no-right-left-margin'></div>
                 </div>
                 <div id='chatbox' class="hide-toggle">
                     <button class='rounded' data-toggle="tooltip" data-html="true"><a>😊</a></button>
