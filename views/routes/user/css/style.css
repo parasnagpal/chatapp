@@ -1,52 +1,10 @@
-@media (min-width:768px){
- /* #chatline,#error{
-      width:720px;
-  }*/
-    #error{
-        width:720px;
-    }
-
-}
-
-@media (min-width:576px){
-    /*#chatline,#error{
-        width:540px;
-    }*/
-  }
-
-@media (min-width:466px){
-  /* input.friends{
-        width:60% !important;
-    }
-    .alert-danger input.friends{
-        width: 65% !important;
-    }*/
-}
-
-@media (min-width:768px){
-  /*  input.friends{
-        width:68% !important;
-    }
-    .alert-danger input.friends{
-        width: 73% !important;
-    }*/
-}
-
-@media (min-width:992px)
+@media (max-width:992px)
 {
-  /*  input.friends{
-        width:75% !important;
-    }
-    .alert-danger input.friends{
-        width: 80% !important;
-    }*/
+  .container.rounded{
+      max-width: unset !important;
+  }
 } 
 
-@media(max-width:768px){
-    /*.chat-btns{
-        display: none;
-    }*/
-}
 
 #header{
     background-color: rgb(255, 101, 101);
