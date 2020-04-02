@@ -44,9 +44,6 @@ app.use(session({
 //Socket Connections
 {
     io.on('connection',(socket)=>{
-        map[socket.id]=user_name;
-        mapAlive[user_name]=false;
-        revmap[user_name]=socket.id;
       
         socket.on('msgfor',(data)=>{
             console.log(data);
@@ -90,21 +87,20 @@ app.use(session({
             map[socketid]=username;
             console.log(mapAlive);
             broadcast_online(username);
+            console.log(username+" online");
         })
 
         socket.on('disconnect',()=>{
             let socketid=socket.id;
             let username=map[socketid];
-            console.log(username+"offline");
-            delete map[socketid];
-            delete revmap[username];
-            delete mapAlive[username];   
-            broadcast_offline(username); 
-        })
-      
-        io.to(socket.id).emit('identity',{
-            id:socket.id,
-            name:user_name
+            if(username)
+            {
+                console.log(username+"offline");
+                delete map[socketid];
+                delete revmap[username];
+                delete mapAlive[username];   
+                broadcast_offline(username);
+            } 
         })
 
         function broadcast_online(username){
@@ -121,13 +117,6 @@ app.use(session({
         }
 
     })
-
-   setInterval(deactivate,10000);
-
-    function deactivate(){
-        for(let obj in revmap)
-            mapAlive[obj]=false;
-    }
 
 }
 
