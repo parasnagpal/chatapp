@@ -43,7 +43,7 @@ const Nexmo=new nexmo({
           password:pass,
           mobile:req.body.no
         };
-        database.each(`SELECT * from USERS WHERE mobileno='${a.mobile}'`,(err,data)=>{
+        database.each(`SELECT * from USERS WHERE mobileno='+91${a.mobile}'`,(err,data)=>{
           if(err){
             //database insert query
             database.run(`insert into USERS(fname,USERNAME,PASSWORD,mobile) VALUES ('${a.fname}','${a.username}','${a.password}','+91${a.mobile}');`,(err)=>{
@@ -54,6 +54,7 @@ const Nexmo=new nexmo({
           } 
           if(data){
             Nexmo.message.sendSms('Paras',`+91${a.mobile}`,req.body.message);
+            console.log(data)
             res.json('user exists');
           } 
         })
@@ -103,27 +104,49 @@ const Nexmo=new nexmo({
     })
  
     app.post('/search',(req,res)=>{
-   
-       database.each(`SELECT * from USERS WHERE username='${req.body.friend}'`,(err,data)=>{
-         if(err) console.log(err)
-         if(data)
-           res.send(data.username)  
-         })
-  
-     })
+      console.log(req.body);
+      let SearchPromise=new Promise((resolve,reject)=>{
+        database.each(`SELECT * from USERS WHERE username='${req.body.friend}'`,(err,data)=>{
+          if(data)
+            resolve(data);
+          else 
+            reject(err);
+          })
+      })
+
+      SearchPromise
+      .then((data)=>{
+          res.send(data); 
+      })
+      .catch((err)=>{
+          res.send(null);
+      })
+    })
  
     //send user data
     app.post('/user',(req,res)=>{
-       database.each(`SELECT username,fname,lname,email,mobile from USERS WHERE username='${req.body.name}'`,(err,data)=>{
-         if(err) console.log(err)
-         if(data)
-            res.send(data)    
-      }) 
+      
+      let promise=new Promise((resolve,reject)=>{
+        database.each(`SELECT username,fname,lname,email,mobile from USERS WHERE username='${req.body.name}'`,(err,data)=>{
+          if(err || !data) 
+            reject(err);
+          if(data)
+            resolve(data)    
+       })
+      });
+      
+      promise
+      .then((data)=>
+        res.send(data))
+      .catch(err=>{
+        res.send('error')
+      }); 
+        
     })
     
      //Tells the identity to the user
     app.post('/identity',(req,res)=>{
-     res.send(req.session.id)
+      res.send(req.session.id)
     })
  
     app.post('/myName',(req,res)=>{
@@ -131,8 +154,8 @@ const Nexmo=new nexmo({
     })
 
     app.post('/photo',(req,res)=>{
-      console.log('photo')
-       let promise=new Promise((resolve,reject)=>{
+
+      let promise=new Promise((resolve,reject)=>{
         database.each(`SELECT photo from users WHERE username='${req.body.name}'`,(err,data)=>{
           if(err)
            reject('err')
@@ -141,13 +164,14 @@ const Nexmo=new nexmo({
           else reject('photo not uploaded')  
         }) 
       })
-      promise.then(()=>{
+      promise
+      .then(()=>{
         let file=path.join(__dirname,`/../views/images/`+req.body.name+`.jpg`)
         res.sendFile(file)
-      }).catch(()=>{
+      })
+      .catch(()=>{
         res.send('NOT Found')
       })
-        
         
     })
 
