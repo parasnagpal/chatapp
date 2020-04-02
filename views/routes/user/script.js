@@ -4,30 +4,33 @@ let myName;
 let userdata={};
 let chatdata={};
 let conversation;
+let newMessageCount={};
+let chats=[];
+let friendsOnline={};
+let friend;
+let checkphoto={};
+let unreaddata;
 
-$(document).ready(()=>{
+window.onload=async function(){
 
     popover();
     popover_bottom();
 
     let socket=io();
     let sessionID=getCookie('session');
-    let checkphoto={};
-    let unreaddata;
    
     //Get Identity from server
-    $.post("identity",{},(data)=>{
+    await $.post("identity",{},(data)=>{
       sessionID=data;
       setCookie("session",data,1);
     })
 
-    $.post("myName",
+    await $.post("myName",
       {session:sessionID},
       (data)=>{
         myName=data
-      })
-
-     .then(()=>{
+    })
+    .then(()=>{
         socket.emit('unread');
         if(getCookie('chatdata'))
         {
@@ -36,10 +39,7 @@ $(document).ready(()=>{
         } 
     })
 
-    let newMessageCount={};
-    let chats=[];
-    let friendsOnline={};
-    let friend;
+    
     if(localStorage.arr)
         chats=JSON.parse(localStorage.arr);
 
@@ -95,7 +95,7 @@ $(document).ready(()=>{
     })
 
     function findfriend(){
-
+        console.log("findfriend called "+$("#friend").val());
         friend=$("#friend").val()
         $.post("search",{
           friend
@@ -110,7 +110,7 @@ $(document).ready(()=>{
     }
 
     function updatelist(arr){
-       
+      $("#chats").html(""); 
       for(let a of arr) 
       { 
         let image="https://image.flaticon.com/icons/png/512/37/37943.png";   //hardcoded
@@ -227,7 +227,7 @@ $(document).ready(()=>{
     function isOnline()
      {
        for(let people of chats)
-         socket.emit("isOnline",{name:people});
+          socket.emit("isOnline",{name:people});
     }
 
     //Hide send box
@@ -251,15 +251,17 @@ $(document).ready(()=>{
     }) 
 
     socket.on("online",(data)=>{
-      if(data.answer===true)
+      if(data.answer)
         friendsOnline[data.name]=true;
-      else 
-        friendsOnline[data.name]=false; 
-        $("#chats").html("");
-        updatelist(chats);
+      updatelist(chats);
     })
 
-        //get unread data
+    socket.on("offline",(data)=>{
+      delete friendsOnline[data.name];
+      updatelist(chats);
+    })
+
+    //get unread data
     socket.emit("unread"); 
     socket.on("unread",(data)=>{
       unreaddata=data; 
@@ -289,18 +291,15 @@ $(document).ready(()=>{
           //copied from chat script--      
     })
     
-    //Pinging Server that I am online
-    setInterval(()=>{
-      socket.emit("isAlive",{
-        session:sessionID
-      }) 
-    },1000)
-
-    //Check if friends are online
-    setInterval(()=>isOnline()
-    ,3000)
+    //Tell Server that I am online
+    socket.emit("isAlive",{
+      session:sessionID
+    }) 
     
-})
+    //check once
+    isOnline();
+    
+}
 
 //layout
 function card(username,img_src,info){
