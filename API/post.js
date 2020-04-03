@@ -79,24 +79,30 @@ const Nexmo=new nexmo({
  
     app.post('/login',(req,res)=>{
         
-       let loginPromise=new Promise((resolve,reject)=>{
-           database.each(`SELECT * from USERS WHERE username='${req.body.username}'`,(err,data)=>{
-             if(err) reject(err)
-             if(data.password===req.body.password)
-              resolve()
-             else reject('Username/Password Incorrect')    
+      let loginPromise=new Promise((resolve,reject)=>{
+        database.each(`SELECT count(*) from USERS WHERE username='${req.body.username}'`,(err,data)=>{
+          if(data['count(*)']){
+            database.each(`SELECT count(*) from USERS WHERE password='${req.body.password}'`,(err,data)=>{
+              if(data['count(*)'])
+                resolve(data);
+              else reject('Password Invalid');      
            })
+          }
+          else reject('Username Invalid');
         })
+      });
+      
+      loginPromise
+      .then(()=>{
+        req.session.logged=true;
+        session_username_map[req.session.id]=req.body.username
+        res.redirect('/user')
+      })
+      .catch((message)=>{
+        console.log(message)
+        res.redirect('/login/error')
+      })
 
-        loginPromise.then(()=>{
-          req.session.logged=true;
-          session_username_map[req.session.id]=req.body.username
-          res.redirect('/user')
-          }).catch((message)=>{
-           console.log(message)
-           res.redirect('/login/error')
-         })
-        user_name=req.body.username
     })
  
     app.post('/chats',(req,res)=>{
@@ -104,23 +110,28 @@ const Nexmo=new nexmo({
     })
  
     app.post('/search',(req,res)=>{
-      console.log(req.body);
-      let SearchPromise=new Promise((resolve,reject)=>{
-        database.each(`SELECT * from USERS WHERE username='${req.body.friend}'`,(err,data)=>{
-          if(data)
-            resolve(data);
-          else 
-            reject(err);
-          })
-      })
-
-      SearchPromise
-      .then((data)=>{
-          res.send(data); 
-      })
-      .catch((err)=>{
-          res.send(null);
-      })
+      
+      let promise=new Promise((resolve,reject)=>{
+        database.each(`SELECT count(*) from USERS WHERE username='${req.body.name}'`,(err,data)=>{
+          if(data['count(*)']){
+            database.each(`SELECT username,fname,lname,email,mobile from USERS WHERE username='${req.body.name}'`,(err,data)=>{
+              if(data)
+                resolve(data);
+              else reject();      
+           })
+          }
+          else reject();
+        })
+      });
+      
+      promise
+      .then((data)=>
+        res.send(data)
+      )
+      .catch(err=>{
+        res.send('not found');
+      });
+    
     })
  
     //send user data
@@ -137,8 +148,6 @@ const Nexmo=new nexmo({
           }
           else reject();
         })
-        
-    
       });
       
       promise
