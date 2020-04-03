@@ -127,19 +127,26 @@ const Nexmo=new nexmo({
     app.post('/user',(req,res)=>{
       
       let promise=new Promise((resolve,reject)=>{
-        database.each(`SELECT username,fname,lname,email,mobile from USERS WHERE username='${req.body.name}'`,(err,data)=>{
-          if(err || !data) 
-            reject(err);
-          if(data)
-            resolve(data)    
-       })
+        database.each(`SELECT count(*) from USERS WHERE username='${req.body.name}'`,(err,data)=>{
+          if(data['count(*)']){
+            database.each(`SELECT username,fname,lname,email,mobile from USERS WHERE username='${req.body.name}'`,(err,data)=>{
+              if(data)
+                resolve(data);
+              else reject();      
+           })
+          }
+          else reject();
+        })
+        
+    
       });
       
       promise
       .then((data)=>
-        res.send(data))
+        res.send(data)
+      )
       .catch(err=>{
-        res.send('error')
+        res.send('not found');
       }); 
         
     })
