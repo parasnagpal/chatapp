@@ -39,7 +39,6 @@ window.onload=async function(){
         } 
     })
 
-    
     if(localStorage.arr)
         chats=JSON.parse(localStorage.arr);
 
@@ -47,7 +46,9 @@ window.onload=async function(){
      {
         newMessageCount[people]=0;
         $.post("/user",{name:people},(data)=>{
-          userdata[people]=data
+          if(data.username)
+            userdata[people]=data; 
+          else chats.pop(people);
         })    
      }
     $("#error").hide();
