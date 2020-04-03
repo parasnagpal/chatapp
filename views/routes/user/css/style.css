@@ -90,8 +90,8 @@ input.friends{
 
 #friend:focus{
     outline: none !important;
-    border: rgb(0, 0, 0) 1px;
-    box-shadow: 0 0 1px;
+    
+    
 }
 
 .alert{
