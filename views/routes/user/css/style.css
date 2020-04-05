@@ -19,7 +19,8 @@ html{
 body{
     height: 97%;
     overflow: hidden;
-    background-color: #f2f2f2;
+
+    background-color: rgb(233, 219, 219);
 }
 
 div.container.rounded{
@@ -174,12 +175,13 @@ label{
     width: fill-available;
     margin-bottom:2vh;
     margin-left:1vw;
-    background-color: white;
+    background-color: rgb(255, 223, 223);
     border:1px #343a40 solid;
 }
 
 .flex-layout{
     height: inherit;
+    overflow: hidden;
 }
 
 .friends .header{
