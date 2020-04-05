@@ -54,6 +54,7 @@ window.onload=async function(){
     $("#error").hide();
         
     //update List
+    clearlist();
     updatelist(chats);
     
     // Events handlers
@@ -110,8 +111,7 @@ window.onload=async function(){
         localStorage.arr=JSON.stringify(chats);
     }
 
-    function updatelist(arr){
-      $("#chats").html(""); 
+    function updatelist(arr){ 
       for(let a of arr) 
       { 
         let image="https://image.flaticon.com/icons/png/512/37/37943.png";   //hardcoded
@@ -231,6 +231,10 @@ window.onload=async function(){
           socket.emit("isOnline",{name:people});
     }
 
+    function clearlist(){
+      $("#chats").html("");
+    }
+
     //Hide send box
      $("#send").hide();
 
@@ -254,11 +258,13 @@ window.onload=async function(){
     socket.on("online",(data)=>{
       if(data.answer)
         friendsOnline[data.name]=true;
+      clearlist();  
       updatelist(chats);
     })
 
     socket.on("offline",(data)=>{
       delete friendsOnline[data.name];
+      clearlist();
       updatelist(chats);
     })
 
@@ -281,15 +287,6 @@ window.onload=async function(){
               }
             }
           }  
-               /* if(!chats.find(people))
-                 {
-                  chats.push(people)
-                  updatechats()
-                  let fr=[]
-                  fr.push(people) 
-                  updatelist(fr)
-                 }*/
-          //copied from chat script--      
     })
     
     //Tell Server that I am online
@@ -343,6 +340,7 @@ function card(username,img_src,info){
 }
 
 function iterate_chatdata(){
+  $('#chat').html("");
   if(chatdata[myName]){
     if(chatdata[myName][chatWith] && chatdata[myName]){
       conversation=chatdata[myName][chatWith]
