@@ -10,6 +10,7 @@ let friendsOnline={};
 let friend;
 let checkphoto={};
 let unreaddata;
+let default_image=fetchphoto('default')
 
 window.onload=async function(){
 
@@ -39,6 +40,8 @@ window.onload=async function(){
         } 
     })
 
+    fetchphoto(myName,'.my-photo');
+    
     if(localStorage.arr)
         chats=JSON.parse(localStorage.arr);
 
@@ -115,8 +118,11 @@ window.onload=async function(){
       for(let a of arr) 
       { 
         let image="https://image.flaticon.com/icons/png/512/37/37943.png";   //hardcoded
+        if(checkphoto[a] && checkphoto[a].slice(5,9)!="text")
+          image=checkphoto[a];
         $("#chats")
-           .append(card(a,image,userdata[a]));
+          .append(card(a,image,userdata[a]));
+        
            
         //check unread
         if(unreaddata)
@@ -127,37 +133,9 @@ window.onload=async function(){
             }
         //Check if photo request has been made earlier
         if(!checkphoto[a])
-         {
-           //Fetch photo
-            await fetch("/photo",{
-                method:"POST",
-                body:JSON.stringify({"name":a}),
-                headers: {"Content-Type": "application/json"}
-              })
-            .then(function(response) {
-                if(response.ok) {
-                  return response.blob();    //convert response to blob - blob constructor
-                }
-             throw new Error("Network response was not ok.");
-             })
-             .then(function(myBlob) { 
-                    let reader=new FileReader();
-                    reader.readAsDataURL(myBlob);
-                    reader.onloadend=()=>{
-                    checkphoto[a]=reader.result;
-              }
-             }).catch(function(error) {
-               console.log("There has been a problem with your fetch operation: ", error.message);
-            });
-         }
+            fetchphoto(a,`#${a} img`);
          
-         if(checkphoto[a])
-          {
-            if(checkphoto[a].slice(5,9)!="text")
-              $(`#${a} img`).attr("src",checkphoto[a]);
-          }
-
-         if(friendsOnline[a])
+        if(friendsOnline[a])
           {
             $("#"+a).attr("class","alert alert-danger d-flex");
             $(`#btn-`+a).attr("class","chat-btns btn btn-outline-danger");
@@ -301,6 +279,7 @@ window.onload=async function(){
 
 //layout
 function card(username,img_src,info){
+  
   if(info)
       return(`
               <div id="${username}" class="alert alert-light d-flex" role="alert" >
@@ -438,6 +417,7 @@ function stateChange(username){
   }
   chatWith=username;
   iterate_chatdata();
+  fetchphoto(chatWith,'.chatwith-photo');
 
   if(userdata[username])
     $('.chatWith').text(userdata[username].fname+" "+userdata[username].lname);
@@ -460,4 +440,35 @@ function updateCookie(chatdata){
   expire=new Date();
   expire.setTime(Date.now()+(9*365*24*60*60*1000));
   document.cookie=`chatdata=${JSON.stringify(chatdata)};expires=${expire.toUTCString()}`;
+}
+
+function fetchphoto(username,classname){
+  let default_image="https://image.flaticon.com/icons/png/512/37/37943.png";
+  fetch("/photo",{
+      method:"POST",
+      body:JSON.stringify({"name":username}),
+      headers: {"Content-Type": "application/json"}
+  })
+  .then(function(response) {
+      console.log(response.ok);
+      if(response.ok) {
+        return response.blob();    //convert response to blob - blob constructor
+      }
+      throw new Error("Network response was not ok.");
+  })
+  .then(function(myBlob) { 
+      let reader=new FileReader();
+      reader.readAsDataURL(myBlob);
+      reader.onloadend=()=>{
+      checkphoto[username]=reader.result;
+      if(classname && checkphoto[username].slice(5,9)!="text")
+          $(classname).attr('src',checkphoto[username]);
+      else  $(classname).attr('src',default_image); 
+      }
+  })
+  .catch(function(error) {
+      if(classname)
+        $(classname).attr('src',default_image);
+      console.log("There has been a problem with your fetch operation: ", error.message);
+  });
 }
