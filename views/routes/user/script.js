@@ -111,7 +111,7 @@ window.onload=async function(){
         localStorage.arr=JSON.stringify(chats);
     }
 
-    function updatelist(arr){ 
+    async function updatelist(arr){ 
       for(let a of arr) 
       { 
         let image="https://image.flaticon.com/icons/png/512/37/37943.png";   //hardcoded
@@ -129,7 +129,7 @@ window.onload=async function(){
         if(!checkphoto[a])
          {
            //Fetch photo
-            fetch("/photo",{
+            await fetch("/photo",{
                 method:"POST",
                 body:JSON.stringify({"name":a}),
                 headers: {"Content-Type": "application/json"}
@@ -421,8 +421,8 @@ function popover_bottom(){
     trigger:'click',
     content:` <html>
               <body>
-                <li>one</li>
-                <li>two</li>
+                <div class="border-bottom"><a href="/profile">Profile</a></div>
+                <div>Logout</div>
               </body>
              </html>`,
     placement:'bottom'
