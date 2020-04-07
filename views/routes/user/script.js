@@ -16,6 +16,8 @@ window.onload=async function(){
 
     popover();
     popover_bottom();
+    profile_display(0);
+
 
     let socket=io();
     let sessionID=getCookie('session');
@@ -71,6 +73,10 @@ window.onload=async function(){
     $("#chatline button").click(()=>{
       $("#error").hide();      
       findfriend();
+    })
+
+    $('i[data-toggle=popover]').on('shown.bs.popover', function () {
+      $('div.profile-popover').click(()=>profile_display(1))
     })
 
     //fired when tooltip is shown and stays active 
@@ -398,10 +404,10 @@ function popover_bottom(){
   $('i[data-toggle=popover]').popover({
     html:true,
     trigger:'click',
-    content:` <html>
+    content:`<html>
               <body>
-                <div class="border-bottom"><a href="/profile">Profile</a></div>
-                <div>Logout</div>
+                <div class='border-bottom profile-popover crsr-ptr' onclick="profile_display(1)">Profile</div>
+                <div class='crsr-ptr'>Logout</div>
               </body>
              </html>`,
     placement:'bottom'
@@ -410,6 +416,7 @@ function popover_bottom(){
 }
 
 function stateChange(username){
+  profile_display(0);
   if(!chatWith)
   {
     $('.hide-toggle').removeClass('hide-toggle')
@@ -471,4 +478,11 @@ function fetchphoto(username,classname){
         $(classname).attr('src',default_image);
       console.log("There has been a problem with your fetch operation: ", error.message);
   });
+}
+
+function profile_display(bool){
+  console.log('profile_display'+bool)
+  if(bool)
+    $('.profile').attr('display','unset');
+  else  $('.profile').attr('display','none'); 
 }
