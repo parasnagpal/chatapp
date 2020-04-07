@@ -402,3 +402,22 @@ div#chat{
 .crsr-ptr{
     cursor: pointer;
 }
+
+/* Profile css */
+.nav-link.active ,.nav-item .active:hover{
+    border:unset !important;
+    border-bottom: 2px rgb(255, 101, 101) solid !important;
+}
+
+.nav-item  a:hover,a{
+    color:unset;
+    border: unset !important;
+}
+
+.fade{
+    display: none;
+}
+
+.nav{
+    list-style: none;
+}
