@@ -76,7 +76,12 @@ window.onload=async function(){
     })
 
     $('i[data-toggle=popover]').on('shown.bs.popover', function () {
-      $('div.profile-popover').click(()=>open_display(1))
+      $('div.profile-popover').click(()=>open_display(1));
+      $('.logout').click(()=>{
+        $.post("logout",{},(data)=>{
+          console.log(data);
+        })
+      })
     })
 
     //fired when tooltip is shown and stays active 
@@ -280,7 +285,7 @@ window.onload=async function(){
     
     //check once
     isOnline();
-    
+    viewport();
 }
 
 //layout
@@ -407,7 +412,7 @@ function popover_bottom(){
     content:`<html>
               <body>
                 <div class='border-bottom profile-popover crsr-ptr' onclick="profile_display(1)">Profile</div>
-                <div class='crsr-ptr'>Logout</div>
+                <div class='crsr-ptr logout' >Logout</div>
               </body>
              </html>`,
     placement:'bottom'
@@ -417,9 +422,8 @@ function popover_bottom(){
 
 function stateChange(username){
   if(!chatWith)
-  {
     open_display(3);
-  }
+  
   chatWith=username;
   iterate_chatdata();
   fetchphoto(chatWith,'.chatwith-photo');
@@ -482,4 +486,24 @@ function open_display(state){
   console.log("state:"+state)
   $('.open-chat>div').addClass('hide-toggle');
   $('.state-'+state).removeClass('hide-toggle')  
+}
+
+function viewport(){
+  let x=window.matchMedia('(max-width:700px)')
+
+    if(x.matches)
+        breakpoint_hide()
+    else 
+        breakpoint_show()    
+
+    function breakpoint_hide(){
+        console.log('matches');
+        $('.view-1').addClass('hide-toggle');
+    }
+
+    function breakpoint_show(){
+        console.log('not');
+        $('.view-1').removeClass('hide-toggle');
+    }
+
 }
