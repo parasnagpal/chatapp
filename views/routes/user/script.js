@@ -295,8 +295,8 @@ function card(username,img_src,info){
       return(`
               <div id="${username}" class="alert alert-light d-flex" role="alert" >
                   <img src="${img_src}" >
-                  <div class="flex-grow-1 mx-2">${info.fname+" "+info.lname}</div>
-                  <div class="online" style="display:none;">
+                  <div class="flex-grow-1 mx-2 align-self-center">${info.fname+" "+info.lname}</div>
+                  <div class="online align-self-center" style="display:none;">
                       Online
                   </div>
                   <span ></span>
@@ -353,7 +353,7 @@ function chatrefresh(msg,bool,from,time){
   if(time)
     date=new Date(parseInt(time))
   
-  img_path='../routes/chat/css/default.jpg';
+  img_path='../routes/user/css/default.jpg';
   
   if(bool)
     $('#chat')
@@ -423,12 +423,12 @@ function popover_bottom(){
 function stateChange(username){
   if(!chatWith)
   {
-    viewport(1);
     open_display(3);
   }
-
+  viewport(1);
   chatWith=username;
   iterate_chatdata();
+
   fetchphoto(chatWith,'.chatwith-photo');
 
   if(userdata[username])
@@ -498,7 +498,9 @@ function viewport(view){
   let other=(view==1)?0:1;
 
   if(x.matches)
-    breakpoint(view,other);   
+    breakpoint(view,other);
+  else 
+    $('.back-arrow').addClass('hide-toggle');    
 
   function breakpoint(view,other){
     $(`.view-`+view).removeClass('hide-toggle');
