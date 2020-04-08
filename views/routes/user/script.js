@@ -16,7 +16,7 @@ window.onload=async function(){
 
     popover();
     popover_bottom();
-    profile_display(0);
+    open_display(2);
 
 
     let socket=io();
@@ -76,7 +76,7 @@ window.onload=async function(){
     })
 
     $('i[data-toggle=popover]').on('shown.bs.popover', function () {
-      $('div.profile-popover').click(()=>profile_display(1))
+      $('div.profile-popover').click(()=>open_display(1))
     })
 
     //fired when tooltip is shown and stays active 
@@ -400,7 +400,7 @@ function popover(){
 }
 
 function popover_bottom(){
-  
+  console.log('popover_bottom')
   $('i[data-toggle=popover]').popover({
     html:true,
     trigger:'click',
@@ -416,11 +416,9 @@ function popover_bottom(){
 }
 
 function stateChange(username){
-  profile_display(0);
   if(!chatWith)
   {
-    $('.hide-toggle').removeClass('hide-toggle')
-    $('.show-toggle').addClass('hide-toggle').removeClass('show-toggle')
+    open_display(3);
   }
   chatWith=username;
   iterate_chatdata();
@@ -480,9 +478,8 @@ function fetchphoto(username,classname){
   });
 }
 
-function profile_display(bool){
-  console.log('profile_display'+bool)
-  if(bool)
-    $('.profile').attr('display','unset');
-  else  $('.profile').attr('display','none'); 
+function open_display(state){
+  console.log("state:"+state)
+  $('.open-chat>div').addClass('hide-toggle');
+  $('.state-'+state).removeClass('hide-toggle')  
 }
