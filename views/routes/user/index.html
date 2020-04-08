@@ -42,18 +42,15 @@
                 </div>
             </div>
             <div class="open-chat d-flex flex-column">
-                <div class="profile">
-                    <div class="row justify-content-center pb-5" id='nav'>
-                        <ul class="nav nav-tabs col-9 " role="tablist" id="v-pills-tab">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="pill" href="#info-table" role="tab" aria-controls="info-table">Personal Info</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="pill" href="#privacy-settings" role="tab" aria-controls="privacy-settings">Privacy Settings</a>
-                            </li>
-                        </ul>
+                <div class="header state-1">
+                    <div class="d-flex pl-2">   
+                        <div class="chatWith pl-1">
+                            Personal Info
+                        </div>
                     </div>
-                    <table class="table table-borderless fade show active col-9"  id='info-table' aria-selected='true' role="tabpanel" aria-labelledby="info-table-tab">
+                </div>
+                <div class="profile state-1 d-flex flex-column justify-content-center">
+                    <table class="table table-borderless align-self-center"  id='info-table' aria-selected='true' role="tabpanel" aria-labelledby="info-table-tab">
                         <tbody>
                             <tr>
                                 <th scope="row" colspan="3">Name</th>
@@ -61,7 +58,7 @@
                                 <td><i class="far fa-edit"></i></td>
                             </tr>
                             <tr>
-                                <th scope="row" colspan="3">username</th>
+                                <th scope="row" colspan="3">Username</th>
                                 <td class="username"></td>
                                 <td><i class="fa fa-lock"></i></td>
                             </tr>
@@ -78,11 +75,11 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="show-toggle flex-grow-1 d-flex flex-column justify-content-center uniform-grey">
+                <div class="flex-grow-1 d-flex flex-column justify-content-center uniform-grey state-2">
                     <iframe src="https://giphy.com/embed/l4FGFEMVfz1Mrp0qc" class="align-self-center" frameBorder="0"></iframe>
                     <div class="align-self-center font-2em">Your chats appear here</div> 
                 </div> 
-                <div class="hide-toggle header">
+                <div class="header state-3">
                     <div class="d-flex pl-2">
                         <div class="chatWith-image">
                             <img class="chatwith-photo" src="https://image.flaticon.com/icons/png/512/37/37943.png">
@@ -91,10 +88,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="hide-toggle container flex-grow-1 p-2 overflow-scroll" id='chat-container'>
+                <div class="container flex-grow-1 p-2 overflow-scroll state-3" id='chat-container'>
                     <div id='chat' class='row no-right-left-margin'></div>
                 </div>
-                <div id='chatbox' class="hide-toggle">
+                <div id='chatbox' class="state-3">
                     <button class='rounded' data-toggle="tooltip" data-html="true"><a>😊</a></button>
                     <input type='text' id='message' class='form-control col rounded-pill'>
                     <div class="file-attach d-flex justify-content-center">
