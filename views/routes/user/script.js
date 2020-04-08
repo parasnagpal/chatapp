@@ -285,7 +285,7 @@ window.onload=async function(){
     
     //check once
     isOnline();
-    viewport();
+    viewport(0);
 }
 
 //layout
@@ -422,8 +422,11 @@ function popover_bottom(){
 
 function stateChange(username){
   if(!chatWith)
+  {
+    viewport(1);
     open_display(3);
-  
+  }
+
   chatWith=username;
   iterate_chatdata();
   fetchphoto(chatWith,'.chatwith-photo');
@@ -483,27 +486,23 @@ function fetchphoto(username,classname){
 }
 
 function open_display(state){
-  console.log("state:"+state)
+  if(state==0)
+    viewport(1);
   $('.open-chat>div').addClass('hide-toggle');
   $('.state-'+state).removeClass('hide-toggle')  
 }
 
-function viewport(){
+function viewport(view){
+  console.log(view)
   let x=window.matchMedia('(max-width:700px)')
+  let other=(view==1)?0:1;
 
-    if(x.matches)
-        breakpoint_hide()
-    else 
-        breakpoint_show()    
+  if(x.matches)
+    breakpoint(view,other);   
 
-    function breakpoint_hide(){
-        console.log('matches');
-        $('.view-1').addClass('hide-toggle');
-    }
-
-    function breakpoint_show(){
-        console.log('not');
-        $('.view-1').removeClass('hide-toggle');
-    }
+  function breakpoint(view,other){
+    $(`.view-`+view).removeClass('hide-toggle');
+    $(".view-"+other).addClass('hide-toggle');
+  }
 
 }
