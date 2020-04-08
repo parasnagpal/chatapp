@@ -175,7 +175,7 @@ label{
     width: fill-available;
     margin-bottom:2vh;
     margin-left:1vw;
-    background-color: rgb(255, 223, 223);
+    background-color: rgb(255, 235, 235);
     border:1px #343a40 solid;
 }
 
@@ -414,10 +414,9 @@ div#chat{
     border: unset !important;
 }
 
-.fade{
-    display: none;
-}
-
-.nav{
+.nav li{
     list-style: none;
+}
+.profile{
+    height: 100%;
 }
