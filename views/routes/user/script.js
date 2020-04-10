@@ -140,7 +140,7 @@ window.onload=async function(){
           if(unreaddata[myName])
             if(unreaddata[myName][a])
             {
-              $("#"+a+" span").html(`<span class="badge badge-pill badge-danger">New Message</span>`);
+              $("#"+a+" span").html(`<div class="dot rounded-circle align-middle p-2"></div>`);
             }
         //Check if photo request has been made earlier
         if(!checkphoto[a])
@@ -410,8 +410,8 @@ function popover_bottom(){
     html:true,
     trigger:'click',
     content:`<html>
-              <body>
-                <div class='border-bottom profile-popover crsr-ptr' onclick="profile_display(1)">Profile</div>
+              <body class="popover-body">
+                <div class='border-bottom profile-popover crsr-ptr' onclick="open_display(0)">Profile</div>
                 <div class='crsr-ptr logout' >Logout</div>
               </body>
              </html>`,
@@ -486,14 +486,16 @@ function fetchphoto(username,classname){
 }
 
 function open_display(state){
-  if(state==0)
+  if(state===0 || state===1)
     viewport(1);
+  if(state===0)
+    $('.profile-photo').attr('src',checkphoto[myName]);  
   $('.open-chat>div').addClass('hide-toggle');
   $('.state-'+state).removeClass('hide-toggle')  
 }
 
 function viewport(view){
-  console.log(view)
+  
   let x=window.matchMedia('(max-width:700px)')
   let other=(view==1)?0:1;
 
