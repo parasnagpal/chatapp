@@ -415,6 +415,19 @@ div#chat{
 .nav li{
     list-style: none;
 }
+
 .profile{
     height: 100%;
 }
+
+.profile-photo{
+    min-width: 30%;
+    height: auto;
+}
+
+.dot {
+    height: 1px;
+    width: 1px;
+    background-color: rgb(255, 101, 101);
+    display: inline-block;
+  }
