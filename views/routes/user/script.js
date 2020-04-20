@@ -18,7 +18,6 @@ window.onload=async function(){
     popover_bottom();
     open_display(2);
 
-
     let socket=io();
     let sessionID=getCookie('session');
    
@@ -47,6 +46,9 @@ window.onload=async function(){
     if(localStorage.arr)
         chats=JSON.parse(localStorage.arr);
 
+    if(!chats.length)
+      chats.push('paras');
+          
     for(let people of chats)
      {
         newMessageCount[people]=0;
