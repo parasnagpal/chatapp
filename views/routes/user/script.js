@@ -20,6 +20,7 @@ window.onload=async function(){
 
     let socket=io();
     let sessionID=getCookie('session');
+    $('#submit').prop('disabled',true);
    
     //Get Identity from server
     await $.post("identity",{},(data)=>{
@@ -110,6 +111,15 @@ window.onload=async function(){
     $('.friend-search input').blur(function(){
       $('.friend-search').css('border','rgb(192,192,192) solid 1px');
       $('.header2').css('background-color','rgb(245, 245, 245)');
+    })
+
+    $('#submit').click(()=>{
+      let file=document.querySelector('input[type=file]').files[0];
+     
+      if(file)
+        $.post('/profile_photo',{
+          profile:file
+        })
     })
 
     function findfriend(){
@@ -511,4 +521,22 @@ function viewport(view){
     $(".view-"+other).addClass('hide-toggle');
   }
 
+}
+
+function previewfile(){
+  let file=document.querySelector('input[type=file]').files[0]
+  let reader =new FileReader()
+  let display=document.getElementById('image')
+
+  reader.onloadend=()=>{
+    display.src=reader.result
+  }
+
+  if(file){
+     reader.readAsDataURL(file)
+    $('#submit').prop('disabled',false)
+  }
+  else{
+     display.src=""
+  }
 }
