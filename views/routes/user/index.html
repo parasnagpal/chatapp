@@ -52,6 +52,12 @@
                 </div>
                 <div class="profile state-1 d-flex flex-column justify-content-around">
                     <img id="image" class="profile-photo align-self-center" src="https://image.flaticon.com/icons/png/512/37/37943.png">
+                    <div class='image-input d-flex flex-column justify-content-center mt-1'>
+                   
+                        <label for='input' class="justify-self-end"><i class="fa fa-edit" style="font-size: 1.2em;"></i></label>
+                        <input id='input' type="file" name='profile' accept="image/*" onchange="previewfile()" class="btn btn-outline-dark rounded" >
+               
+                    </div>
                     <table class="table table-borderless align-self-center"  id='info-table' aria-selected='true' role="tabpanel" aria-labelledby="info-table-tab">
                         <tbody>
                             <tr>
